@@ -1,36 +1,42 @@
+import { useSetting } from '../../hooks/useSettings';
+
 /**
  * Блок 07 — Лот.
  *
  * Гигантская «9» 280pt (160pt mobile) + таблица состава лота (7/5).
- * Метафора брифа: «девять одинаковых по структуре комплектов».
+ * Метафора: «девять одинаковых по\u00a0структуре комплектов».
  *
- * Текст — дословно из dom-na-utese-brief.txt §БЛОК 7.
+ * Тексты редактируются через Orchid (Home → Block 07). Таблица состава
+ * лота — массив LotFeature (title + description) через props.lotFeatures.
+ * Если props пустые — используется fallback (5 строк из оригинала).
+ *
+ * Нижний factline (9 лотов · 9 видов · 8 соседей) оставлен хардкодом —
+ * он держится на строгих 9+8 цифрах концепции.
  */
-const lotComposition = [
-    {
-        label: 'Квартира',
-        value: 'Свободная планировка, потолки 3,5–4 м',
-        meta: 'Метраж уточняется у менеджера',
-    },
-    {
-        label: 'Летняя терраса',
-        value: 'Собственная зелёная терраса на уровне квартиры',
-    },
-    {
-        label: 'Балкон-терраса',
-        value: 'Панорамный балкон, обращённый к Волге',
-    },
-    {
-        label: 'Подземный паркинг',
-        value: '2 машиноместа в лоте',
-    },
-    {
-        label: 'Кладовая',
-        value: 'Индивидуальная кладовая в цокольной зоне',
-    },
+
+const fallbackLotFeatures = [
+    { title: 'Квартира', description: 'Свободная планировка, потолки 3,5–4 м' },
+    { title: 'Летняя терраса', description: 'Собственная зелёная терраса на уровне квартиры' },
+    { title: 'Балкон-терраса', description: 'Панорамный балкон, обращённый к Волге' },
+    { title: 'Подземный паркинг', description: '2 машиноместа в лоте' },
+    { title: 'Кладовая', description: 'Индивидуальная кладовая в цокольной зоне' },
 ];
 
-export default function Lot() {
+export default function Lot({ lotFeatures = [] }) {
+    const rubric = useSetting('block07.rubric', '07 · Лот');
+    const h2 = useSetting('block07.h2', 'Вы получаете не квартиру, а полный набор.');
+    const subtitle = useSetting(
+        'block07.subtitle',
+        'Девять одинаковых по\u00a0структуре комплектов.'
+    );
+    const description = useSetting(
+        'block07.description',
+        'Каждый из девяти лотов — это не квартира, а полный набор. Вы не доплачиваете за паркоместа, кладовую, террасу. Всё это уже включено.'
+    );
+    const factline = useSetting('block07.factline', 'Больше таких не будет');
+
+    const items = lotFeatures && lotFeatures.length ? lotFeatures : fallbackLotFeatures;
+
     return (
         <section
             id="lot"
@@ -38,11 +44,10 @@ export default function Lot() {
         >
             <div className="max-w-[1320px] mx-auto px-5 md:px-10">
                 <p className="font-sans text-[10px] md:text-[11px] font-bold tracking-[0.12em] uppercase text-stamp mb-rhythm-sm md:mb-rhythm-sm-md">
-                    07 · Лот
+                    {rubric}
                 </p>
 
                 <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-14 items-start">
-                    {/* Гигантская «9» — 5 колонок */}
                     <div className="md:col-span-5">
                         <div className="relative">
                             <span
@@ -53,47 +58,40 @@ export default function Lot() {
                                 9
                             </span>
                             <span className="absolute top-0 right-0 md:top-4 md:right-2 font-sans text-[10px] font-bold tracking-[0.12em] uppercase text-handwriting/60 max-w-[12ch] text-right">
-                                Больше таких не будет
+                                {factline}
                             </span>
                         </div>
 
                         <p className="mt-rhythm-md md:mt-rhythm-md-md font-serif italic text-[17px] md:text-[22px] leading-[1.3] max-w-[30ch]">
-                            Девять одинаковых по&nbsp;структуре комплектов.
+                            {subtitle}
                         </p>
                     </div>
 
-                    {/* Таблица состава — 7 колонок */}
                     <div className="md:col-span-7">
                         <h2 className="font-serif text-[30px] md:text-[42px] leading-[1.05] font-medium tracking-[-0.005em] mb-rhythm-sm md:mb-rhythm-sm-md max-w-[22ch]">
-                            Вы получаете не квартиру, а полный набор.
+                            {h2}
                         </h2>
                         <p className="font-serif text-[15px] md:text-[17px] leading-[1.65] mb-rhythm-md md:mb-rhythm-md-md max-w-[520px]">
-                            Каждый из девяти лотов — это не квартира, а полный набор. Вы не
-                            доплачиваете за паркоместа, кладовую, террасу. Всё это уже включено.
+                            {description}
                         </p>
 
                         <dl className="border-t border-handwriting/20">
-                            {lotComposition.map((row, i) => (
+                            {items.map((row, i) => (
                                 <div
-                                    key={i}
+                                    key={row.id || i}
                                     className="grid grid-cols-1 md:grid-cols-[180px_1fr] gap-2 md:gap-6 py-4 border-b border-handwriting/15"
                                 >
                                     <dt className="font-sans text-[10px] font-bold tracking-[0.12em] uppercase text-handwriting/60 pt-[3px]">
-                                        {row.label}
+                                        {row.title}
                                     </dt>
                                     <dd className="font-serif text-[15px] md:text-[17px] leading-[1.45]">
-                                        {row.value}
-                                        {row.meta && (
-                                            <span className="block font-sans text-[10px] font-bold tracking-[0.1em] uppercase text-handwriting/50 mt-1">
-                                                {row.meta}
-                                            </span>
-                                        )}
+                                        {row.description}
                                     </dd>
                                 </div>
                             ))}
                         </dl>
 
-                        {/* Эмоциональный factline — горизонтально на всех экранах */}
+                        {/* Эмоциональный factline */}
                         <div className="mt-rhythm-md md:mt-rhythm-md-md pt-rhythm-sm border-t border-handwriting/15 flex flex-row items-baseline justify-between gap-3 sm:gap-6 md:gap-10">
                             <div className="flex-1 min-w-0">
                                 <p className="font-serif italic text-[18px] sm:text-[22px] md:text-[28px] leading-[1.1] text-stamp tnum">

@@ -3,9 +3,9 @@ import Shell from '../Components/Layout/Shell';
 import Hero from '../Components/Blocks/01-Hero';
 import Category from '../Components/Blocks/02-Category';
 import Shore from '../Components/Blocks/03-Shore';
-// Отключены от главной 2026-04-18 / 2026-04-18. Перенесены на /shore.
+// Отключены от главной 2026-04-18. Перенесены на /shore.
 // import Neighbors from '../Components/Blocks/04-Neighbors';
-// import Dacha from '../Components/Blocks/05-Dacha';  // «Главный сосед» раскрывается на /shore
+// import Dacha from '../Components/Blocks/05-Dacha';
 import Architecture from '../Components/Blocks/06-Architecture';
 import Interior from '../Components/Blocks/06B-Interior';
 import Courtyard from '../Components/Blocks/06C-Courtyard';
@@ -19,28 +19,32 @@ import FinalCTA from '../Components/Blocks/12-FinalCTA';
 /**
  * Home — главный лендинг «Дом на Утёсе».
  *
- * Одностраничник из 11 блоков (по брифу их 12, блок «Команда» в первой
- * итерации не реализован — клиент решил показать на второй).
- *
- * Порядок строго как в брифе:
+ * Одностраничник из 11 блоков. Порядок строго как в брифе:
  *   Акт I   — 01 Hero, 02 Category
- *   Акт II  — 03 Shore, 04 Neighbors, 05 Dacha
- *   Акт III — 06 Architecture, 07 Lot, 08 Plans, 09 Uklad
+ *   Акт II  — 03 Shore
+ *   Акт III — 06 Architecture, 06B Interior, 06C Courtyard, 07 Lot, 08 Plans, 09 Uklad
  *   Акт IV  — 10 Infrastructure, 11 Built, 12 FinalCTA
  *
- * snap=true в Shell → mobile получает scroll-snap-type: y proximity
- * (мягкий, не mandatory) через класс `.snap-root` на <main>.
- * Каждый блок имеет `.snap-slide` для scroll-snap-align: start +
- * min-height: 100svh на mobile (правила в app.css).
+ * Фаза 2 CMS (2026-04-18):
+ *   - Тексты и картинки каждого блока читаются из shared `settings`
+ *     (HandleInertiaRequests::share) через хук useSetting().
+ *   - Структурные сущности (plates, uklad, infra, lotFeatures, lots)
+ *     приходят массивами через props из HomeController.
+ *   - У каждого блока есть внутренний fallback — сайт рендерится даже
+ *     при пустых миграциях / сбросе БД.
  *
- * `data-server-rendered` — QA-якорь, проверяется в smoke-тестах
- * (по соглашению с проектом «На Угле»).
- *
- * Пропсы:
- *   lots             — массив 9 лотов из HomeController (для блока 08)
- *   featuredNeighbor — один объект (Дача со Слонами) для блока 05
+ * `data-server-rendered` — QA-якорь, проверяется smoke-тестами.
  */
-export default function Home({ lots = [], featuredNeighbor = null }) {
+export default function Home({
+    lots = [],
+    plates = { arch: [], interior: [], courtyard: [] },
+    uklad = [],
+    infra = [],
+    lotFeatures = [],
+    // featuredNeighbor — не используется на главной (осталось для совместимости
+    // с текущим HomeController, см. /shore#neighbors).
+    featuredNeighbor = null, // eslint-disable-line no-unused-vars
+}) {
     return (
         <Shell snap withHero>
             <Head>
@@ -54,15 +58,13 @@ export default function Home({ lots = [], featuredNeighbor = null }) {
                 <Hero />
                 <Category />
                 <Shore />
-                {/* <Neighbors /> <Dacha /> — на /shore#neighbors, чтобы главная
-                    оставалась о доме, а берег раскрывался на отдельной странице. */}
-                <Architecture />
-                <Interior />
-                <Courtyard />
-                <Lot />
+                <Architecture plates={plates.arch || []} />
+                <Interior plates={plates.interior || []} />
+                <Courtyard plates={plates.courtyard || []} />
+                <Lot lotFeatures={lotFeatures} />
                 <Plans lots={lots} />
-                <Uklad />
-                <Infrastructure />
+                <Uklad uklad={uklad} />
+                <Infrastructure infra={infra} />
                 <Built />
                 <FinalCTA />
             </div>

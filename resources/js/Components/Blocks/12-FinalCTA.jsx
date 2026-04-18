@@ -2,20 +2,28 @@ import { useEffect } from 'react';
 import { useForm } from '@inertiajs/react';
 import Field from '../UI/Field';
 import Button from '../UI/Button';
+import { useSetting } from '../../hooks/useSettings';
 
 /**
  * Блок 12 — Финальный CTA.
  *
- * Stamp фон, форма inline (не модальной). Контакты строкой ниже.
- * По решению клиента на этой итерации блок «Команда проекта» (бриф §12)
- * не реализуется — нумерация сохранена: этот файл идёт под цифрой 12.
- *
- * Текст — дословно из dom-na-utese-brief.txt ФИНАЛ.
- *
- * Форма тот же контракт, что в LeadFormModal — источник `final`.
- * Успех вызывает flash.success → Toast из Shell покажет сообщение.
+ * Stamp фон, форма inline. Контакты строкой ниже. Тексты редактируются
+ * через Orchid (Home → Block 12). Контакты (телефон/whatsapp/telegram/email)
+ * живут в `contacts.*` site-settings — эту фазу не трогаем, держим старые
+ * ссылки-заглушки.
  */
 export default function FinalCTA() {
+    const rubric = useSetting('block12.rubric', '12 · Приватный показ');
+    const h2 = useSetting('block12.h2', 'Приватный показ');
+    const body = useSetting(
+        'block12.body',
+        'Оставьте заявку — менеджер свяжется, согласует время и приедет за вами.'
+    );
+    const submitLabel = useSetting('block12.form_submit_label', 'Записаться');
+    const privacyNote = useSetting('block12.privacy_note', 'Согласен на обработку персональных данных');
+
+    const subtitle = 'Мы показываем дом лично.';
+
     const { data, setData, post, processing, errors, reset, wasSuccessful } = useForm({
         name: '',
         phone: '',
@@ -54,22 +62,21 @@ export default function FinalCTA() {
             className="snap-slide bg-stamp text-paper py-rhythm-xl md:py-rhythm-xl-md"
         >
             <div className="max-w-[1320px] mx-auto px-5 md:px-10 grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-16">
-                {/* Левая колонка — заголовок + текст + контакты */}
+                {/* Левая колонка */}
                 <div className="md:col-span-7">
                     <p className="font-sans text-[10px] md:text-[11px] font-bold tracking-[0.12em] uppercase text-paper/80 mb-rhythm-sm md:mb-rhythm-sm-md">
-                        12 · Приватный показ
+                        {rubric}
                     </p>
                     <h2 className="font-serif text-[42px] md:text-[72px] xl:text-[84px] leading-[0.98] font-medium tracking-[-0.02em] mb-rhythm-sm md:mb-rhythm-sm-md max-w-[14ch]">
-                        Приватный показ
+                        {h2}
                     </h2>
                     <p className="font-serif italic text-[17px] md:text-[22px] leading-[1.3] opacity-90 mb-rhythm-md md:mb-rhythm-md-md max-w-[38ch]">
-                        Мы показываем дом лично.
+                        {subtitle}
                     </p>
                     <p className="font-serif text-[15px] md:text-[17px] leading-[1.65] max-w-[500px] mb-rhythm-md md:mb-rhythm-md-md opacity-95">
-                        Оставьте заявку — менеджер свяжется, согласует время и приедет за вами.
+                        {body}
                     </p>
 
-                    {/* Контакты — строкой */}
                     <div className="border-t border-paper/25 pt-rhythm-md md:pt-rhythm-md-md mt-rhythm-md md:mt-rhythm-md-md">
                         <p className="font-sans text-[10px] font-bold tracking-[0.12em] uppercase text-paper/70 mb-rhythm-sm md:mb-rhythm-sm-md">
                             Или напрямую
@@ -124,7 +131,6 @@ export default function FinalCTA() {
                             error={errors.email}
                         />
 
-                        {/* preferred_contact */}
                         <div className="field">
                             <span className="field__label text-paper opacity-80">
                                 Как удобно связаться?
@@ -168,7 +174,7 @@ export default function FinalCTA() {
                                 className="mt-[6px] accent-paper"
                             />
                             <span className="font-serif text-[14px] leading-[1.4] opacity-90">
-                                Согласен на обработку персональных данных
+                                {privacyNote}
                             </span>
                         </label>
                         {errors.consent && (
@@ -176,7 +182,7 @@ export default function FinalCTA() {
                         )}
 
                         <Button variant="on-ink" type="submit" fullWidth disabled={processing}>
-                            {processing ? 'Сохраняем вашу заявку…' : 'Записаться'}
+                            {processing ? 'Сохраняем вашу заявку…' : submitLabel}
                         </Button>
                     </form>
                 </div>

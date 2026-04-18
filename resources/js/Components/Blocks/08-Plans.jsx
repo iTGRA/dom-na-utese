@@ -1,4 +1,5 @@
 import { useLeadForm } from '../../hooks/useLeadForm';
+import { useSetting } from '../../hooks/useSettings';
 
 /**
  * Блок 08 — Девять лотов (планировки).
@@ -42,6 +43,11 @@ const statusClasses = {
 export default function Plans({ lots = [] }) {
     const { openLeadForm } = useLeadForm();
 
+    const rubric = useSetting('block08.rubric', '08 · Планировки');
+    const h2 = useSetting('block08.h2', 'Девять лотов');
+    const subtitle = useSetting('block08.subtitle', 'Свободная планировка под ваш сценарий жизни.');
+    const description = useSetting('block08.description', 'Цен нет. Есть только «запросить условия».');
+
     const items = lots.length ? lots : fallbackLots;
 
     return (
@@ -51,19 +57,19 @@ export default function Plans({ lots = [] }) {
         >
             <div className="max-w-[1320px] mx-auto px-5 md:px-10">
                 <p className="font-sans text-[10px] md:text-[11px] font-bold tracking-[0.12em] uppercase text-stamp mb-rhythm-sm md:mb-rhythm-sm-md">
-                    08 · Планировки
+                    {rubric}
                 </p>
                 <div className="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-6 md:gap-10 items-end mb-rhythm-lg md:mb-rhythm-lg-md">
                     <div>
                         <h2 className="font-serif text-[34px] md:text-[56px] xl:text-[64px] leading-[1.02] font-medium tracking-[-0.01em] mb-rhythm-xs md:mb-rhythm-xs-md">
-                            Девять лотов
+                            {h2}
                         </h2>
                         <p className="font-serif italic text-[17px] md:text-[22px] leading-[1.3] opacity-80 max-w-[28ch]">
-                            Свободная планировка под ваш сценарий жизни.
+                            {subtitle}
                         </p>
                     </div>
                     <p className="font-sans text-[10px] font-bold tracking-[0.12em] uppercase text-handwriting/60 max-w-[28ch] md:text-right">
-                        Цен нет. Есть только «запросить условия».
+                        {description}
                     </p>
                 </div>
 
