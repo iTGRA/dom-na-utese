@@ -3,7 +3,8 @@ import Shell from '../Components/Layout/Shell';
 import Hero from '../Components/Blocks/01-Hero';
 import Category from '../Components/Blocks/02-Category';
 import Shore from '../Components/Blocks/03-Shore';
-import Neighbors from '../Components/Blocks/04-Neighbors';
+// Отключён от главной 2026-04-18. Перенесён на /shore. См. Shore.jsx.
+// import Neighbors from '../Components/Blocks/04-Neighbors';
 import Dacha from '../Components/Blocks/05-Dacha';
 import Architecture from '../Components/Blocks/06-Architecture';
 import Lot from '../Components/Blocks/07-Lot';
@@ -47,7 +48,7 @@ export default function Home() {
                 <Hero />
                 <Category />
                 <Shore />
-                <Neighbors />
+                {/* <Neighbors /> — отключён 2026-04-18, 8 соседей переехали на /shore#neighbors. Дача со Слонами — ниже, в блоке 05. */}
                 <Dacha />
                 <Architecture />
                 <Lot />

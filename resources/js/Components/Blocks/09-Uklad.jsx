@@ -8,7 +8,33 @@
  * Текст — дословно из dom-na-utese-brief.txt §БЛОК 9.
  *
  * Фото на desktop — шахматка 2x2: 16/18/22/30 из public/images/visual.
+ *
+ * Plate-номера (2026-04-18, сквозная нумерация из блока 06):
+ *   Pl. 11 — утро (16.jpg)
+ *   Pl. 12 — день (18.jpg)
+ *   Pl. 13 — закат (22.jpg)
+ *   Pl. 14 — зима  (30.jpg)
+ *
+ * Подписи italic (editorial) — короткая цитата + атмосферный маркер.
  */
+
+// Локальная Plate-компонента, зеркаль блока 06. Опционально принимает
+// тёмный tone для кадров на ink-фоне.
+function Plate({ num, tone = 'paper' }) {
+    const toneClasses =
+        tone === 'paper'
+            ? 'text-paper/80'
+            : 'text-handwriting/55';
+    return (
+        <span
+            className={`absolute top-3 right-3 md:top-4 md:right-4 font-sans text-[10px] font-bold tracking-[0.15em] uppercase ${toneClasses} select-none pointer-events-none`}
+            aria-hidden="true"
+        >
+            Pl.&nbsp;{String(num).padStart(2, '0')}
+        </span>
+    );
+}
+
 export default function Uklad() {
     return (
         <section id="uklad" className="bg-paper text-handwriting">
@@ -30,30 +56,42 @@ export default function Uklad() {
                             теплоходы. Через пятнадцать минут — кофе и&nbsp;работа.
                         </p>
                     </div>
-                    <figure className="aspect-[4/5] overflow-hidden bg-paper-deep">
-                        <img
-                            src="/images/visual/16.jpg"
-                            alt="Утро на террасе. Волга внизу в тумане."
-                            loading="lazy"
-                            decoding="async"
-                            className="w-full h-full object-cover"
-                        />
-                    </figure>
+                    <div>
+                        <figure className="relative aspect-[4/5] overflow-hidden bg-paper-deep">
+                            <img
+                                src="/images/visual/16.jpg"
+                                alt="Утро на террасе. Волга внизу в тумане."
+                                loading="lazy"
+                                decoding="async"
+                                className="w-full h-full object-cover"
+                            />
+                            <Plate num={11} tone="paper" />
+                        </figure>
+                        <p className="mt-3 md:mt-4 font-serif italic text-[13px] md:text-[14px] leading-[1.5] text-handwriting/75">
+                            Pl.&nbsp;11&nbsp;— Волга внизу ещё в&nbsp;тумане, слышно теплоходы.
+                        </p>
+                    </div>
                 </div>
             </div>
 
             {/* 09b — День · фото-доминанта */}
             <div className="snap-slide bg-paper-deep py-[80px] md:py-[140px]">
                 <div className="max-w-[1320px] mx-auto px-5 md:px-10 grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center">
-                    <figure className="aspect-[4/5] overflow-hidden bg-paper-light md:order-1">
-                        <img
-                            src="/images/visual/18.jpg"
-                            alt="Дорога в город. Загородный парк рядом с домом."
-                            loading="lazy"
-                            decoding="async"
-                            className="w-full h-full object-cover"
-                        />
-                    </figure>
+                    <div className="md:order-1">
+                        <figure className="relative aspect-[4/5] overflow-hidden bg-paper-light">
+                            <img
+                                src="/images/visual/18.jpg"
+                                alt="Дорога в город. Загородный парк рядом с домом."
+                                loading="lazy"
+                                decoding="async"
+                                className="w-full h-full object-cover"
+                            />
+                            <Plate num={12} tone="paper" />
+                        </figure>
+                        <p className="mt-3 md:mt-4 font-serif italic text-[13px] md:text-[14px] leading-[1.5] text-handwriting/75">
+                            Pl.&nbsp;12&nbsp;— Десять минут до&nbsp;Ленинградской.
+                        </p>
+                    </div>
                     <div className="md:order-2">
                         <p className="font-sans text-[10px] font-bold tracking-[0.12em] uppercase text-stamp mb-4">
                             День
@@ -78,30 +116,42 @@ export default function Uklad() {
                             вдоль берега, мимо дачи Сипиной и&nbsp;Загородного парка.
                         </p>
                     </div>
-                    <figure className="aspect-[4/5] overflow-hidden bg-paper-deep">
-                        <img
-                            src="/images/visual/22.jpg"
-                            alt="Закат над Жигулёвскими воротами."
-                            loading="lazy"
-                            decoding="async"
-                            className="w-full h-full object-cover"
-                        />
-                    </figure>
+                    <div>
+                        <figure className="relative aspect-[4/5] overflow-hidden bg-paper-deep">
+                            <img
+                                src="/images/visual/22.jpg"
+                                alt="Закат над Жигулёвскими воротами."
+                                loading="lazy"
+                                decoding="async"
+                                className="w-full h-full object-cover"
+                            />
+                            <Plate num={13} tone="paper" />
+                        </figure>
+                        <p className="mt-3 md:mt-4 font-serif italic text-[13px] md:text-[14px] leading-[1.5] text-handwriting/75">
+                            Pl.&nbsp;13&nbsp;— Закат над Жигулёвскими воротами.
+                        </p>
+                    </div>
                 </div>
             </div>
 
             {/* 09d — Зима · ink */}
             <div className="snap-slide bg-ink text-paper py-[80px] md:py-[140px]">
                 <div className="max-w-[1320px] mx-auto px-5 md:px-10 grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center">
-                    <figure className="aspect-[4/5] overflow-hidden bg-ink-deep md:order-1">
-                        <img
-                            src="/images/visual/30.jpg"
-                            alt="Зимний лес над Волгой."
-                            loading="lazy"
-                            decoding="async"
-                            className="w-full h-full object-cover"
-                        />
-                    </figure>
+                    <div className="md:order-1">
+                        <figure className="relative aspect-[4/5] overflow-hidden bg-ink-deep">
+                            <img
+                                src="/images/visual/30.jpg"
+                                alt="Зимний лес над Волгой."
+                                loading="lazy"
+                                decoding="async"
+                                className="w-full h-full object-cover"
+                            />
+                            <Plate num={14} tone="paper" />
+                        </figure>
+                        <p className="mt-3 md:mt-4 font-serif italic text-[13px] md:text-[14px] leading-[1.5] text-paper/75">
+                            Pl.&nbsp;14&nbsp;— Над водой стоит тишина, которой в&nbsp;центре не&nbsp;бывает.
+                        </p>
+                    </div>
                     <div className="md:order-2">
                         <p className="font-sans text-[10px] font-bold tracking-[0.12em] uppercase text-tea mb-4">
                             Зима

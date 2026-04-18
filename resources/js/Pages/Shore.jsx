@@ -338,7 +338,7 @@ export default function Shore() {
                 </section>
 
                 {/* Часть II — Справочник 14 объектов */}
-                <section className="py-[80px] md:py-[120px] bg-paper-light" aria-labelledby="refs-title">
+                <section id="neighbors" className="py-[80px] md:py-[120px] bg-paper-light" aria-labelledby="refs-title">
                     <div className="max-w-[720px] mx-auto px-5 md:px-6">
                         <p className="font-sans text-[10px] md:text-[11px] font-bold tracking-[0.12em] uppercase text-stamp mb-4">
                             Часть II

@@ -93,9 +93,35 @@ export default function Lot() {
                             ))}
                         </dl>
 
-                        <p className="mt-10 font-serif italic text-[20px] md:text-[24px] leading-[1.3] text-stamp max-w-[32ch]">
-                            Девять лотов. Девять видов на&nbsp;Волгу. Восемь соседей.
-                        </p>
+                        {/* Эмоциональный factline — горизонтально на всех экранах */}
+                        <div className="mt-10 md:mt-12 pt-6 border-t border-handwriting/15 flex flex-row items-baseline justify-between gap-3 sm:gap-6 md:gap-10">
+                            <div className="flex-1 min-w-0">
+                                <p className="font-serif italic text-[18px] sm:text-[22px] md:text-[28px] leading-[1.1] text-stamp tnum">
+                                    9
+                                </p>
+                                <p className="font-sans text-[9px] md:text-[10px] font-bold tracking-[0.08em] md:tracking-[0.12em] uppercase opacity-70 mt-1">
+                                    лотов
+                                </p>
+                            </div>
+                            <span className="self-stretch w-px bg-handwriting/20 shrink-0" aria-hidden="true" />
+                            <div className="flex-1 min-w-0">
+                                <p className="font-serif italic text-[18px] sm:text-[22px] md:text-[28px] leading-[1.1] text-stamp tnum">
+                                    9
+                                </p>
+                                <p className="font-sans text-[9px] md:text-[10px] font-bold tracking-[0.08em] md:tracking-[0.12em] uppercase opacity-70 mt-1">
+                                    видов на&nbsp;Волгу
+                                </p>
+                            </div>
+                            <span className="self-stretch w-px bg-handwriting/20 shrink-0" aria-hidden="true" />
+                            <div className="flex-1 min-w-0">
+                                <p className="font-serif italic text-[18px] sm:text-[22px] md:text-[28px] leading-[1.1] text-stamp tnum">
+                                    8
+                                </p>
+                                <p className="font-sans text-[9px] md:text-[10px] font-bold tracking-[0.08em] md:tracking-[0.12em] uppercase opacity-70 mt-1">
+                                    соседей
+                                </p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
