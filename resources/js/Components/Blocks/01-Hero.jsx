@@ -62,35 +62,43 @@ export default function Hero() {
                     На одной линии с историей.
                 </p>
 
-                {/* Группа 3 — факт-строка + CTAs, с тонким 1px-делителем
-                    сверху (editorial gesture: строка «служебной» информации
-                    физически отделена от лирического монолита). */}
+                {/* Группа 3 — CTAs слева, factline справа на том же уровне.
+                    1px paper-делитель сверху отделяет «служебную зону» от
+                    лирического монолита. На mobile — стек: CTAs сверху,
+                    factline подписью снизу (flex-col-reverse не используем,
+                    чтобы порядок чтения совпадал с DOM). */}
                 <div className="border-t border-paper/20 pt-6 md:pt-8">
-                    <p className="font-sans text-[10px] md:text-[11px] font-bold tracking-[0.12em] uppercase opacity-75 mb-8 md:mb-10">
-                        9 лотов
-                        <span className="mx-2 text-tea">·</span>
-                        первая линия Волги
-                        <span className="mx-2 text-tea">·</span>
-                        потолки 3,5–4 м
-                        <span className="mx-2 text-tea">·</span>
-                        дом сдан
-                    </p>
+                    <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6 md:gap-10">
+                        {/* CTAs — слева */}
+                        <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 shrink-0">
+                            <Button
+                                variant="on-ink"
+                                onClick={() => openLeadForm({ source: 'hero' })}
+                            >
+                                Приватный показ
+                            </Button>
+                            <Button
+                                variant="ghost-on-ink"
+                                as="a"
+                                href="#category"
+                                arrow={false}
+                            >
+                                О доме ↓
+                            </Button>
+                        </div>
 
-                    <div className="flex flex-col md:flex-row gap-3 md:gap-4">
-                        <Button
-                            variant="on-ink"
-                            onClick={() => openLeadForm({ source: 'hero' })}
-                        >
-                            Приватный показ
-                        </Button>
-                        <Button
-                            variant="ghost-on-ink"
-                            as="a"
-                            href="#category"
-                            arrow={false}
-                        >
-                            О доме ↓
-                        </Button>
+                        {/* Factline — справа, на уровне CTA. Разделители —
+                            тонкая four-pointed звёздочка ✦ paper/40,
+                            editorial-нейтрально (не tea-акцент). */}
+                        <p className="md:text-right font-sans text-[10px] md:text-[11px] font-bold tracking-[0.14em] uppercase opacity-80 leading-[1.7]">
+                            9 лотов
+                            <span className="mx-2 md:mx-3 text-paper/40" aria-hidden="true">✦</span>
+                            первая линия Волги
+                            <span className="mx-2 md:mx-3 text-paper/40" aria-hidden="true">✦</span>
+                            потолки 3,5–4 м
+                            <span className="mx-2 md:mx-3 text-paper/40" aria-hidden="true">✦</span>
+                            дом сдан
+                        </p>
                     </div>
                 </div>
             </div>

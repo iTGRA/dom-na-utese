@@ -65,18 +65,20 @@ export default function Header() {
             <header
                 className={
                     'group fixed top-0 left-0 right-0 z-[100] ' +
-                    'transition-[background-color,border-color,box-shadow,color] duration-[240ms] ' +
+                    'transition-[background-color,border-color,box-shadow] duration-[240ms] ' +
                     (solid
                         ? 'bg-paper border-b border-handwriting/15 shadow-[0_1px_0_0_rgba(30,30,30,0.08)]'
                         : 'bg-transparent border-b border-transparent hover:bg-paper hover:border-handwriting/15 hover:shadow-[0_1px_0_0_rgba(30,30,30,0.08)]')
                 }
             >
                 <div className="max-w-[1320px] mx-auto px-5 md:px-10 h-[52px] md:h-16 flex items-center justify-between gap-4">
-                    {/* Logo */}
+                    {/* Logo — цвет меняется мгновенно (без transition на color).
+                        Transparent header → paper text (бежевый поверх фото).
+                        Hover/scroll → paper bg + handwriting text (чёрный). */}
                     <a
                         href="/"
                         className={
-                            'font-sans text-[11px] md:text-[12px] font-bold tracking-[0.12em] uppercase transition-colors duration-[240ms] ' +
+                            'font-sans text-[11px] md:text-[12px] font-bold tracking-[0.12em] uppercase ' +
                             (solid
                                 ? 'text-handwriting'
                                 : 'text-paper group-hover:text-handwriting')
@@ -85,17 +87,17 @@ export default function Header() {
                         Дом на&nbsp;Утёсе
                     </a>
 
-                    {/* Desktop nav */}
+                    {/* Desktop nav — та же логика: цвет переключается мгновенно. */}
                     <nav aria-label="Разделы страницы" className="hidden md:flex items-center gap-8">
                         {navItems.map((item) => (
                             <a
                                 key={item.href}
                                 href={item.href}
                                 className={
-                                    'font-sans text-[11px] font-bold tracking-[0.1em] uppercase hover:text-stamp transition-colors duration-[240ms] ' +
+                                    'font-sans text-[11px] font-bold tracking-[0.1em] uppercase hover:text-stamp ' +
                                     (solid
                                         ? 'text-handwriting/80'
-                                        : 'text-paper/85 group-hover:text-handwriting/80')
+                                        : 'text-paper group-hover:text-handwriting/80')
                                 }
                             >
                                 {item.label}
@@ -119,7 +121,7 @@ export default function Header() {
                             aria-label="Открыть меню"
                             onClick={() => setMenuOpen((v) => !v)}
                             className={
-                                'md:hidden font-sans text-[18px] px-1 transition-colors duration-[240ms] ' +
+                                'md:hidden font-sans text-[18px] px-1 ' +
                                 (solid
                                     ? 'text-handwriting'
                                     : 'text-paper group-hover:text-handwriting')

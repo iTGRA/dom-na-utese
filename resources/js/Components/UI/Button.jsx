@@ -28,10 +28,16 @@ export default function Button({
 }) {
     const showArrow = arrow ?? variant === 'primary';
 
+    // Важно: transition ТОЛЬКО по bg/border/transform/filter/box-shadow —
+    // НЕ по color. Иначе при hover текст плавно переходит через бежевый
+    // к чёрному, и в середине 240ms-анимации он визуально «пропадает»
+    // на свежезалитом paper-фоне (ghost-on-ink был тому ярким примером).
+    // Color переключается мгновенно — фон плавно, текст сразу читаем.
     const baseClasses =
         'group inline-flex items-center justify-center gap-2 font-sans font-bold ' +
         'tracking-[0.1em] uppercase text-[13px] px-7 py-[14px] ' +
-        'transition-all duration-[240ms] ease-(--ease-standard) ' +
+        'transition-[background-color,border-color,transform,filter,box-shadow] ' +
+        'duration-[240ms] ease-(--ease-standard) ' +
         'border border-transparent cursor-pointer select-none ' +
         'disabled:opacity-40 disabled:cursor-not-allowed ' +
         'active:translate-y-0 active:brightness-95';
@@ -45,8 +51,8 @@ export default function Button({
         'on-ink':
             'bg-paper text-stamp hover:bg-tea hover:text-handwriting',
         'ghost-on-ink':
-            'bg-transparent text-paper border-paper/80 ' +
-            'hover:bg-paper hover:text-handwriting hover:border-handwriting',
+            'bg-transparent text-paper border-paper ' +
+            'hover:bg-paper hover:!text-handwriting hover:border-handwriting',
     }[variant];
 
     const widthClass = fullWidth ? 'w-full' : '';
