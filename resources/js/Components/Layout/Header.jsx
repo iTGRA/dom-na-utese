@@ -18,12 +18,25 @@ export default function Header() {
     const [scrolled, setScrolled] = useState(false);
     const [menuOpen, setMenuOpen] = useState(false);
 
+    // Header прозрачен пока Hero доминирует во viewport; paper-состояние
+    // включается когда Hero почти ушёл наверх. Через IntersectionObserver,
+    // не через scrollY threshold — это корректно работает с swipe-deck и
+    // при смене высоты viewport.
     useEffect(() => {
         if (typeof window === 'undefined') return;
-        const onScroll = () => setScrolled(window.scrollY > 8);
-        onScroll();
-        window.addEventListener('scroll', onScroll, { passive: true });
-        return () => window.removeEventListener('scroll', onScroll);
+        const hero = document.getElementById('hero');
+        if (!hero) {
+            const onScroll = () => setScrolled(window.scrollY > 400);
+            onScroll();
+            window.addEventListener('scroll', onScroll, { passive: true });
+            return () => window.removeEventListener('scroll', onScroll);
+        }
+        const io = new IntersectionObserver(
+            ([entry]) => setScrolled(entry.intersectionRatio < 0.2),
+            { threshold: [0, 0.2, 0.5, 1] }
+        );
+        io.observe(hero);
+        return () => io.disconnect();
     }, []);
 
     // Закрывать меню при открытии формы
@@ -44,21 +57,32 @@ export default function Header() {
         { href: '#uklad', label: 'Уклад' },
     ];
 
+    // Порог — высота Hero. После него header «твердеет»: paper-фон + линия
+    // + тонкая тень. До скролла header прозрачен, лежит поверх hero-фото;
+    // при hover принудительно активируется paper-состояние (для паузы чтения).
+    const solid = scrolled;
+
     return (
         <>
             <header
                 className={
-                    'sticky top-0 left-0 right-0 z-[100] bg-paper ' +
-                    'border-b border-handwriting/15 ' +
-                    'transition-shadow duration-[240ms] ' +
-                    (scrolled ? 'shadow-[0_1px_0_0_rgba(30,30,30,0.08)]' : '')
+                    'group sticky top-0 left-0 right-0 z-[100] ' +
+                    'transition-[background-color,border-color,box-shadow,color] duration-[240ms] ' +
+                    (solid
+                        ? 'bg-paper border-b border-handwriting/15 shadow-[0_1px_0_0_rgba(30,30,30,0.08)]'
+                        : 'bg-transparent border-b border-transparent hover:bg-paper hover:border-handwriting/15 hover:shadow-[0_1px_0_0_rgba(30,30,30,0.08)]')
                 }
             >
                 <div className="max-w-[1320px] mx-auto px-5 md:px-10 h-[52px] md:h-16 flex items-center justify-between gap-4">
                     {/* Logo */}
                     <a
                         href="/"
-                        className="font-sans text-[11px] md:text-[12px] font-bold tracking-[0.12em] uppercase text-handwriting"
+                        className={
+                            'font-sans text-[11px] md:text-[12px] font-bold tracking-[0.12em] uppercase transition-colors duration-[240ms] ' +
+                            (solid
+                                ? 'text-handwriting'
+                                : 'text-paper group-hover:text-handwriting')
+                        }
                     >
                         Дом на&nbsp;Утёсе
                     </a>
@@ -69,7 +93,12 @@ export default function Header() {
                             <a
                                 key={item.href}
                                 href={item.href}
-                                className="font-sans text-[11px] font-bold tracking-[0.1em] uppercase text-handwriting/80 hover:text-stamp transition-colors duration-[240ms]"
+                                className={
+                                    'font-sans text-[11px] font-bold tracking-[0.1em] uppercase hover:text-stamp transition-colors duration-[240ms] ' +
+                                    (solid
+                                        ? 'text-handwriting/80'
+                                        : 'text-paper/85 group-hover:text-handwriting/80')
+                                }
                             >
                                 {item.label}
                             </a>
@@ -91,7 +120,12 @@ export default function Header() {
                             aria-expanded={menuOpen}
                             aria-label="Открыть меню"
                             onClick={() => setMenuOpen((v) => !v)}
-                            className="md:hidden font-sans text-[18px] text-handwriting px-1"
+                            className={
+                                'md:hidden font-sans text-[18px] px-1 transition-colors duration-[240ms] ' +
+                                (solid
+                                    ? 'text-handwriting'
+                                    : 'text-paper group-hover:text-handwriting')
+                            }
                         >
                             {menuOpen ? '×' : '≡'}
                         </button>

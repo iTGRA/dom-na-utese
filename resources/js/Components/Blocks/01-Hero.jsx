@@ -30,30 +30,36 @@ export default function Hero() {
             {/* Dark editorial overlay — усиливает текст, не даёт баннерного «premium» вайба */}
             <div className="absolute inset-0 bg-ink/50" aria-hidden="true" />
 
-            {/* Corners */}
-            {/* TOP-LEFT: rubric */}
-            <div className="absolute top-[24px] left-5 md:top-[40px] md:left-10 font-sans text-[10px] md:text-[11px] font-bold tracking-[0.12em] uppercase opacity-80">
-                Самара · Просеки · первая линия Волги
-            </div>
-            {/* TOP-RIGHT: meta line */}
-            <div className="absolute top-[24px] right-5 md:top-[40px] md:right-10 font-sans text-[10px] md:text-[11px] font-bold tracking-[0.12em] uppercase opacity-70 text-right">
-                2024 · Дом сдан
+            {/* Corners — в общем max-w-[1320px] wrapper, чтобы верхняя rubric
+                и нижний H1 выравнивались по одной левой оси (раньше rubric
+                сидел на absolute left-10 от viewport, а H1 — от центрированного
+                контейнера, на широком экране получался сдвиг ~300px). */}
+            <div className="absolute inset-x-0 top-[24px] md:top-[40px] z-[1] pointer-events-none">
+                <div className="max-w-[1320px] mx-auto px-5 md:px-10 flex justify-between items-start gap-6">
+                    <div className="font-sans text-[10px] md:text-[11px] font-bold tracking-[0.12em] uppercase opacity-80 pointer-events-auto">
+                        Самара · Просеки · первая линия Волги
+                    </div>
+                    <div className="font-sans text-[10px] md:text-[11px] font-bold tracking-[0.12em] uppercase opacity-70 text-right pointer-events-auto">
+                        2026 · Дом сдан
+                    </div>
+                </div>
             </div>
 
-            {/* CENTER content */}
+            {/* CENTER content — вертикальная разрядка над CTA увеличена,
+                кнопки остаются «пришитыми» к низу (flex-col + justify-end). */}
             <div className="relative z-[1] min-h-[100svh] flex flex-col justify-end max-w-[1320px] mx-auto px-5 md:px-10 pb-[96px] md:pb-[120px] pt-[120px]">
-                <p className="font-sans text-[10px] md:text-[11px] font-bold tracking-[0.12em] uppercase text-tea mb-5 md:mb-6">
+                <p className="font-sans text-[10px] md:text-[11px] font-bold tracking-[0.12em] uppercase text-tea mb-8 md:mb-10">
                     Клубный дом на первой линии Волги
                 </p>
-                <h1 className="font-serif text-[52px] md:text-[96px] xl:text-[110px] leading-[0.92] font-medium tracking-[-0.02em] max-w-[10ch] md:max-w-none mb-6 md:mb-8">
+                <h1 className="font-serif text-[52px] md:text-[96px] xl:text-[110px] leading-[0.92] font-medium tracking-[-0.02em] max-w-[10ch] md:max-w-none mb-10 md:mb-14">
                     Дом <em className="not-italic md:italic">на Утёсе</em>
                 </h1>
-                <p className="font-serif italic text-[17px] md:text-[24px] leading-[1.3] max-w-[480px] opacity-90 mb-10 md:mb-14">
+                <p className="font-serif italic text-[17px] md:text-[24px] leading-[1.3] max-w-[480px] opacity-90 mb-14 md:mb-20">
                     На одной линии с историей.
                 </p>
 
                 {/* Факты — тонкая строка */}
-                <p className="font-sans text-[10px] md:text-[11px] font-bold tracking-[0.1em] uppercase opacity-75 mb-10 md:mb-12">
+                <p className="font-sans text-[10px] md:text-[11px] font-bold tracking-[0.1em] uppercase opacity-75 mb-14 md:mb-16">
                     9 лотов
                     <span className="mx-2 text-tea">·</span>
                     первая линия Волги

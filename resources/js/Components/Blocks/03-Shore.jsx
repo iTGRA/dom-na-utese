@@ -12,15 +12,18 @@ export default function Shore() {
     return (
         <section
             id="place"
-            className="snap-slide bg-paper text-handwriting py-[96px] md:py-[160px]"
+            className="snap-slide bg-paper text-handwriting pt-[96px] md:pt-[160px] pb-[48px] md:pb-[64px]"
         >
             <div className="max-w-[1320px] mx-auto px-5 md:px-10">
                 <p className="font-sans text-[10px] md:text-[11px] font-bold tracking-[0.12em] uppercase text-stamp mb-4">
                     03 · Место
                 </p>
 
-                <div className="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-12 mb-16 md:mb-24">
-                    {/* Текст — 7 колонок */}
+                <div className="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-12">
+                    {/* Текст + factline — 7 колонок. Линия-разделитель и три
+                        цифры (1877 · 10 км · 0) живут внутри той же колонки,
+                        под текстом — editorial-приём: разделитель только под
+                        абзацами, не через всю ширину страницы. */}
                     <div className="md:col-span-7">
                         <h2 className="font-serif text-[34px] md:text-[56px] xl:text-[64px] leading-[1.02] font-medium tracking-[-0.01em] mb-4">
                             Самарская Ривьера
@@ -62,6 +65,50 @@ export default function Shore() {
                                 Подробнее о берегу →
                             </a>
                         </div>
+
+                        {/* Factline — 3 цифры. Линия над ним только в ширину
+                            текстовой колонки (не full-width страницы). */}
+                        <div className="mt-16 md:mt-20 border-t border-handwriting/15 pt-10 md:pt-12">
+                            <div className="flex flex-row items-start justify-between gap-3 sm:gap-6 md:gap-10">
+                                <div className="flex-1 min-w-0">
+                                    <p className="font-serif text-[36px] sm:text-[48px] md:text-[60px] xl:text-[72px] leading-[0.9] font-medium text-stamp tnum mb-2 md:mb-3">
+                                        1877
+                                    </p>
+                                    <p className="font-sans text-[9px] md:text-[10px] font-bold tracking-[0.08em] md:tracking-[0.1em] uppercase opacity-70 leading-[1.35]">
+                                        Год открытия берега
+                                    </p>
+                                </div>
+                                <span className="self-stretch w-px bg-handwriting/20 shrink-0" aria-hidden="true" />
+                                <div className="flex-1 min-w-0">
+                                    <p className="font-serif text-[36px] sm:text-[48px] md:text-[60px] xl:text-[72px] leading-[0.9] font-medium text-stamp tnum mb-2 md:mb-3">
+                                        10 <span className="text-[20px] sm:text-[26px] md:text-[34px]">км</span>
+                                    </p>
+                                    <p className="font-sans text-[9px] md:text-[10px] font-bold tracking-[0.08em] md:tracking-[0.1em] uppercase opacity-70 leading-[1.35]">
+                                        Длина полосы
+                                    </p>
+                                </div>
+                                <span className="self-stretch w-px bg-handwriting/20 shrink-0" aria-hidden="true" />
+                                <div className="flex-1 min-w-0">
+                                    <p className="font-serif text-[36px] sm:text-[48px] md:text-[60px] xl:text-[72px] leading-[0.9] font-medium text-stamp tnum mb-2 md:mb-3">
+                                        0
+                                    </p>
+                                    <p className="font-sans text-[9px] md:text-[10px] font-bold tracking-[0.08em] md:tracking-[0.1em] uppercase opacity-70 leading-[1.35]">
+                                        Клубных домов на первой линии до сегодняшнего дня
+                                    </p>
+                                </div>
+                            </div>
+
+                            {/* Мостик на справочник берега */}
+                            <p className="mt-10 md:mt-12 font-sans text-[10px] md:text-[11px] font-bold tracking-[0.12em] uppercase text-handwriting/70 leading-[1.6]">
+                                Восемь соседей по&nbsp;берегу — на&nbsp;странице{' '}
+                                <a
+                                    href="/shore#neighbors"
+                                    className="text-stamp link-underline"
+                                >
+                                    Берег&nbsp;→
+                                </a>
+                            </p>
+                        </div>
                     </div>
 
                     {/* Карта берега — 5 колонок, ink-тонированная, скошенный левый край */}
@@ -81,49 +128,6 @@ export default function Shore() {
                             </figcaption>
                         </figure>
                     </div>
-                </div>
-
-                {/* Факт-блок 3 цифр — горизонтально на всех экранах, editorial-разделители */}
-                <div className="border-t border-handwriting/15 pt-10 md:pt-12">
-                    <div className="flex flex-row items-start justify-between gap-3 sm:gap-6 md:gap-12">
-                        <div className="flex-1 min-w-0">
-                            <p className="font-serif text-[40px] sm:text-[56px] md:text-[72px] xl:text-[84px] leading-[0.9] font-medium text-stamp tnum mb-2 md:mb-3">
-                                1877
-                            </p>
-                            <p className="font-sans text-[9px] md:text-[10px] font-bold tracking-[0.08em] md:tracking-[0.1em] uppercase opacity-70 leading-[1.35]">
-                                Год открытия берега
-                            </p>
-                        </div>
-                        <span className="self-stretch w-px bg-handwriting/20 shrink-0" aria-hidden="true" />
-                        <div className="flex-1 min-w-0">
-                            <p className="font-serif text-[40px] sm:text-[56px] md:text-[72px] xl:text-[84px] leading-[0.9] font-medium text-stamp tnum mb-2 md:mb-3">
-                                10 <span className="text-[22px] sm:text-[28px] md:text-[40px]">км</span>
-                            </p>
-                            <p className="font-sans text-[9px] md:text-[10px] font-bold tracking-[0.08em] md:tracking-[0.1em] uppercase opacity-70 leading-[1.35]">
-                                Длина полосы
-                            </p>
-                        </div>
-                        <span className="self-stretch w-px bg-handwriting/20 shrink-0" aria-hidden="true" />
-                        <div className="flex-1 min-w-0">
-                            <p className="font-serif text-[40px] sm:text-[56px] md:text-[72px] xl:text-[84px] leading-[0.9] font-medium text-stamp tnum mb-2 md:mb-3">
-                                0
-                            </p>
-                            <p className="font-sans text-[9px] md:text-[10px] font-bold tracking-[0.08em] md:tracking-[0.1em] uppercase opacity-70 leading-[1.35]">
-                                Клубных домов на первой линии до сегодняшнего дня
-                            </p>
-                        </div>
-                    </div>
-
-                    {/* Мостик на справочник берега */}
-                    <p className="mt-10 md:mt-12 font-sans text-[10px] md:text-[11px] font-bold tracking-[0.12em] uppercase text-handwriting/70 leading-[1.6]">
-                        Восемь соседей по&nbsp;берегу — на&nbsp;странице{' '}
-                        <a
-                            href="/shore#neighbors"
-                            className="text-stamp link-underline"
-                        >
-                            Берег&nbsp;→
-                        </a>
-                    </p>
                 </div>
             </div>
         </section>
