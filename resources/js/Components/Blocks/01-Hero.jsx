@@ -41,8 +41,11 @@ export default function Hero() {
                 На одной линии с историей» стоит близко к CTA-линии,
                 а tea-кикер плотно над H1. */}
             <div className="relative z-[1] min-h-[100svh] flex flex-col justify-end max-w-[1320px] mx-auto px-5 md:px-10 pt-rhythm-xl md:pt-rhythm-xl-md pb-rhythm-xl md:pb-rhythm-xl-md">
-                {/* Группа 1 — tea-рубрика, близко к H1 (rhythm-sm). */}
-                <p className="font-sans text-[10px] md:text-[11px] font-bold tracking-[0.14em] uppercase text-tea mb-rhythm-sm md:mb-rhythm-sm-md">
+                {/* Группа 1 — кикер, близко к H1 (rhythm-sm).
+                    Было text-tea — оранжевый на мутном hero-кадре
+                    читался плохо. Paper (бежевый) + [text-shadow] дают
+                    крепкий контраст на любом фото, оставаясь editorial. */}
+                <p className="font-sans text-[10px] md:text-[11px] font-bold tracking-[0.14em] uppercase text-paper mb-rhythm-sm md:mb-rhythm-sm-md [text-shadow:0_1px_2px_rgba(0,0,0,0.35)]">
                     Клубный дом на первой линии Волги
                 </p>
 
