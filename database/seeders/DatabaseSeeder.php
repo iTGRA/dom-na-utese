@@ -20,6 +20,10 @@ class DatabaseSeeder extends Seeder
             LotSeeder::class,
             NeighborSeeder::class,
             SiteSettingSeeder::class,
+            PlateSeeder::class,
+            UkladTileSeeder::class,
+            InfrastructureCardSeeder::class,
+            LotFeatureSeeder::class,
         ]);
     }
 }

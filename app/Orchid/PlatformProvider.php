@@ -40,8 +40,61 @@ class PlatformProvider extends OrchidServiceProvider
                 ->title('Дом на Утёсе')
                 ->route(config('platform.index')),
 
+            // -------- Главная страница · блоки --------
+            Menu::make('01 · Hero')
+                ->icon('bs.file-earmark-richtext')
+                ->title('Главная страница')
+                ->route('platform.dnu.home.block01')
+                ->active('*/dnu/home/block-01*'),
+            Menu::make('02 · Категория')
+                ->icon('bs.file-earmark-text')
+                ->route('platform.dnu.home.block02')
+                ->active('*/dnu/home/block-02*'),
+            Menu::make('03 · Берег')
+                ->icon('bs.map')
+                ->route('platform.dnu.home.block03')
+                ->active('*/dnu/home/block-03*'),
+            Menu::make('06 · Архитектура')
+                ->icon('bs.image')
+                ->route('platform.dnu.home.block06')
+                ->active('*/dnu/home/block-06$'),
+            Menu::make('06B · Интерьер')
+                ->icon('bs.image')
+                ->route('platform.dnu.home.block06b')
+                ->active('*/dnu/home/block-06b*'),
+            Menu::make('06C · Двор')
+                ->icon('bs.image')
+                ->route('platform.dnu.home.block06c')
+                ->active('*/dnu/home/block-06c*'),
+            Menu::make('07 · Лот')
+                ->icon('bs.list-ul')
+                ->route('platform.dnu.home.block07')
+                ->active('*/dnu/home/block-07*'),
+            Menu::make('08 · Планы')
+                ->icon('bs.grid-3x3')
+                ->route('platform.dnu.home.block08')
+                ->active('*/dnu/home/block-08*'),
+            Menu::make('09 · Уклад')
+                ->icon('bs.sun')
+                ->route('platform.dnu.home.block09')
+                ->active('*/dnu/home/block-09*'),
+            Menu::make('10 · Инфраструктура')
+                ->icon('bs.building-gear')
+                ->route('platform.dnu.home.block10')
+                ->active('*/dnu/home/block-10*'),
+            Menu::make('11 · Дом построен')
+                ->icon('bs.check2-square')
+                ->route('platform.dnu.home.block11')
+                ->active('*/dnu/home/block-11*'),
+            Menu::make('12 · Финальный CTA')
+                ->icon('bs.envelope-check')
+                ->route('platform.dnu.home.block12')
+                ->active('*/dnu/home/block-12*')
+                ->divider(),
+
             Menu::make('Лоты')
                 ->icon('bs.building')
+                ->title('Контент')
                 ->route('platform.dnu.lots')
                 ->active('*/dnu/lots*'),
 
