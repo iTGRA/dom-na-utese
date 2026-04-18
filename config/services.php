@@ -35,4 +35,8 @@ return [
         ],
     ],
 
+    'leads' => [
+        'recipient' => env('LEAD_EMAIL', '4259623@gmail.com'),
+    ],
+
 ];

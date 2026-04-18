@@ -1,0 +1,2162 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Дом на Утёсе · Design System · Handoff Package</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Piazzolla:ital,wght@0,300..900;1,300..900&family=Alegreya+Sans+SC:ital,wght@0,400;0,500;0,700;0,900;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* ---------- TOKENS: COLOR ---------- */
+    --color-paper: #EEE4D3;
+    --color-paper-light: #F5EEDF;
+    --color-paper-deep: #E5D9C3;
+    --color-dust: #C4BFAF;
+    --color-dust-light: #D9D4C5;
+    --color-ink: #2C3E50;
+    --color-ink-deep: #22303F;
+    --color-handwriting: #1E1E1E;
+    --color-handwriting-soft: #3A3A3A;
+    --color-stamp: #802F1D;
+    --color-stamp-hover: #9A3822;
+    --color-tea: #C98540;
+    --color-tea-hover: #D99550;
+    --color-success: #25664A;
+    --color-error: #B23A2B;
+
+    /* ---------- TOKENS: TYPOGRAPHY ---------- */
+    --font-serif: "Piazzolla", Georgia, "Times New Roman", serif;
+    --font-sans: "Alegreya Sans SC", "Arial Narrow", sans-serif;
+    --font-mono: "JetBrains Mono", "SF Mono", monospace;
+
+    /* ---------- TOKENS: SPACING (8-point scale) ---------- */
+    --space-xxs: 4px;
+    --space-xs: 8px;
+    --space-sm: 12px;
+    --space-md: 16px;
+    --space-lg: 24px;
+    --space-xl: 40px;
+    --space-2xl: 64px;
+    --space-3xl: 96px;
+    --space-4xl: 128px;
+
+    /* ---------- TOKENS: LAYOUT ---------- */
+    --container: 1320px;
+    --container-text: 720px;
+    --gutter-desktop: 24px;
+    --gutter-tablet: 20px;
+    --gutter-mobile: 16px;
+    --margin-desktop: 40px;
+    --margin-tablet: 32px;
+    --margin-mobile: 20px;
+
+    /* ---------- TOKENS: MOTION ---------- */
+    --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+    --ease-in: cubic-bezier(0.4, 0, 1, 1);
+    --ease-out: cubic-bezier(0, 0, 0.2, 1);
+    --ease-editorial: cubic-bezier(0.22, 1, 0.36, 1);
+    --dur-instant: 120ms;
+    --dur-quick: 240ms;
+    --dur-standard: 420ms;
+    --dur-slow: 720ms;
+    --dur-cinematic: 1200ms;
+
+    /* ---------- TOKENS: STROKE ---------- */
+    --stroke-hairline: 1px;
+    --stroke-thin: 1.5px;
+    --stroke-medium: 2px;
+
+    /* ---------- TOKENS: RADIUS ---------- */
+    --radius-none: 0;
+    --radius-sm: 2px;
+
+    /* ---------- Z-INDEX ---------- */
+    --z-base: 1;
+    --z-sticky: 100;
+    --z-overlay: 500;
+    --z-modal: 1000;
+    --z-toast: 1500;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+  body {
+    background: var(--color-paper);
+    color: var(--color-handwriting);
+    font-family: var(--font-serif);
+    font-size: 16px;
+    line-height: 1.6;
+    font-feature-settings: "liga" 1, "kern" 1;
+  }
+
+  .ds-container { max-width: var(--container); margin: 0 auto; padding: 0 var(--margin-desktop); }
+  @media (max-width: 900px) { .ds-container { padding: 0 var(--margin-mobile); } }
+
+  /* ===== DOCUMENT CHROME ===== */
+  .ds-topbar {
+    position: sticky;
+    top: 0;
+    z-index: var(--z-sticky);
+    background: var(--color-paper);
+    border-bottom: 1px solid var(--color-handwriting);
+    padding: 16px 0;
+  }
+  .ds-topbar-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .ds-topbar-logo {
+    font-family: var(--font-sans);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  .ds-topbar-nav {
+    display: flex;
+    gap: 24px;
+    font-family: var(--font-sans);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .ds-topbar-nav a { color: inherit; text-decoration: none; opacity: 0.7; }
+  .ds-topbar-nav a:hover { opacity: 1; color: var(--color-stamp); }
+  @media (max-width: 768px) { .ds-topbar-nav { display: none; } }
+
+  /* ===== HERO OF THIS DOCUMENT ===== */
+  .ds-cover { padding: 80px 0 60px; border-bottom: 1px solid var(--color-handwriting); }
+  .ds-cover .kicker { font-family: var(--font-sans); font-size: 12px; letter-spacing: 0.12em; color: var(--color-stamp); font-weight: 700; margin-bottom: 24px; }
+  .ds-cover h1 { font-family: var(--font-serif); font-size: clamp(48px, 7vw, 96px); line-height: 0.95; font-weight: 500; letter-spacing: -0.02em; margin-bottom: 24px; }
+  .ds-cover h1 em { font-style: italic; font-weight: 400; }
+  .ds-cover .lead { font-family: var(--font-serif); font-style: italic; font-size: 22px; color: var(--color-ink); max-width: 640px; line-height: 1.4; margin-bottom: 40px; }
+  .ds-cover .facts {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 32px;
+    padding-top: 32px;
+    border-top: 1px solid var(--color-handwriting);
+  }
+  .ds-cover .fact { }
+  .ds-cover .fact .label { font-family: var(--font-sans); font-size: 10px; letter-spacing: 0.1em; font-weight: 600; color: var(--color-stamp); margin-bottom: 6px; text-transform: uppercase; }
+  .ds-cover .fact .val { font-family: var(--font-serif); font-size: 16px; line-height: 1.4; }
+  @media (max-width: 768px) { .ds-cover .facts { grid-template-columns: 1fr 1fr; gap: 20px; } }
+
+  /* ===== SECTION MASTER ===== */
+  section.ds-section { padding: 80px 0; border-bottom: 1px solid var(--color-handwriting); scroll-margin-top: 80px; }
+  .ds-section-hd {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 40px;
+    padding-bottom: 40px;
+    margin-bottom: 48px;
+    border-bottom: 1px solid var(--color-handwriting);
+    align-items: baseline;
+  }
+  .ds-section-hd .num { font-family: var(--font-sans); font-size: 12px; letter-spacing: 0.1em; color: var(--color-handwriting); opacity: 0.7; font-weight: 600; }
+  .ds-section-hd .ttl { font-family: var(--font-serif); font-size: clamp(32px, 4vw, 52px); line-height: 1; font-weight: 500; letter-spacing: -0.01em; }
+  .ds-section-hd .sub { margin-top: 12px; font-family: var(--font-serif); font-style: italic; font-size: 18px; color: var(--color-ink); max-width: 640px; line-height: 1.4; }
+  @media (max-width: 768px) { .ds-section-hd { grid-template-columns: 1fr; gap: 16px; } }
+
+  .ds-subsection { margin-top: 56px; }
+  .ds-subsection-hd {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding-bottom: 12px;
+    margin-bottom: 24px;
+    border-bottom: 1px solid var(--color-handwriting);
+  }
+  .ds-subsection-hd h3 { font-family: var(--font-serif); font-size: 26px; font-weight: 500; letter-spacing: -0.005em; }
+  .ds-subsection-hd .meta { font-family: var(--font-sans); font-size: 11px; letter-spacing: 0.08em; font-weight: 500; opacity: 0.6; }
+
+  .ds-para { font-family: var(--font-serif); font-size: 16px; line-height: 1.7; max-width: var(--container-text); }
+  .ds-para + .ds-para { margin-top: 1em; }
+  .ds-para strong { font-weight: 600; }
+
+  /* ===== TOKENS TABLE ===== */
+  .ds-tok-tbl { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .ds-tok-tbl th, .ds-tok-tbl td { text-align: left; padding: 12px 16px 12px 0; border-bottom: 1px solid rgba(30,30,30,0.12); vertical-align: middle; }
+  .ds-tok-tbl th { font-family: var(--font-sans); font-size: 10px; letter-spacing: 0.1em; font-weight: 700; color: var(--color-handwriting); opacity: 0.7; text-transform: uppercase; padding-bottom: 10px; }
+  .ds-tok-tbl td code { font-family: var(--font-mono); font-size: 12px; background: var(--color-paper-light); padding: 3px 8px; border-radius: 2px; }
+  .ds-tok-tbl td.usage { font-family: var(--font-serif); color: var(--color-handwriting); opacity: 0.85; font-size: 14px; line-height: 1.4; }
+  .ds-tok-tbl .swatch-dot { display: inline-block; width: 22px; height: 22px; vertical-align: middle; margin-right: 10px; border: 1px solid rgba(0,0,0,0.1); }
+
+  /* ===== CODE BLOCK ===== */
+  .ds-code {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    line-height: 1.7;
+    background: var(--color-ink-deep);
+    color: var(--color-paper);
+    padding: 24px;
+    overflow-x: auto;
+    border-left: 3px solid var(--color-stamp);
+    white-space: pre;
+  }
+  .ds-code .c-c { color: #8B9BAE; font-style: italic; } /* comment */
+  .ds-code .c-k { color: #D99550; } /* keyword */
+  .ds-code .c-v { color: #EEE4D3; } /* value */
+  .ds-code .c-n { color: #A8C4E0; } /* name */
+  .ds-code .c-s { color: #C9A66D; } /* string */
+
+  /* ===== COMPONENT DEMO ===== */
+  .ds-demo {
+    background: var(--color-paper-light);
+    border: 1px solid rgba(30,30,30,0.12);
+    padding: 40px;
+    margin-bottom: 8px;
+  }
+  .ds-demo.on-ink { background: var(--color-ink); }
+  .ds-demo.on-stamp { background: var(--color-stamp); }
+  .ds-demo-caption {
+    font-family: var(--font-sans);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    font-weight: 500;
+    opacity: 0.55;
+    margin-bottom: 16px;
+    text-transform: uppercase;
+  }
+
+  /* ===== BUTTONS (PRODUCTION-READY) ===== */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 28px;
+    font-family: var(--font-sans);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    transition: all var(--dur-quick) var(--ease-standard);
+    position: relative;
+  }
+  .btn--primary { background: var(--color-stamp); color: var(--color-paper); }
+  .btn--primary:hover { background: var(--color-stamp-hover); transform: translateY(-1px); }
+  .btn--secondary { background: transparent; color: var(--color-handwriting); border: 1px solid var(--color-handwriting); }
+  .btn--secondary:hover { background: var(--color-handwriting); color: var(--color-paper); }
+  .btn--on-ink { background: var(--color-paper); color: var(--color-stamp); }
+  .btn--on-ink:hover { background: var(--color-tea); color: var(--color-handwriting); }
+  .btn--ghost-on-ink { background: transparent; color: var(--color-paper); border: 1px solid var(--color-paper); }
+  .btn--ghost-on-ink:hover { background: var(--color-paper); color: var(--color-ink); }
+  .btn--disabled { opacity: 0.4; cursor: not-allowed; pointer-events: none; }
+  .btn__arrow { transition: transform var(--dur-quick) var(--ease-out); }
+  .btn:hover .btn__arrow { transform: translateX(4px); }
+
+  /* ===== FORM FIELDS (EDITORIAL: no boxes, only lines) ===== */
+  .field { display: block; margin-bottom: 28px; }
+  .field__label {
+    display: block;
+    font-family: var(--font-sans);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+    opacity: 0.7;
+  }
+  .field__input {
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid var(--color-handwriting);
+    padding: 8px 0;
+    font-family: var(--font-serif);
+    font-size: 17px;
+    color: var(--color-handwriting);
+    outline: none;
+    transition: border-color var(--dur-quick) var(--ease-standard);
+  }
+  .field__input:focus { border-bottom-color: var(--color-stamp); border-bottom-width: 2px; padding-bottom: 7px; }
+  .field__input::placeholder { color: var(--color-handwriting); opacity: 0.3; font-style: italic; }
+  .field--on-dark .field__label { color: var(--color-paper); opacity: 0.7; }
+  .field--on-dark .field__input { color: var(--color-paper); border-bottom-color: rgba(238,228,211,0.4); }
+  .field--on-dark .field__input:focus { border-bottom-color: var(--color-paper); }
+  .field--on-dark .field__input::placeholder { color: var(--color-paper); opacity: 0.4; }
+  .field--error .field__input { border-bottom-color: var(--color-error); }
+  .field__error { font-family: var(--font-sans); font-size: 10px; letter-spacing: 0.08em; color: var(--color-error); margin-top: 6px; }
+  .checkbox { display: flex; gap: 12px; align-items: flex-start; font-family: var(--font-serif); font-size: 13px; line-height: 1.5; cursor: pointer; }
+  .checkbox input { margin-top: 3px; accent-color: var(--color-stamp); }
+
+  /* ===== CARDS & CHIPS ===== */
+  .chip {
+    display: inline-block;
+    font-family: var(--font-sans);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 5px 10px;
+    border: 1px solid var(--color-handwriting);
+  }
+  .chip--available { color: var(--color-success); border-color: var(--color-success); }
+  .chip--reserved { color: var(--color-tea); border-color: var(--color-tea); background: rgba(201,133,64,0.08); }
+  .chip--sold { color: var(--color-stamp); border-color: var(--color-stamp); opacity: 0.6; }
+
+  /* ===== PALETTE VIEW ===== */
+  .ds-palette { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; }
+  .ds-palette-cell {
+    aspect-ratio: 3/4;
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border: 1px solid rgba(0,0,0,0.08);
+  }
+  .ds-palette-cell.on-light { color: var(--color-handwriting); }
+  .ds-palette-cell.on-dark { color: var(--color-paper); }
+  .ds-palette-cell .pn { font-family: var(--font-sans); font-size: 11px; letter-spacing: 0.1em; font-weight: 700; }
+  .ds-palette-cell .pm { font-family: var(--font-mono); font-size: 10px; opacity: 0.8; line-height: 1.5; }
+  @media (max-width: 768px) { .ds-palette { grid-template-columns: 1fr 1fr 1fr; } }
+
+  /* ===== ADAPTIVE DEVICE FRAMES ===== */
+  .frames-row {
+    display: grid;
+    grid-template-columns: 1fr 320px 250px;
+    gap: 24px;
+    align-items: flex-start;
+    margin-bottom: 32px;
+  }
+  @media (max-width: 1100px) { .frames-row { grid-template-columns: 1fr; } }
+
+  .frame {
+    background: var(--color-paper-light);
+    border: 1px solid rgba(30,30,30,0.12);
+    overflow: hidden;
+    position: relative;
+  }
+  .frame-caption {
+    background: var(--color-handwriting);
+    color: var(--color-paper);
+    padding: 10px 16px;
+    font-family: var(--font-sans);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    font-weight: 600;
+    display: flex;
+    justify-content: space-between;
+  }
+  .frame-inner { position: relative; }
+  .frame--desktop .frame-inner { min-height: 520px; }
+  .frame--tablet .frame-inner { min-height: 560px; }
+  .frame--mobile .frame-inner { min-height: 520px; }
+
+  /* ===== MOBILE SCREEN (SWIPE DECK) ===== */
+  .mobile-screen {
+    width: 100%;
+    height: 560px;
+    background: var(--color-paper);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 28px 20px;
+    position: relative;
+    overflow: hidden;
+  }
+  .mobile-screen--ink { background: var(--color-ink); color: var(--color-paper); }
+  .mobile-screen--stamp { background: var(--color-stamp); color: var(--color-paper); }
+  .mobile-screen--tea { background: var(--color-tea); color: var(--color-handwriting); }
+  .mobile-screen-hdr { display: flex; justify-content: space-between; font-family: var(--font-sans); font-size: 9px; letter-spacing: 0.12em; font-weight: 600; opacity: 0.7; }
+  .mobile-screen-body { flex: 1; display: flex; flex-direction: column; justify-content: center; }
+  .mobile-screen-ftr { display: flex; justify-content: space-between; align-items: center; font-family: var(--font-sans); font-size: 9px; letter-spacing: 0.12em; opacity: 0.7; font-weight: 500; }
+  .mobile-hint { position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%); font-family: var(--font-sans); font-size: 8px; letter-spacing: 0.15em; opacity: 0.35; font-weight: 500; display: flex; align-items: center; gap: 6px; }
+  .mobile-hint::after { content: "↑"; font-size: 12px; animation: swipeHint 1.8s var(--ease-editorial) infinite; }
+  @keyframes swipeHint { 0%, 100% { transform: translateY(0); opacity: 0.35; } 50% { transform: translateY(-6px); opacity: 0.8; } }
+
+  .ms-title { font-family: var(--font-serif); font-weight: 500; font-size: 42px; line-height: 0.95; letter-spacing: -0.015em; }
+  .ms-title em { font-style: italic; font-weight: 400; }
+  .ms-title-xl { font-size: 54px; }
+  .ms-sub { font-family: var(--font-serif); font-style: italic; font-size: 15px; line-height: 1.4; margin-top: 12px; opacity: 0.85; }
+  .ms-body { font-family: var(--font-serif); font-size: 13px; line-height: 1.6; margin-top: 16px; opacity: 0.92; }
+  .ms-meta { font-family: var(--font-sans); font-size: 9px; letter-spacing: 0.12em; font-weight: 600; opacity: 0.7; }
+  .ms-btn {
+    display: inline-block;
+    font-family: var(--font-sans);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    font-weight: 700;
+    padding: 10px 18px;
+    background: var(--color-stamp);
+    color: var(--color-paper);
+    margin-top: 20px;
+    align-self: flex-start;
+  }
+  .mobile-screen--ink .ms-btn, .mobile-screen--stamp .ms-btn { background: var(--color-paper); color: var(--color-stamp); }
+  .mobile-screen--tea .ms-btn { background: var(--color-handwriting); color: var(--color-paper); }
+
+  /* ===== TABLET FRAME ===== */
+  .tablet-screen {
+    width: 100%;
+    min-height: 560px;
+    background: var(--color-paper);
+    padding: 32px 28px;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    gap: 24px;
+  }
+  .tablet-screen--ink { background: var(--color-ink); color: var(--color-paper); }
+
+  /* ===== DESKTOP MINI-WIREFRAME ===== */
+  .mini-wire {
+    padding: 32px;
+    min-height: 520px;
+    background: var(--color-paper);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .mini-wire--ink { background: var(--color-ink); color: var(--color-paper); }
+
+  /* ===== MOTION DEMO ===== */
+  .motion-demo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  @media (max-width: 768px) { .motion-demo-grid { grid-template-columns: 1fr; } }
+  .motion-card {
+    background: var(--color-paper-light);
+    padding: 24px;
+    border: 1px solid rgba(30,30,30,0.1);
+  }
+  .motion-card h4 { font-family: var(--font-sans); font-size: 11px; letter-spacing: 0.1em; font-weight: 700; color: var(--color-stamp); margin-bottom: 8px; text-transform: uppercase; }
+  .motion-card .hint { font-family: var(--font-mono); font-size: 11px; color: var(--color-handwriting); opacity: 0.6; display: block; margin-top: 6px; }
+  .motion-card .desc { font-family: var(--font-serif); font-size: 13px; line-height: 1.5; margin-top: 10px; }
+  .motion-card .preview {
+    height: 80px;
+    margin-top: 12px;
+    position: relative;
+    background: var(--color-paper);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .motion-card .preview .dot { width: 16px; height: 16px; background: var(--color-stamp); }
+  .motion-card .preview .txt { font-family: var(--font-serif); font-size: 18px; font-weight: 500; }
+
+  .fx-fadein-up .txt { animation: fxFadeInUp 1.2s var(--ease-editorial) infinite; }
+  @keyframes fxFadeInUp {
+    0% { opacity: 0; transform: translateY(30px); }
+    40%, 80% { opacity: 1; transform: translateY(0); }
+    100% { opacity: 0; transform: translateY(0); }
+  }
+  .fx-stagger .txt span { display: inline-block; animation: fxStagger 1.5s var(--ease-editorial) infinite; opacity: 0; }
+  .fx-stagger .txt span:nth-child(1) { animation-delay: 0s; }
+  .fx-stagger .txt span:nth-child(2) { animation-delay: 0.12s; }
+  .fx-stagger .txt span:nth-child(3) { animation-delay: 0.24s; }
+  .fx-stagger .txt span:nth-child(4) { animation-delay: 0.36s; }
+  @keyframes fxStagger {
+    0% { opacity: 0; transform: translateY(20px); }
+    30%, 80% { opacity: 1; transform: translateY(0); }
+    100% { opacity: 0; transform: translateY(0); }
+  }
+  .fx-underline .txt { position: relative; padding-bottom: 6px; }
+  .fx-underline .txt::after {
+    content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 1.5px; background: var(--color-stamp);
+    transform-origin: left; animation: fxUnderline 1.4s var(--ease-standard) infinite;
+  }
+  @keyframes fxUnderline {
+    0% { transform: scaleX(0); }
+    40% { transform: scaleX(1); transform-origin: left; }
+    60% { transform: scaleX(1); transform-origin: right; }
+    100% { transform: scaleX(0); transform-origin: right; }
+  }
+
+  /* ===== DO / DONT cards ===== */
+  .ds-do-dont { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 24px; }
+  @media (max-width: 768px) { .ds-do-dont { grid-template-columns: 1fr; } }
+  .ds-do, .ds-dont { padding: 24px; border: 1px solid; }
+  .ds-do { border-color: var(--color-success); background: rgba(37,102,74,0.04); }
+  .ds-dont { border-color: var(--color-error); background: rgba(178,58,43,0.03); }
+  .ds-do h5, .ds-dont h5 { font-family: var(--font-sans); font-size: 11px; letter-spacing: 0.1em; font-weight: 700; margin-bottom: 12px; text-transform: uppercase; }
+  .ds-do h5 { color: var(--color-success); }
+  .ds-dont h5 { color: var(--color-error); }
+  .ds-do ul, .ds-dont ul { list-style: none; }
+  .ds-do li, .ds-dont li { font-family: var(--font-serif); font-size: 14px; line-height: 1.55; padding-left: 20px; position: relative; margin-bottom: 6px; }
+  .ds-do li::before { content: '+'; position: absolute; left: 0; top: 0; color: var(--color-success); font-weight: 700; }
+  .ds-dont li::before { content: '×'; position: absolute; left: 0; top: 0; color: var(--color-error); font-weight: 700; }
+
+  /* ===== MATRIX TABLE (block adaptation) ===== */
+  .matrix-tbl { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .matrix-tbl th { font-family: var(--font-sans); font-size: 10px; letter-spacing: 0.1em; font-weight: 700; text-align: left; padding: 12px 8px; border-bottom: 1px solid var(--color-handwriting); text-transform: uppercase; background: var(--color-paper-light); }
+  .matrix-tbl td { padding: 14px 8px; border-bottom: 1px solid rgba(30,30,30,0.1); vertical-align: top; font-family: var(--font-serif); line-height: 1.5; }
+  .matrix-tbl td:first-child { font-weight: 600; width: 15%; }
+  .matrix-tbl td.snap { font-family: var(--font-mono); font-size: 11px; }
+
+  /* ===== TOC sidebar ===== */
+  .ds-toc {
+    position: sticky;
+    top: 80px;
+    max-height: calc(100vh - 100px);
+    overflow-y: auto;
+    padding: 24px 20px;
+    background: var(--color-paper-light);
+    border-left: 3px solid var(--color-stamp);
+    font-size: 12px;
+  }
+  .ds-toc h4 { font-family: var(--font-sans); font-size: 10px; letter-spacing: 0.12em; font-weight: 700; margin-bottom: 12px; color: var(--color-stamp); text-transform: uppercase; }
+  .ds-toc ol { list-style: none; counter-reset: toc; }
+  .ds-toc li { counter-increment: toc; margin-bottom: 6px; }
+  .ds-toc li::before { content: counter(toc, decimal-leading-zero); font-family: var(--font-mono); font-size: 10px; color: var(--color-stamp); margin-right: 8px; opacity: 0.7; }
+  .ds-toc a { color: var(--color-handwriting); text-decoration: none; font-family: var(--font-serif); font-size: 13px; line-height: 1.3; }
+  .ds-toc a:hover { color: var(--color-stamp); }
+
+  .ds-layout { display: grid; grid-template-columns: 220px 1fr; gap: 40px; }
+  @media (max-width: 1100px) { .ds-layout { grid-template-columns: 1fr; } .ds-toc { display: none; } }
+
+  /* ===== CHECKLIST ===== */
+  .check-item { display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid rgba(30,30,30,0.08); font-family: var(--font-serif); font-size: 14px; line-height: 1.4; }
+  .check-item::before { content: '☐'; font-size: 16px; opacity: 0.6; margin-top: -2px; }
+
+  /* ===== WIREFRAME PRIMITIVES ===== */
+  .photo-ph {
+    background:
+      linear-gradient(135deg, rgba(44,62,80,0.55), rgba(128,47,29,0.3)),
+      repeating-linear-gradient(45deg, rgba(30,30,30,0.04), rgba(30,30,30,0.04) 8px, transparent 8px, transparent 16px);
+    color: var(--color-paper);
+    position: relative;
+  }
+  .photo-ph::after { content: 'IMG'; position: absolute; top: 8px; right: 10px; font-family: var(--font-sans); font-size: 8px; letter-spacing: 0.1em; font-weight: 600; opacity: 0.6; }
+  .photo-ph--tea {
+    background:
+      linear-gradient(135deg, rgba(201,133,64,0.55), rgba(30,30,30,0.4)),
+      repeating-linear-gradient(45deg, rgba(30,30,30,0.04), rgba(30,30,30,0.04) 8px, transparent 8px, transparent 16px);
+  }
+  .photo-ph--ink {
+    background:
+      linear-gradient(to bottom right, var(--color-ink), var(--color-ink-deep));
+  }
+
+  /* ===== HIGHLIGHT BOX ===== */
+  .ds-hl {
+    background: var(--color-paper-deep);
+    padding: 24px 32px;
+    border-left: 3px solid var(--color-stamp);
+    margin: 24px 0;
+  }
+  .ds-hl-label { font-family: var(--font-sans); font-size: 10px; letter-spacing: 0.12em; font-weight: 700; color: var(--color-stamp); margin-bottom: 8px; text-transform: uppercase; }
+  .ds-hl-body { font-family: var(--font-serif); font-size: 15px; line-height: 1.6; }
+
+  /* ===== FINAL PAGE ===== */
+  .ds-end {
+    background: var(--color-ink);
+    color: var(--color-paper);
+    padding: 96px 40px;
+    text-align: center;
+    margin-top: 80px;
+  }
+  .ds-end h2 { font-family: var(--font-serif); font-size: 54px; font-weight: 500; line-height: 1; letter-spacing: -0.015em; margin-bottom: 20px; }
+  .ds-end h2 em { font-style: italic; font-weight: 400; color: var(--color-tea); }
+  .ds-end p { font-family: var(--font-serif); font-style: italic; font-size: 20px; opacity: 0.85; max-width: 640px; margin: 0 auto 32px; line-height: 1.4; }
+  .ds-end .mark { font-family: var(--font-sans); font-size: 11px; letter-spacing: 0.15em; color: var(--color-tea); font-weight: 700; margin-bottom: 24px; }
+
+  /* ===== HELPERS ===== */
+  .stack-xs > * + * { margin-top: 8px; }
+  .stack-sm > * + * { margin-top: 16px; }
+  .stack-md > * + * { margin-top: 24px; }
+  .stack-lg > * + * { margin-top: 40px; }
+  .mono { font-family: var(--font-mono); font-size: 12px; }
+  .row-split { display: flex; gap: 16px; flex-wrap: wrap; }
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="ds-topbar">
+  <div class="ds-container ds-topbar-inner">
+    <div class="ds-topbar-logo">SWIPE × ДОМ НА УТЁСЕ · DESIGN SYSTEM</div>
+    <nav class="ds-topbar-nav">
+      <a href="#tokens">Токены</a>
+      <a href="#adaptive">Адаптив</a>
+      <a href="#components">UI-Kit</a>
+      <a href="#motion">Моушн</a>
+      <a href="#handoff">Хэндофф</a>
+    </nav>
+  </div>
+</div>
+
+<!-- COVER -->
+<div class="ds-container ds-cover">
+  <div class="kicker">ЭТАП 02 · HANDOFF PACKAGE · v1.0</div>
+  <h1>Дизайн-система<br><em>для запуска разработки.</em></h1>
+  <p class="lead">Токены, адаптив из двенадцати мобильных swipe-экранов, UI-kit, моушн-система и технический handoff. Всё, что нужно команде агентов, чтобы начать код без догадок.</p>
+  <div class="facts">
+    <div class="fact"><div class="label">Breakpoints</div><div class="val">3 устройства · 5 точек</div></div>
+    <div class="fact"><div class="label">Компонентов</div><div class="val">14 production-ready</div></div>
+    <div class="fact"><div class="label">Mobile-спец</div><div class="val">12 swipe-экранов</div></div>
+    <div class="fact"><div class="label">Токенов</div><div class="val">CSS vars · 60+</div></div>
+  </div>
+</div>
+
+<div class="ds-container ds-layout">
+  <aside class="ds-toc">
+    <h4>Оглавление</h4>
+    <ol>
+      <li><a href="#tokens">Design Tokens</a></li>
+      <li><a href="#grid">Сетки и breakpoints</a></li>
+      <li><a href="#adaptive">Адаптивные раскладки</a></li>
+      <li><a href="#swipe">Mobile Swipe-экраны</a></li>
+      <li><a href="#components">UI-Kit</a></li>
+      <li><a href="#motion">Моушн-система</a></li>
+      <li><a href="#a11y">Доступность</a></li>
+      <li><a href="#perf">Производительность</a></li>
+      <li><a href="#seo">SEO и метаданные</a></li>
+      <li><a href="#content">Контент и тексты</a></li>
+      <li><a href="#handoff">Пакет хэндоффа</a></li>
+      <li><a href="#roadmap">Дорожная карта</a></li>
+    </ol>
+  </aside>
+
+  <main>
+
+<!-- ============================================================ -->
+<!-- § 01 · TOKENS -->
+<!-- ============================================================ -->
+<section class="ds-section" id="tokens">
+  <div class="ds-section-hd">
+    <div class="num">§ 01 · Tokens</div>
+    <div>
+      <div class="ttl">Design Tokens</div>
+      <div class="sub">Единый источник истины. Все цвета, шрифты, отступы, анимации — только через переменные. Ничего «захардкоженного» в компонентах.</div>
+    </div>
+  </div>
+
+  <div class="ds-subsection">
+    <div class="ds-subsection-hd">
+      <h3>Цвет</h3>
+      <span class="meta">12 TOKENS · CSS VARS</span>
+    </div>
+    <div class="ds-palette" style="margin-bottom: 32px;">
+      <div class="ds-palette-cell on-light" style="background: #EEE4D3;"><div><div class="pn">Paper</div></div><div class="pm">#EEE4D3<br>основной фон</div></div>
+      <div class="ds-palette-cell on-light" style="background: #F5EEDF;"><div><div class="pn">Paper light</div></div><div class="pm">#F5EEDF<br>карточки</div></div>
+      <div class="ds-palette-cell on-light" style="background: #C4BFAF;"><div><div class="pn">Dust</div></div><div class="pm">#C4BFAF<br>служебн.</div></div>
+      <div class="ds-palette-cell on-dark" style="background: #2C3E50;"><div><div class="pn">Ink</div></div><div class="pm">#2C3E50<br>ночные блоки</div></div>
+      <div class="ds-palette-cell on-dark" style="background: #1E1E1E;"><div><div class="pn">Handwriting</div></div><div class="pm">#1E1E1E<br>текст</div></div>
+      <div class="ds-palette-cell on-dark" style="background: #802F1D;"><div><div class="pn">Stamp</div></div><div class="pm">#802F1D<br>CTA, акцент</div></div>
+    </div>
+
+    <table class="ds-tok-tbl">
+      <thead><tr><th>Токен</th><th>Значение</th><th>Использование</th></tr></thead>
+      <tbody>
+        <tr><td><code>--color-paper</code></td><td><span class="swatch-dot" style="background: #EEE4D3;"></span><code>#EEE4D3</code></td><td class="usage">Основной фон сайта. Применяется в 70% площади. Никогда не заменяется на #FFF.</td></tr>
+        <tr><td><code>--color-paper-light</code></td><td><span class="swatch-dot" style="background: #F5EEDF;"></span><code>#F5EEDF</code></td><td class="usage">Карточки, модалки, плашки, skeleton-состояния на paper-фоне.</td></tr>
+        <tr><td><code>--color-paper-deep</code></td><td><span class="swatch-dot" style="background: #E5D9C3;"></span><code>#E5D9C3</code></td><td class="usage">Highlight-боксы, выделенные участки текста, таблицы-спеки.</td></tr>
+        <tr><td><code>--color-dust</code></td><td><span class="swatch-dot" style="background: #C4BFAF;"></span><code>#C4BFAF</code></td><td class="usage">Служебные линии, неактивные состояния, disabled-элементы.</td></tr>
+        <tr><td><code>--color-ink</code></td><td><span class="swatch-dot" style="background: #2C3E50;"></span><code>#2C3E50</code></td><td class="usage">Ночные блоки (05, 11), фон для ключевых фото, контрастные секции.</td></tr>
+        <tr><td><code>--color-ink-deep</code></td><td><span class="swatch-dot" style="background: #22303F;"></span><code>#22303F</code></td><td class="usage">Глубина для градиентов на ink, нижний слой overlay на фото.</td></tr>
+        <tr><td><code>--color-handwriting</code></td><td><span class="swatch-dot" style="background: #1E1E1E;"></span><code>#1E1E1E</code></td><td class="usage">Основной текст и заголовки. Теплее чистого чёрного.</td></tr>
+        <tr><td><code>--color-stamp</code></td><td><span class="swatch-dot" style="background: #802F1D;"></span><code>#802F1D</code></td><td class="usage">Главный акцент. CTA, активные пункты меню, ключевые цифры. Используется скупо.</td></tr>
+        <tr><td><code>--color-stamp-hover</code></td><td><span class="swatch-dot" style="background: #9A3822;"></span><code>#9A3822</code></td><td class="usage">Hover-состояние для всех stamp-элементов.</td></tr>
+        <tr><td><code>--color-tea</code></td><td><span class="swatch-dot" style="background: #C98540;"></span><code>#C98540</code></td><td class="usage">Второй акцент. Акценты на ink-фоне, hover-подсветки, охряные выделения.</td></tr>
+        <tr><td><code>--color-success</code></td><td><span class="swatch-dot" style="background: #25664A;"></span><code>#25664A</code></td><td class="usage">Статус «доступен», успех формы. Приглушённый зелёный.</td></tr>
+        <tr><td><code>--color-error</code></td><td><span class="swatch-dot" style="background: #B23A2B;"></span><code>#B23A2B</code></td><td class="usage">Ошибка формы. Чуть светлее stamp, чтобы не путать с акцентом.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="ds-subsection">
+    <div class="ds-subsection-hd">
+      <h3>Типографика</h3>
+      <span class="meta">3 ШРИФТА · 9 РОЛЕЙ</span>
+    </div>
+    <table class="ds-tok-tbl">
+      <thead><tr><th>Роль</th><th>Токен</th><th>Desktop / Tablet / Mobile</th><th>Вес · leading · tracking</th></tr></thead>
+      <tbody>
+        <tr><td>Hero H1</td><td><code>--type-h1-hero</code></td><td class="mono">96–110 / 72 / 52 px</td><td class="usage">Piazzolla · 500 · 0.92 · −0.02em</td></tr>
+        <tr><td>Section H2</td><td><code>--type-h2</code></td><td class="mono">56–72 / 42 / 34 px</td><td class="usage">Piazzolla · 500 · 1.02 · −0.01em</td></tr>
+        <tr><td>Block H3</td><td><code>--type-h3</code></td><td class="mono">36–42 / 30 / 26 px</td><td class="usage">Piazzolla · 500 · 1.05 · −0.005em</td></tr>
+        <tr><td>Lead italic</td><td><code>--type-lead</code></td><td class="mono">24 / 20 / 17 px</td><td class="usage">Piazzolla Italic · 400 · 1.3</td></tr>
+        <tr><td>Body</td><td><code>--type-body</code></td><td class="mono">17 / 16 / 15 px</td><td class="usage">Piazzolla · 400 · 1.65</td></tr>
+        <tr><td>Pull-quote</td><td><code>--type-pull</code></td><td class="mono">28 / 22 / 19 px</td><td class="usage">Piazzolla Italic · 400 · 1.4</td></tr>
+        <tr><td>Caption / meta</td><td><code>--type-meta</code></td><td class="mono">12 / 11 / 11 px</td><td class="usage">Alegreya Sans SC · 500 · 1.6 · +0.1em</td></tr>
+        <tr><td>CTA</td><td><code>--type-cta</code></td><td class="mono">13 / 12 / 12 px</td><td class="usage">Alegreya Sans SC · 700 · 1 · +0.1em</td></tr>
+        <tr><td>Mono (data)</td><td><code>--type-mono</code></td><td class="mono">12 / 12 / 11 px</td><td class="usage">JetBrains Mono · 400 · 1.5</td></tr>
+      </tbody>
+    </table>
+    <div class="ds-hl">
+      <div class="ds-hl-label">ВАЖНО</div>
+      <div class="ds-hl-body">Все font-size на мобильных — <strong>не менее 15px</strong> для body и <strong>не менее 11px</strong> для caption. Это требование читаемости для нашей аудитории 40–60 лет.</div>
+    </div>
+  </div>
+
+  <div class="ds-subsection">
+    <div class="ds-subsection-hd">
+      <h3>Пространство и отступы</h3>
+      <span class="meta">8-POINT SCALE</span>
+    </div>
+    <table class="ds-tok-tbl">
+      <thead><tr><th>Токен</th><th>Значение</th><th>Где применять</th></tr></thead>
+      <tbody>
+        <tr><td><code>--space-xxs</code></td><td class="mono">4px</td><td class="usage">Минимальные отступы внутри мелких компонентов</td></tr>
+        <tr><td><code>--space-xs</code></td><td class="mono">8px</td><td class="usage">Между label и input, между chip и текстом</td></tr>
+        <tr><td><code>--space-sm</code></td><td class="mono">12px</td><td class="usage">Между заголовком и подзаголовком</td></tr>
+        <tr><td><code>--space-md</code></td><td class="mono">16px</td><td class="usage">Между абзацами, строчный ритм</td></tr>
+        <tr><td><code>--space-lg</code></td><td class="mono">24px</td><td class="usage">Между подзаголовком и телом, внутри карточки</td></tr>
+        <tr><td><code>--space-xl</code></td><td class="mono">40px</td><td class="usage">Между заголовком секции и контентом</td></tr>
+        <tr><td><code>--space-2xl</code></td><td class="mono">64px</td><td class="usage">Между разделами внутри блока</td></tr>
+        <tr><td><code>--space-3xl</code></td><td class="mono">96px</td><td class="usage">Между блоками на desktop</td></tr>
+        <tr><td><code>--space-4xl</code></td><td class="mono">128px</td><td class="usage">Крупные паузы — Hero, финальный CTA</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="ds-subsection">
+    <div class="ds-subsection-hd">
+      <h3>CSS Variables · копировать в :root</h3>
+      <span class="meta">PRODUCTION-READY</span>
+    </div>
+<pre class="ds-code"><span class="c-c">/* ============================================ */
+/* DESIGN TOKENS · ДОМ НА УТЁСЕ · v1.0           */
+/* ============================================ */</span>
+
+<span class="c-k">:root</span> {
+  <span class="c-c">/* COLOR */</span>
+  <span class="c-n">--color-paper</span>: <span class="c-v">#EEE4D3</span>;
+  <span class="c-n">--color-paper-light</span>: <span class="c-v">#F5EEDF</span>;
+  <span class="c-n">--color-paper-deep</span>: <span class="c-v">#E5D9C3</span>;
+  <span class="c-n">--color-dust</span>: <span class="c-v">#C4BFAF</span>;
+  <span class="c-n">--color-ink</span>: <span class="c-v">#2C3E50</span>;
+  <span class="c-n">--color-ink-deep</span>: <span class="c-v">#22303F</span>;
+  <span class="c-n">--color-handwriting</span>: <span class="c-v">#1E1E1E</span>;
+  <span class="c-n">--color-stamp</span>: <span class="c-v">#802F1D</span>;
+  <span class="c-n">--color-stamp-hover</span>: <span class="c-v">#9A3822</span>;
+  <span class="c-n">--color-tea</span>: <span class="c-v">#C98540</span>;
+  <span class="c-n">--color-success</span>: <span class="c-v">#25664A</span>;
+  <span class="c-n">--color-error</span>: <span class="c-v">#B23A2B</span>;
+
+  <span class="c-c">/* TYPOGRAPHY */</span>
+  <span class="c-n">--font-serif</span>: <span class="c-s">"Piazzolla", Georgia, serif</span>;
+  <span class="c-n">--font-sans</span>: <span class="c-s">"Alegreya Sans SC", "Arial Narrow", sans-serif</span>;
+  <span class="c-n">--font-mono</span>: <span class="c-s">"JetBrains Mono", "SF Mono", monospace</span>;
+
+  <span class="c-c">/* SPACING (8pt) */</span>
+  <span class="c-n">--space-xxs</span>: <span class="c-v">4px</span>;   <span class="c-n">--space-xs</span>: <span class="c-v">8px</span>;
+  <span class="c-n">--space-sm</span>: <span class="c-v">12px</span>;  <span class="c-n">--space-md</span>: <span class="c-v">16px</span>;
+  <span class="c-n">--space-lg</span>: <span class="c-v">24px</span>;  <span class="c-n">--space-xl</span>: <span class="c-v">40px</span>;
+  <span class="c-n">--space-2xl</span>: <span class="c-v">64px</span>; <span class="c-n">--space-3xl</span>: <span class="c-v">96px</span>;
+  <span class="c-n">--space-4xl</span>: <span class="c-v">128px</span>;
+
+  <span class="c-c">/* LAYOUT */</span>
+  <span class="c-n">--container</span>: <span class="c-v">1320px</span>;
+  <span class="c-n">--gutter</span>: <span class="c-v">24px</span>;
+
+  <span class="c-c">/* MOTION */</span>
+  <span class="c-n">--ease-editorial</span>: <span class="c-v">cubic-bezier(0.22, 1, 0.36, 1)</span>;
+  <span class="c-n">--ease-standard</span>: <span class="c-v">cubic-bezier(0.4, 0, 0.2, 1)</span>;
+  <span class="c-n">--dur-quick</span>: <span class="c-v">240ms</span>;
+  <span class="c-n">--dur-standard</span>: <span class="c-v">420ms</span>;
+  <span class="c-n">--dur-slow</span>: <span class="c-v">720ms</span>;
+  <span class="c-n">--dur-cinematic</span>: <span class="c-v">1200ms</span>;
+}
+
+<span class="c-c">/* BREAKPOINTS */</span>
+<span class="c-k">@media</span> (max-width: 1100px) { <span class="c-c">/* tablet */</span> }
+<span class="c-k">@media</span> (max-width: 768px)  { <span class="c-c">/* mobile */</span> }
+<span class="c-k">@media</span> (max-width: 480px)  { <span class="c-c">/* mobile small */</span> }</pre>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- § 02 · GRID & BREAKPOINTS -->
+<!-- ============================================================ -->
+<section class="ds-section" id="grid">
+  <div class="ds-section-hd">
+    <div class="num">§ 02 · Grid</div>
+    <div>
+      <div class="ttl">Сетки и breakpoints</div>
+      <div class="sub">Три устройства, пять точек. Desktop — 12 колонок, tablet — 8, mobile — 4 (или full-bleed swipe).</div>
+    </div>
+  </div>
+
+  <table class="ds-tok-tbl">
+    <thead><tr><th>Устройство</th><th>Breakpoint</th><th>Columns</th><th>Gutter</th><th>Margin</th><th>Поведение</th></tr></thead>
+    <tbody>
+      <tr><td>Desktop XL</td><td class="mono">1440+ px</td><td class="mono">12</td><td class="mono">24 px</td><td class="mono">80 px</td><td class="usage">Container 1320, fluid margins до 80px</td></tr>
+      <tr><td>Desktop</td><td class="mono">1100–1439</td><td class="mono">12</td><td class="mono">24 px</td><td class="mono">40 px</td><td class="usage">Базовый desktop опыт</td></tr>
+      <tr><td>Tablet</td><td class="mono">768–1099</td><td class="mono">8</td><td class="mono">20 px</td><td class="mono">32 px</td><td class="usage">Split-layouts становятся stack, кроме Hero</td></tr>
+      <tr><td>Mobile</td><td class="mono">481–767</td><td class="mono">4 / swipe</td><td class="mono">16 px</td><td class="mono">20 px</td><td class="usage">Вертикальный swipe-deck, каждый блок — отдельный экран</td></tr>
+      <tr><td>Mobile S</td><td class="mono">≤ 480</td><td class="mono">swipe</td><td class="mono">16 px</td><td class="mono">16 px</td><td class="usage">Уменьшенная типографика, упрощённые композиции</td></tr>
+    </tbody>
+  </table>
+
+  <div class="ds-hl" style="margin-top: 32px;">
+    <div class="ds-hl-label">Mobile-концепция</div>
+    <div class="ds-hl-body">На mobile ≤ 767 px сайт превращается в <strong>вертикальный swipe-deck</strong>: каждый из 12 блоков — отдельный full-screen slide. Swipe вверх — следующий блок появляется с fade-in + slide-up. Это режиссура «листать книгу» вместо «бесконечный скролл». Технически — это scroll-snap с mandatory. Подробности ниже в § 04.</div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- § 03 · ADAPTIVE -->
+<!-- ============================================================ -->
+<section class="ds-section" id="adaptive">
+  <div class="ds-section-hd">
+    <div class="num">§ 03 · Adaptive</div>
+    <div>
+      <div class="ttl">Адаптивные раскладки</div>
+      <div class="sub">Матрица поведения каждого из 12 блоков на трёх устройствах. Это таблица для разработчика — что во что превращается.</div>
+    </div>
+  </div>
+
+  <table class="matrix-tbl">
+    <thead>
+      <tr><th>Блок</th><th>Desktop</th><th>Tablet</th><th>Mobile (swipe)</th><th class="snap">scroll-snap</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>01 · Hero</td>
+        <td>Full-bleed фото, split typo слева/CTA справа</td>
+        <td>Full-bleed фото, typo в левом верхнем, CTA внизу</td>
+        <td><strong>Full-screen slide.</strong> Centered stack: logo → H1 → italic → CTA → facts</td>
+        <td class="snap">start</td>
+      </tr>
+      <tr>
+        <td>02 · Категория</td>
+        <td>2 / 10 split, узкий label + широкий lead</td>
+        <td>8 cols stack: label сверху, lead ниже</td>
+        <td><strong>Full-screen slide.</strong> Lead-абзац 22pt, facts снизу в две строки</td>
+        <td class="snap">start</td>
+      </tr>
+      <tr>
+        <td>03 · Берег</td>
+        <td>7 / 5 split: текст+цифры / карта</td>
+        <td>Stack: заголовок → текст → карта → цифры в строку</td>
+        <td><strong>Два slide-экрана.</strong> 3a: заголовок + 3 цифры. 3b: карта + описание</td>
+        <td class="snap">start</td>
+      </tr>
+      <tr>
+        <td>04 · Соседи</td>
+        <td>Grid 3×3 · 9 карточек</td>
+        <td>Grid 2×5 · 9 карточек + placeholder</td>
+        <td><strong>Horizontal swipe-deck внутри slide.</strong> Carousel из 9 карточек, свайп влево-вправо</td>
+        <td class="snap">start</td>
+      </tr>
+      <tr>
+        <td>05 · Дача со Слонами</td>
+        <td>Split 5 / 7: текст-ink / фото</td>
+        <td>Stack: full-bleed фото → текст-ink снизу</td>
+        <td><strong>Full-screen slide на ink.</strong> Фото-overlay вверху 40%, typo снизу 60%</td>
+        <td class="snap">start</td>
+      </tr>
+      <tr>
+        <td>06 · Архитектура</td>
+        <td>Split 5 / 7: текст-таблица / мозаика 2×2</td>
+        <td>Stack: заголовок → spec-таблица → мозаика 2×2</td>
+        <td><strong>Slide + scroll.</strong> Экран-заголовок, затем вертикальный scroll по мозаике с caption</td>
+        <td class="snap">start</td>
+      </tr>
+      <tr>
+        <td>07 · Лот</td>
+        <td>Массивное «9» + таблица спецификаций</td>
+        <td>«9» уменьшен, таблица ниже</td>
+        <td><strong>Full-screen slide.</strong> «9» в центре 160pt, таблица снизу компактом</td>
+        <td class="snap">start</td>
+      </tr>
+      <tr>
+        <td>08 · Планировки</td>
+        <td>Интерактивный фасад + grid карточек</td>
+        <td>Уменьшенный фасад + 2×N карточки</td>
+        <td><strong>Slide + modal.</strong> Компактный фасад, тап по лоту = full-screen modal с планировкой</td>
+        <td class="snap">start</td>
+      </tr>
+      <tr>
+        <td>09 · Уклад</td>
+        <td>2×2 шахматка paper/ink с фото и текстом</td>
+        <td>Stack 1×4, чередование paper/ink сохранено</td>
+        <td><strong>4 slide-экрана подряд.</strong> Каждый кусок уклада — отдельный swipe: утро → день → закат → зима</td>
+        <td class="snap">start</td>
+      </tr>
+      <tr>
+        <td>10 · Инфраструктура</td>
+        <td>Горизонтальный реестр · 3 колонки строки</td>
+        <td>Stack rows, сохранена структура 3 колонок</td>
+        <td><strong>Slide + внутренний scroll.</strong> Строки полной ширины, label → выгода → meta по вертикали</td>
+        <td class="snap">start</td>
+      </tr>
+      <tr>
+        <td>11 · Дом построен</td>
+        <td>Full-bleed ink, крупная типо, CTA</td>
+        <td>То же, меньше кегль</td>
+        <td><strong>Full-screen slide на ink.</strong> «Дом построен» 64pt, body 14pt, CTA</td>
+        <td class="snap">start</td>
+      </tr>
+      <tr>
+        <td>12 · Команда</td>
+        <td>Grid 4×1, портретные карточки</td>
+        <td>Grid 2×2, те же карточки</td>
+        <td><strong>Horizontal swipe.</strong> Портреты по одному, листать влево-вправо</td>
+        <td class="snap">start</td>
+      </tr>
+      <tr>
+        <td>13 · Финал CTA</td>
+        <td>Split 7 / 5 на stamp: текст / форма</td>
+        <td>Stack: заголовок → форма ниже</td>
+        <td><strong>Full-screen slide на stamp.</strong> Форма занимает большую часть, текст сверху кратко</td>
+        <td class="snap">start</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="ds-subsection">
+    <div class="ds-subsection-hd">
+      <h3>Пример адаптации · Блок 01 Hero</h3>
+      <span class="meta">DESKTOP → TABLET → MOBILE</span>
+    </div>
+    <div class="frames-row">
+      <div class="frame frame--desktop">
+        <div class="frame-caption"><span>DESKTOP · 1440</span><span>12 cols</span></div>
+        <div class="frame-inner mini-wire mini-wire--ink">
+          <div style="display:flex; justify-content:space-between; color:var(--color-paper); opacity:0.8;">
+            <span class="ms-meta">ДОМ НА УТЁСЕ</span>
+            <span class="ms-meta">МЕСТО · АРХ · ЛОТ · КОМАНДА</span>
+          </div>
+          <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: end; color: var(--color-paper);">
+            <div style="font-family: var(--font-serif); font-size: 56px; line-height: 0.95; font-weight: 500;">Дом<br><em>на Утёсе.</em></div>
+            <div style="text-align: right;">
+              <div style="font-family: var(--font-serif); font-style: italic; font-size: 16px; margin-bottom: 16px; opacity: 0.9;">Клубный дом на первой линии Волги.</div>
+              <div class="btn btn--primary">ПРИВАТНЫЙ ПОКАЗ</div>
+            </div>
+          </div>
+          <div style="display: flex; justify-content: space-between; color: var(--color-paper); opacity: 0.7;">
+            <span class="ms-meta">9 ЛОТОВ · ПЕРВАЯ ЛИНИЯ · ПОТОЛКИ 3,5–4 М</span>
+            <span class="ms-meta">01 / 12</span>
+          </div>
+        </div>
+      </div>
+      <div class="frame frame--tablet">
+        <div class="frame-caption"><span>TABLET · 834</span><span>8 cols</span></div>
+        <div class="frame-inner tablet-screen tablet-screen--ink" style="color: var(--color-paper);">
+          <div style="display: flex; justify-content: space-between;">
+            <span class="ms-meta">ДОМ НА УТЁСЕ</span>
+            <span class="ms-meta" style="background: transparent; color: var(--color-paper); padding: 0; letter-spacing: 0.1em;">МЕНЮ ≡</span>
+          </div>
+          <div>
+            <div style="font-family: var(--font-serif); font-size: 64px; line-height: 0.95; font-weight: 500;">Дом<br><em>на Утёсе.</em></div>
+            <div style="font-family: var(--font-serif); font-style: italic; font-size: 18px; margin-top: 20px; opacity: 0.9; max-width: 320px;">Клубный дом на первой линии Волги. Просеки, Самара.</div>
+            <div class="btn btn--on-ink" style="margin-top: 24px;">ПРИВАТНЫЙ ПОКАЗ</div>
+          </div>
+          <div>
+            <div class="ms-meta" style="opacity: 0.7;">9 ЛОТОВ · ПЕРВАЯ ЛИНИЯ · ДОМ СДАН</div>
+          </div>
+        </div>
+      </div>
+      <div class="frame frame--mobile">
+        <div class="frame-caption"><span>MOBILE · 375</span><span>SWIPE</span></div>
+        <div class="frame-inner">
+          <div class="mobile-screen mobile-screen--ink">
+            <div class="mobile-screen-hdr"><span>ДОМ НА УТЁСЕ</span><span>01 / 12</span></div>
+            <div class="mobile-screen-body" style="justify-content: center; align-items: flex-start;">
+              <div class="ms-title ms-title-xl">Дом<br><em>на Утёсе.</em></div>
+              <div class="ms-sub">Клубный дом на первой линии Волги. Просеки, Самара.</div>
+              <div class="ms-btn">ПРИВАТНЫЙ ПОКАЗ →</div>
+            </div>
+            <div class="mobile-screen-ftr">
+              <span>9 ЛОТОВ · ПОТОЛКИ 3,5–4 М</span>
+            </div>
+            <div class="mobile-hint">SWIPE UP</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ds-subsection">
+    <div class="ds-subsection-hd">
+      <h3>Пример адаптации · Блок 09 Уклад → 4 swipe-экрана</h3>
+      <span class="meta">ОДИН DESKTOP-БЛОК = 4 MOBILE-SLIDE</span>
+    </div>
+    <div class="ds-para">Уклад на desktop — это шахматка 2×2 paper/ink. На mobile мы разбиваем её на <strong>четыре отдельных swipe-экрана</strong>, превращая статическую картину в кинематографический переход «утро → день → закат → зима». Это сильнее, чем длинный scroll.</div>
+    <div class="frames-row" style="grid-template-columns: repeat(4, 1fr); margin-top: 32px;">
+      <div class="frame frame--mobile">
+        <div class="frame-caption"><span>09a · УТРО</span><span>paper</span></div>
+        <div class="frame-inner">
+          <div class="mobile-screen">
+            <div class="mobile-screen-hdr"><span>УКЛАД</span><span>09 / 12</span></div>
+            <div class="mobile-screen-body">
+              <div class="ms-title">Утро<br><em>начинается<br>с террасы.</em></div>
+              <div class="ms-body">Волга внизу ещё в тумане, слышно теплоходы. Через пятнадцать минут — кофе и работа.</div>
+            </div>
+            <div class="mobile-screen-ftr"><span>ТЕРРАСА · ВОЛГА · 7:00</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="frame frame--mobile">
+        <div class="frame-caption"><span>09b · ДЕНЬ</span><span>photo</span></div>
+        <div class="frame-inner">
+          <div class="mobile-screen" style="background: linear-gradient(135deg, rgba(201,133,64,0.4), rgba(30,30,30,0.5)), repeating-linear-gradient(45deg, rgba(30,30,30,0.04), rgba(30,30,30,0.04) 10px, transparent 10px, transparent 20px); color: var(--color-paper);">
+            <div class="mobile-screen-hdr"><span>УКЛАД · ДЕНЬ</span><span>09 / 12</span></div>
+            <div class="mobile-screen-body">
+              <div class="ms-title" style="color: var(--color-paper);">Десять<br>минут<br><em>до центра.</em></div>
+              <div class="ms-body">Ленинградская, Волжский проспект, офис. И обратно — к закату над Жигулёвскими воротами.</div>
+            </div>
+            <div class="mobile-screen-ftr" style="color: var(--color-paper); opacity: 0.85;"><span>ГОРОД · 14:00</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="frame frame--mobile">
+        <div class="frame-caption"><span>09c · ЗАКАТ</span><span>tea</span></div>
+        <div class="frame-inner">
+          <div class="mobile-screen mobile-screen--tea">
+            <div class="mobile-screen-hdr"><span>УКЛАД · ВЕЧЕР</span><span>09 / 12</span></div>
+            <div class="mobile-screen-body">
+              <div class="ms-title">Закат<br>над<br><em>Жигулями.</em></div>
+              <div class="ms-body">Из окон видно правый берег, Жигулёвские ворота, закат каждый вечер с конца мая по конец августа.</div>
+            </div>
+            <div class="mobile-screen-ftr"><span>ТЕРРАСА · 21:30</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="frame frame--mobile">
+        <div class="frame-caption"><span>09d · ЗИМА</span><span>ink</span></div>
+        <div class="frame-inner">
+          <div class="mobile-screen mobile-screen--ink">
+            <div class="mobile-screen-hdr"><span>УКЛАД · ЗИМА</span><span>09 / 12</span></div>
+            <div class="mobile-screen-body">
+              <div class="ms-title" style="color: var(--color-paper);">Зимой<br>лес<br><em>замирает.</em></div>
+              <div class="ms-body" style="opacity: 0.9;">И над водой стоит тишина, которой в центре не бывает.</div>
+            </div>
+            <div class="mobile-screen-ftr" style="opacity: 0.7;"><span>БЕРЕГ · ДЕКАБРЬ</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- § 04 · SWIPE ARCHITECTURE -->
+<!-- ============================================================ -->
+<section class="ds-section" id="swipe">
+  <div class="ds-section-hd">
+    <div class="num">§ 04 · Swipe</div>
+    <div>
+      <div class="ttl">Mobile Swipe-архитектура</div>
+      <div class="sub">Техническая спецификация swipe-deck для mobile. Каждый блок — отдельный экран. Между экранами — fade-in + slide-up. Приложение-подобный опыт.</div>
+    </div>
+  </div>
+
+  <div class="ds-para"><strong>Концепция.</strong> На устройствах ≤ 767 px сайт работает не как привычный scroll, а как <strong>вертикальный карусель-deck</strong>. Пользователь свайпает вверх — следующий экран защёлкивается в viewport (scroll-snap mandatory). Каждый экран живёт сам по себе, с собственной типографикой, фоном и ритмом.</div>
+
+  <div class="ds-para">Это не авторский каприз. Для нашей аудитории (40–60 лет, частый просмотр с iPhone) это решает три задачи: <strong>1)</strong> каждый блок получает 100% внимания без «проскроллил и не заметил»; <strong>2)</strong> мы сохраняем редакционный ритм из desktop-версии в формате «страница за страницей»; <strong>3)</strong> сайт ощущается как премиум-приложение, а не как лендинг.</div>
+
+  <div class="ds-subsection">
+    <div class="ds-subsection-hd">
+      <h3>Карта swipe-deck · всего 18 экранов</h3>
+      <span class="meta">12 БЛОКОВ → 18 ЭКРАНОВ</span>
+    </div>
+<pre class="ds-code"><span class="c-c">MOBILE SWIPE-DECK · Full Sequence</span>
+
+<span class="c-n">01</span>   HERO                         <span class="c-c">// ink bg, большой H1</span>
+<span class="c-n">02</span>   КАТЕГОРИЯ                    <span class="c-c">// paper, lead-абзац</span>
+<span class="c-n">03a</span>  БЕРЕГ · цифры                <span class="c-c">// paper, 3 ключевых числа</span>
+<span class="c-n">03b</span>  БЕРЕГ · карта                <span class="c-c">// paper, svg карта + описание</span>
+<span class="c-n">04</span>   СОСЕДИ · horizontal swipe    <span class="c-c">// paper, carousel 9 карточек</span>
+<span class="c-n">05</span>   ДАЧА СО СЛОНАМИ              <span class="c-c">// ink, фото + pull-quote</span>
+<span class="c-n">06</span>   АРХИТЕКТУРА                  <span class="c-c">// paper, spec + мозаика</span>
+<span class="c-n">07</span>   ЛОТ · «9»                    <span class="c-c">// paper, число + таблица</span>
+<span class="c-n">08</span>   ПЛАНИРОВКИ                   <span class="c-c">// paper, фасад-схема</span>
+<span class="c-n">09a</span>  УКЛАД · утро                 <span class="c-c">// paper, типо</span>
+<span class="c-n">09b</span>  УКЛАД · день                 <span class="c-c">// фото, overlay</span>
+<span class="c-n">09c</span>  УКЛАД · закат                <span class="c-c">// tea bg</span>
+<span class="c-n">09d</span>  УКЛАД · зима                 <span class="c-c">// ink bg</span>
+<span class="c-n">10</span>   ИНФРАСТРУКТУРА               <span class="c-c">// paper, scroll внутри экрана</span>
+<span class="c-n">11</span>   ДОМ ПОСТРОЕН                 <span class="c-c">// ink, full-screen фото</span>
+<span class="c-n">12</span>   КОМАНДА · horizontal swipe   <span class="c-c">// paper, carousel портретов</span>
+<span class="c-n">13</span>   ФИНАЛ CTA                    <span class="c-c">// stamp, форма</span></pre>
+  </div>
+
+  <div class="ds-subsection">
+    <div class="ds-subsection-hd">
+      <h3>CSS для scroll-snap deck</h3>
+      <span class="meta">PRODUCTION-READY</span>
+    </div>
+<pre class="ds-code"><span class="c-c">/* Mobile swipe deck container */</span>
+<span class="c-k">@media</span> (max-width: 767px) {
+  <span class="c-k">html</span>, <span class="c-k">body</span> {
+    <span class="c-n">scroll-snap-type</span>: <span class="c-v">y mandatory</span>;
+    <span class="c-n">scroll-behavior</span>: <span class="c-v">smooth</span>;
+    <span class="c-n">overscroll-behavior-y</span>: <span class="c-v">contain</span>;
+  }
+  <span class="c-k">.slide</span> {
+    <span class="c-n">scroll-snap-align</span>: <span class="c-v">start</span>;
+    <span class="c-n">scroll-snap-stop</span>: <span class="c-v">always</span>;
+    <span class="c-n">min-height</span>: <span class="c-v">100svh</span>;  <span class="c-c">/* small viewport unit, учитывает Safari bar */</span>
+    <span class="c-n">min-height</span>: <span class="c-v">100dvh</span>;  <span class="c-c">/* dynamic viewport, если поддерживается */</span>
+    <span class="c-n">display</span>: <span class="c-v">flex</span>;
+    <span class="c-n">flex-direction</span>: <span class="c-v">column</span>;
+    <span class="c-n">justify-content</span>: <span class="c-v">space-between</span>;
+    <span class="c-n">padding</span>: <span class="c-v">24px 20px</span>;
+  }
+}</pre>
+  </div>
+
+  <div class="ds-subsection">
+    <div class="ds-subsection-hd">
+      <h3>Intersection Observer для появления</h3>
+      <span class="meta">JS · СМЕНА ЭКРАНА</span>
+    </div>
+<pre class="ds-code"><span class="c-c">// При каждом защёлкивании нового экрана</span>
+<span class="c-c">// запускаем staggered reveal типографики</span>
+
+<span class="c-k">const</span> slides = document.<span class="c-n">querySelectorAll</span>(<span class="c-s">'.slide'</span>);
+
+<span class="c-k">const</span> io = <span class="c-k">new</span> <span class="c-n">IntersectionObserver</span>((entries) =&gt; {
+  entries.<span class="c-n">forEach</span>(entry =&gt; {
+    <span class="c-k">if</span> (entry.isIntersecting) {
+      entry.target.<span class="c-n">classList</span>.add(<span class="c-s">'is-active'</span>);
+      <span class="c-c">// обновляем progress-индикатор</span>
+      <span class="c-n">updateProgress</span>(entry.target.dataset.index);
+    } <span class="c-k">else</span> {
+      entry.target.<span class="c-n">classList</span>.remove(<span class="c-s">'is-active'</span>);
+    }
+  });
+}, { threshold: 0.6 });
+
+slides.<span class="c-n">forEach</span>(s =&gt; io.<span class="c-n">observe</span>(s));</pre>
+  </div>
+
+  <div class="ds-subsection">
+    <div class="ds-subsection-hd">
+      <h3>UI навигации в swipe-режиме</h3>
+      <span class="meta">3 ЭЛЕМЕНТА</span>
+    </div>
+    <div class="motion-demo-grid">
+      <div class="motion-card">
+        <h4>Progress dots</h4>
+        <div class="desc">Вертикальная полоска точек справа. Активный — stamp, остальные — dust. Показывает, на каком из 18 экранов пользователь.</div>
+        <span class="hint">position: fixed · right: 8px · top: 50%</span>
+      </div>
+      <div class="motion-card">
+        <h4>Counter</h4>
+        <div class="desc">В правом верхнем углу каждого экрана: «01 / 18». Alegreya Sans SC, 10pt, opacity 0.7. Обновляется через Intersection Observer.</div>
+        <span class="hint">position: absolute · top: 24px · right: 20px</span>
+      </div>
+      <div class="motion-card">
+        <h4>Swipe hint</h4>
+        <div class="desc">«SWIPE UP ↑» внизу первого экрана. Анимированная. Исчезает после первого свайпа (localStorage flag).</div>
+        <span class="hint">animation: swipeHint 1.8s ease infinite</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="ds-do-dont">
+    <div class="ds-do">
+      <h5>Делать</h5>
+      <ul>
+        <li>Snap-точка всегда в начале экрана (scroll-snap-align: start)</li>
+        <li>Использовать 100svh / 100dvh, не 100vh — из-за Safari address bar</li>
+        <li>Отключать swipe-deck для tablet ≥ 768 — там обычный scroll</li>
+        <li>Обновлять URL (history.replaceState) с номером слайда для deep-linking</li>
+        <li>Поддерживать клавиатурную навигацию (Space / Arrow Down)</li>
+      </ul>
+    </div>
+    <div class="ds-dont">
+      <h5>Не делать</h5>
+      <ul>
+        <li>Не блокировать нативный скролл полностью (Scroll-Jack)</li>
+        <li>Не превращать в horizontal swipe — только вертикальный</li>
+        <li>Не прятать индикаторы прогресса — они часть ориентации</li>
+        <li>Не ставить scroll-snap-stop: always без тестов на низких устройствах</li>
+        <li>Не забывать про prefers-reduced-motion (отключать snap!)</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- § 05 · COMPONENTS -->
+<!-- ============================================================ -->
+<section class="ds-section" id="components">
+  <div class="ds-section-hd">
+    <div class="num">§ 05 · UI-Kit</div>
+    <div>
+      <div class="ttl">Компоненты интерфейса</div>
+      <div class="sub">Production-ready компоненты с состояниями. Кнопки, формы, карточки, чипы, модалки, тосты, меню.</div>
+    </div>
+  </div>
+
+  <div class="ds-subsection">
+    <div class="ds-subsection-hd">
+      <h3>Кнопки</h3>
+      <span class="meta">5 ВАРИАНТОВ · 4 СОСТОЯНИЯ</span>
+    </div>
+    <div class="ds-demo">
+      <div class="ds-demo-caption">PRIMARY (stamp fill)</div>
+      <div class="row-split">
+        <button class="btn btn--primary">ПРИВАТНЫЙ ПОКАЗ <span class="btn__arrow">→</span></button>
+        <button class="btn btn--primary" onmouseover="">ЗАПИСАТЬСЯ <span class="btn__arrow">→</span></button>
+        <button class="btn btn--primary btn--disabled">DISABLED <span class="btn__arrow">→</span></button>
+      </div>
+    </div>
+    <div class="ds-demo">
+      <div class="ds-demo-caption">SECONDARY (outline)</div>
+      <div class="row-split">
+        <button class="btn btn--secondary">О ДОМЕ <span class="btn__arrow">↓</span></button>
+        <button class="btn btn--secondary">ПОДРОБНЕЕ <span class="btn__arrow">→</span></button>
+      </div>
+    </div>
+    <div class="ds-demo on-ink">
+      <div class="ds-demo-caption" style="color: var(--color-paper); opacity: 0.7;">ON INK (paper fill, stamp text)</div>
+      <div class="row-split">
+        <button class="btn btn--on-ink">ЗАПИСАТЬСЯ НА ПОКАЗ <span class="btn__arrow">→</span></button>
+        <button class="btn btn--ghost-on-ink">СМОТРЕТЬ ПЛАНИРОВКИ <span class="btn__arrow">→</span></button>
+      </div>
+    </div>
+    <table class="ds-tok-tbl" style="margin-top: 24px;">
+      <thead><tr><th>Состояние</th><th>Изменение</th><th>Длительность</th></tr></thead>
+      <tbody>
+        <tr><td><code>:hover</code></td><td class="usage">background → stamp-hover, translateY(-1px)</td><td class="mono">240ms</td></tr>
+        <tr><td><code>:active</code></td><td class="usage">translateY(0), brightness(0.95)</td><td class="mono">120ms</td></tr>
+        <tr><td><code>:focus-visible</code></td><td class="usage">outline: 2px dashed paper + offset 3px</td><td class="mono">instant</td></tr>
+        <tr><td><code>:disabled</code></td><td class="usage">opacity 0.4, cursor not-allowed, без hover</td><td class="mono">—</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="ds-subsection">
+    <div class="ds-subsection-hd">
+      <h3>Формы · Поля без рамок</h3>
+      <span class="meta">EDITORIAL INPUT</span>
+    </div>
+    <div class="ds-demo">
+      <div class="ds-demo-caption">INPUTS ON PAPER</div>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 32px;">
+        <label class="field">
+          <span class="field__label">Имя</span>
+          <input class="field__input" placeholder="Ваше имя">
+        </label>
+        <label class="field">
+          <span class="field__label">Телефон</span>
+          <input class="field__input" placeholder="+7" value="+7 9">
+        </label>
+        <label class="field field--error">
+          <span class="field__label">Email</span>
+          <input class="field__input" value="some@">
+          <span class="field__error">НЕКОРРЕКТНЫЙ EMAIL</span>
+        </label>
+        <label class="field">
+          <span class="field__label">Предпочтительный контакт</span>
+          <input class="field__input" placeholder="Telegram / WhatsApp / звонок">
+        </label>
+      </div>
+      <label class="checkbox">
+        <input type="checkbox" checked>
+        <span>Я согласен на обработку персональных данных в соответствии с <u>политикой конфиденциальности</u>.</span>
+      </label>
+    </div>
+    <div class="ds-demo on-stamp">
+      <div class="ds-demo-caption" style="color: var(--color-paper); opacity: 0.7;">INPUTS ON STAMP</div>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 32px;">
+        <label class="field field--on-dark">
+          <span class="field__label">Имя</span>
+          <input class="field__input" placeholder="Ваше имя">
+        </label>
+        <label class="field field--on-dark">
+          <span class="field__label">Телефон</span>
+          <input class="field__input" placeholder="+7">
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <div class="ds-subsection">
+    <div class="ds-subsection-hd">
+      <h3>Статусы · Чипы</h3>
+      <span class="meta">3 СОСТОЯНИЯ ЛОТА</span>
+    </div>
+    <div class="ds-demo">
+      <div class="row-split">
+        <span class="chip chip--available">ДОСТУПЕН</span>
+        <span class="chip chip--reserved">В РЕЗЕРВЕ</span>
+        <span class="chip chip--sold">ПРОДАН</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="ds-subsection">
+    <div class="ds-subsection-hd">
+      <h3>Карточка лота</h3>
+      <span class="meta">PRODUCT CARD</span>
+    </div>
+    <div class="ds-demo">
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;">
+        <div style="background: var(--color-paper); padding: 24px; border: 1px solid rgba(30,30,30,0.15);">
+          <div style="display: flex; justify-content: space-between; padding-bottom: 12px; border-bottom: 1px solid rgba(30,30,30,0.15); margin-bottom: 12px;">
+            <span class="ms-meta" style="font-size: 11px; letter-spacing: 0.1em; font-weight: 700;">ЛОТ 09</span>
+            <span class="ms-meta" style="font-size: 11px; letter-spacing: 0.1em;">ЭТАЖ 3</span>
+          </div>
+          <div style="font-family: var(--font-serif); font-size: 13px; line-height: 2;">
+            <div style="display: flex; justify-content: space-between;"><span style="opacity: 0.6;">Квартира</span><span>148 м²</span></div>
+            <div style="display: flex; justify-content: space-between;"><span style="opacity: 0.6;">Террасы</span><span>62 м²</span></div>
+            <div style="display: flex; justify-content: space-between;"><span style="opacity: 0.6;">Вид</span><span>Жигулёвские ворота</span></div>
+          </div>
+          <div style="margin-top: 16px; padding-top: 12px; border-top: 1px solid rgba(30,30,30,0.1); display: flex; justify-content: space-between; align-items: center;">
+            <span class="chip chip--available">ДОСТУПЕН</span>
+            <span style="font-family: var(--font-sans); font-size: 10px; letter-spacing: 0.1em; color: var(--color-stamp); font-weight: 700;">УСЛОВИЯ →</span>
+          </div>
+        </div>
+        <div style="background: var(--color-paper); padding: 24px; border: 1px solid rgba(30,30,30,0.15);">
+          <div style="display: flex; justify-content: space-between; padding-bottom: 12px; border-bottom: 1px solid rgba(30,30,30,0.15); margin-bottom: 12px;">
+            <span class="ms-meta" style="font-size: 11px; letter-spacing: 0.1em; font-weight: 700;">ЛОТ 04</span>
+            <span class="ms-meta" style="font-size: 11px; letter-spacing: 0.1em;">ЭТАЖ 2</span>
+          </div>
+          <div style="font-family: var(--font-serif); font-size: 13px; line-height: 2;">
+            <div style="display: flex; justify-content: space-between;"><span style="opacity: 0.6;">Квартира</span><span>136 м²</span></div>
+            <div style="display: flex; justify-content: space-between;"><span style="opacity: 0.6;">Террасы</span><span>45 м²</span></div>
+            <div style="display: flex; justify-content: space-between;"><span style="opacity: 0.6;">Вид</span><span>Волга, юг</span></div>
+          </div>
+          <div style="margin-top: 16px; padding-top: 12px; border-top: 1px solid rgba(30,30,30,0.1); display: flex; justify-content: space-between; align-items: center;">
+            <span class="chip chip--reserved">В РЕЗЕРВЕ</span>
+          </div>
+        </div>
+        <div style="background: var(--color-paper-light); padding: 24px; border: 1px solid rgba(30,30,30,0.15); opacity: 0.7;">
+          <div style="display: flex; justify-content: space-between; padding-bottom: 12px; border-bottom: 1px solid rgba(30,30,30,0.15); margin-bottom: 12px;">
+            <span class="ms-meta" style="font-size: 11px; letter-spacing: 0.1em; font-weight: 700;">ЛОТ 01</span>
+            <span class="ms-meta" style="font-size: 11px; letter-spacing: 0.1em;">ЭТАЖ 1</span>
+          </div>
+          <div style="font-family: var(--font-serif); font-size: 13px; line-height: 2;">
+            <div style="display: flex; justify-content: space-between;"><span style="opacity: 0.6;">Квартира</span><span>120 м²</span></div>
+            <div style="display: flex; justify-content: space-between;"><span style="opacity: 0.6;">Террасы</span><span>38 м²</span></div>
+            <div style="display: flex; justify-content: space-between;"><span style="opacity: 0.6;">Вид</span><span>Сад, запад</span></div>
+          </div>
+          <div style="margin-top: 16px; padding-top: 12px; border-top: 1px solid rgba(30,30,30,0.1);">
+            <span class="chip chip--sold">ПРОДАН</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ds-subsection">
+    <div class="ds-subsection-hd">
+      <h3>Sticky Header · Desktop + Mobile</h3>
+      <span class="meta">NAVIGATION</span>
+    </div>
+    <div class="ds-demo" style="padding: 0;">
+      <div style="background: var(--color-paper); border-bottom: 1px solid var(--color-handwriting); padding: 16px 32px; display: flex; justify-content: space-between; align-items: center;">
+        <span class="ms-meta" style="font-size: 12px; font-weight: 700;">ДОМ НА УТЁСЕ</span>
+        <div style="display: flex; gap: 28px;">
+          <span class="ms-meta" style="font-size: 11px;">МЕСТО</span>
+          <span class="ms-meta" style="font-size: 11px;">АРХИТЕКТУРА</span>
+          <span class="ms-meta" style="font-size: 11px;">ЛОТ</span>
+          <span class="ms-meta" style="font-size: 11px;">КОМАНДА</span>
+        </div>
+        <button class="btn btn--primary" style="padding: 10px 20px; font-size: 11px;">ПРИВАТНЫЙ ПОКАЗ <span>→</span></button>
+      </div>
+      <div class="ds-demo-caption" style="padding: 12px 32px 16px;">DESKTOP · HEIGHT 64px · STICKY TOP</div>
+    </div>
+    <div class="ds-demo" style="padding: 0; max-width: 375px; margin: 16px 0 0;">
+      <div style="background: var(--color-paper); border-bottom: 1px solid var(--color-handwriting); padding: 14px 20px; display: flex; justify-content: space-between; align-items: center;">
+        <span class="ms-meta" style="font-size: 10px; font-weight: 700;">ДОМ НА УТЁСЕ</span>
+        <button class="btn btn--primary" style="padding: 8px 14px; font-size: 10px;">ПОКАЗ</button>
+        <span style="font-family: var(--font-sans); font-size: 18px; font-weight: 500;">≡</span>
+      </div>
+      <div class="ds-demo-caption" style="padding: 12px 20px 14px;">MOBILE · HEIGHT 52px · BURGER + CTA</div>
+    </div>
+  </div>
+
+  <div class="ds-subsection">
+    <div class="ds-subsection-hd">
+      <h3>Mobile Menu · Fullscreen</h3>
+      <span class="meta">OVERLAY · ink bg</span>
+    </div>
+    <div class="frames-row" style="grid-template-columns: 300px 1fr;">
+      <div class="frame frame--mobile">
+        <div class="frame-caption"><span>MOBILE MENU</span><span>ink</span></div>
+        <div class="frame-inner">
+          <div class="mobile-screen mobile-screen--ink">
+            <div class="mobile-screen-hdr"><span style="font-weight: 700;">ДОМ НА УТЁСЕ</span><span style="font-size: 14px;">×</span></div>
+            <div class="mobile-screen-body" style="gap: 16px; justify-content: flex-start; padding-top: 40px;">
+              <div style="font-family: var(--font-serif); font-size: 36px; font-weight: 500; letter-spacing: -0.01em; line-height: 1.3;">
+                <div>Место</div>
+                <div>Архитектура</div>
+                <div>Лот</div>
+                <div>Команда</div>
+                <div style="color: var(--color-tea); font-style: italic;">Приватный показ</div>
+              </div>
+            </div>
+            <div class="mobile-screen-ftr" style="justify-content: space-between;">
+              <span style="opacity: 0.7;">+7 (XXX) XXX-XX-XX</span>
+              <span style="opacity: 0.7;">TG · WA</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="ds-para"><strong>Поведение.</strong> Открывается как overlay со slide-down анимацией (720ms, ease-editorial). Ссылки — Piazzolla 36pt, активный пункт italic + цвет tea. Снизу — контакты.</div>
+        <div class="ds-para" style="margin-top: 16px;"><strong>Клик по ссылке.</strong> Меню закрывается с slide-up, страница плавно скроллится к нужному экрану (или защёлкивается в swipe-deck).</div>
+        <div class="ds-para" style="margin-top: 16px;"><strong>Accessibility.</strong> Trap focus внутри меню, Esc — закрывает, aria-expanded на бургере.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ds-subsection">
+    <div class="ds-subsection-hd">
+      <h3>Модальное окно · Заявка</h3>
+      <span class="meta">MODAL</span>
+    </div>
+    <div class="ds-demo" style="background: rgba(30,30,30,0.4); padding: 40px;">
+      <div style="background: var(--color-paper); padding: 48px; max-width: 520px; margin: 0 auto; position: relative;">
+        <span style="position: absolute; top: 20px; right: 24px; font-size: 22px; cursor: pointer; opacity: 0.6;">×</span>
+        <div class="ms-meta" style="color: var(--color-stamp); margin-bottom: 16px; font-weight: 700;">ПРИВАТНЫЙ ПОКАЗ</div>
+        <div style="font-family: var(--font-serif); font-size: 34px; font-weight: 500; line-height: 1.05; margin-bottom: 12px; letter-spacing: -0.01em;">Оставьте заявку.</div>
+        <div style="font-family: var(--font-serif); font-style: italic; font-size: 16px; color: var(--color-ink); margin-bottom: 28px;">Менеджер свяжется в течение часа, согласует время и приедет за вами.</div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+          <label class="field"><span class="field__label">Имя</span><input class="field__input" placeholder="Ваше имя"></label>
+          <label class="field"><span class="field__label">Телефон</span><input class="field__input" placeholder="+7"></label>
+        </div>
+        <label class="field"><span class="field__label">Как удобно связаться?</span><input class="field__input" placeholder="Telegram / WhatsApp / звонок"></label>
+        <label class="checkbox" style="margin-bottom: 20px;"><input type="checkbox" checked><span>Согласен на обработку персональных данных</span></label>
+        <button class="btn btn--primary" style="width: 100%;">ЗАПИСАТЬСЯ НА ПОКАЗ <span class="btn__arrow">→</span></button>
+      </div>
+    </div>
+  </div>
+
+  <div class="ds-subsection">
+    <div class="ds-subsection-hd">
+      <h3>Toast · Уведомления</h3>
+      <span class="meta">3 СОСТОЯНИЯ</span>
+    </div>
+    <div class="ds-demo">
+      <div style="display: flex; flex-direction: column; gap: 12px; max-width: 400px;">
+        <div style="background: var(--color-handwriting); color: var(--color-paper); padding: 16px 20px; display: flex; justify-content: space-between; align-items: center;">
+          <span style="font-family: var(--font-serif); font-size: 14px;">Заявка отправлена. Менеджер свяжется в течение часа.</span>
+          <span style="color: var(--color-tea); font-size: 18px;">✓</span>
+        </div>
+        <div style="background: var(--color-paper-deep); padding: 16px 20px; display: flex; justify-content: space-between; align-items: center; border-left: 3px solid var(--color-error);">
+          <span style="font-family: var(--font-serif); font-size: 14px;">Не удалось отправить. Проверьте подключение.</span>
+          <span style="color: var(--color-error); font-size: 18px;">!</span>
+        </div>
+        <div style="background: var(--color-paper-deep); padding: 16px 20px; display: flex; justify-content: space-between; align-items: center;">
+          <span style="font-family: var(--font-serif); font-size: 14px; font-style: italic;">Сохраняем вашу заявку…</span>
+          <span style="font-size: 18px; opacity: 0.4;">…</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ds-subsection">
+    <div class="ds-subsection-hd">
+      <h3>Skeleton · Loading states</h3>
+      <span class="meta">SHIMMER НА PAPER</span>
+    </div>
+    <div class="ds-demo">
+      <div style="max-width: 320px;">
+        <div style="height: 12px; background: var(--color-dust-light); margin-bottom: 16px; width: 40%;"></div>
+        <div style="height: 40px; background: var(--color-dust-light); margin-bottom: 20px; width: 80%;"></div>
+        <div style="height: 180px; background: var(--color-dust-light); margin-bottom: 16px;"></div>
+        <div style="height: 12px; background: var(--color-dust-light); margin-bottom: 6px;"></div>
+        <div style="height: 12px; background: var(--color-dust-light); margin-bottom: 6px; width: 90%;"></div>
+        <div style="height: 12px; background: var(--color-dust-light); width: 60%;"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- § 06 · MOTION -->
+<!-- ============================================================ -->
+<section class="ds-section" id="motion">
+  <div class="ds-section-hd">
+    <div class="num">§ 06 · Motion</div>
+    <div>
+      <div class="ttl">Моушн-система</div>
+      <div class="sub">Правила движения для категории. Всё должно быть медленно, плавно, «редакционно». Никакого bounce, никакого spring.</div>
+    </div>
+  </div>
+
+  <div class="ds-para"><strong>Философия.</strong> Сайт — это книга о доме. Анимация должна вести себя как бумага, как движение взгляда по странице: плавно, с паузами, без нервных колебаний. <strong>Ease-editorial</strong> — <code>cubic-bezier(0.22, 1, 0.36, 1)</code> — наш фирменный timing function. Он даёт тот самый «мягкий доезд» без ощущения механичности.</div>
+
+  <div class="ds-subsection">
+    <div class="ds-subsection-hd">
+      <h3>Каталог эффектов</h3>
+      <span class="meta">ЖИВЫЕ ПРЕВЬЮ</span>
+    </div>
+    <div class="motion-demo-grid">
+      <div class="motion-card">
+        <h4>Fade-in + slide-up</h4>
+        <div class="preview fx-fadein-up"><div class="txt">Самарская Ривьера</div></div>
+        <div class="desc">Базовый reveal блока при входе в viewport. Translate 30px → 0 + opacity 0 → 1.</div>
+        <span class="hint">720ms · ease-editorial · delay: 80ms</span>
+      </div>
+      <div class="motion-card">
+        <h4>Stagger · слова по одному</h4>
+        <div class="preview fx-stagger"><div class="txt"><span>Дом&nbsp;</span><span>на&nbsp;</span><span>Утёсе.</span></div></div>
+        <div class="desc">H1 появляется пословно. Используется только на Hero и заголовках ключевых блоков (05, 11).</div>
+        <span class="hint">each 120ms stagger · 1200ms total</span>
+      </div>
+      <div class="motion-card">
+        <h4>Underline draw</h4>
+        <div class="preview fx-underline"><div class="txt">о доме</div></div>
+        <div class="desc">Линия под ссылкой рисуется слева направо, на hover убирается справа налево.</div>
+        <span class="hint">420ms · transform-origin swap</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="ds-subsection">
+    <div class="ds-subsection-hd">
+      <h3>Правила по событиям</h3>
+      <span class="meta">ТАЙМИНГИ</span>
+    </div>
+    <table class="ds-tok-tbl">
+      <thead><tr><th>Событие</th><th>Что происходит</th><th>Длительность</th><th>Easing</th></tr></thead>
+      <tbody>
+        <tr><td>Page load</td><td class="usage">Hero typo stagger 120ms слова, CTA fade-in последним</td><td class="mono">1200ms</td><td class="mono">editorial</td></tr>
+        <tr><td>Scroll reveal блока</td><td class="usage">Translate 30px + opacity 0 → 1, как только 20% блока в viewport</td><td class="mono">720ms</td><td class="mono">editorial</td></tr>
+        <tr><td>Button hover</td><td class="usage">bg → stamp-hover, translateY(-1px), arrow → translateX(4px)</td><td class="mono">240ms</td><td class="mono">standard</td></tr>
+        <tr><td>Link hover</td><td class="usage">Underline scale-x 0 → 1 from left</td><td class="mono">420ms</td><td class="mono">standard</td></tr>
+        <tr><td>Card hover</td><td class="usage">translateY(-4px), box-shadow soft</td><td class="mono">420ms</td><td class="mono">editorial</td></tr>
+        <tr><td>Modal open</td><td class="usage">Backdrop fade + modal slide-up 40px</td><td class="mono">420ms</td><td class="mono">editorial</td></tr>
+        <tr><td>Modal close</td><td class="usage">Обратное действие, без задержки</td><td class="mono">240ms</td><td class="mono">standard</td></tr>
+        <tr><td>Mobile menu</td><td class="usage">Slide-down fullscreen, typo stagger по пунктам</td><td class="mono">720ms</td><td class="mono">editorial</td></tr>
+        <tr><td>Swipe slide change</td><td class="usage">Browser scroll-snap + reveal активного контента</td><td class="mono">600ms</td><td class="mono">snap native</td></tr>
+        <tr><td>Image parallax</td><td class="usage">translate3d(0, -20% * scroll-ratio, 0), только на desktop</td><td class="mono">continuous</td><td class="mono">linear</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="ds-do-dont">
+    <div class="ds-do">
+      <h5>Правильно</h5>
+      <ul>
+        <li>Ease-editorial для всего крупного (блоки, модалки, открытие меню)</li>
+        <li>Ease-standard для мелкого (hover, button, input focus)</li>
+        <li>Prefers-reduced-motion: все transitions → 0ms, scroll-snap off</li>
+        <li>Параллакс только на desktop, и только для Hero и блока 11</li>
+        <li>Stagger для заголовков — 80–120ms между элементами, не больше</li>
+      </ul>
+    </div>
+    <div class="ds-dont">
+      <h5>Неправильно</h5>
+      <ul>
+        <li>Spring / bounce / overshoot — категорически нет</li>
+        <li>Hover-эффекты на touch-устройствах (только active:)</li>
+        <li>Бесконечные loop-анимации фоном (только индикаторы hint)</li>
+        <li>Лоудеры-спиннеры вместо skeleton</li>
+        <li>Автовоспроизведение видео со звуком на Hero</li>
+        <li>Fade-out при закрытии модалки медленнее, чем open</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="ds-subsection">
+    <div class="ds-subsection-hd">
+      <h3>Snippets · Production CSS</h3>
+      <span class="meta">COPY-PASTE</span>
+    </div>
+<pre class="ds-code"><span class="c-c">/* Scroll reveal (Intersection Observer triggered) */</span>
+<span class="c-k">.reveal</span> {
+  <span class="c-n">opacity</span>: <span class="c-v">0</span>;
+  <span class="c-n">transform</span>: <span class="c-v">translateY(30px)</span>;
+  <span class="c-n">transition</span>:
+    <span class="c-v">opacity 720ms var(--ease-editorial),
+    transform 720ms var(--ease-editorial)</span>;
+}
+<span class="c-k">.reveal.is-active</span> {
+  <span class="c-n">opacity</span>: <span class="c-v">1</span>;
+  <span class="c-n">transform</span>: <span class="c-v">translateY(0)</span>;
+}
+
+<span class="c-c">/* Stagger words inside Hero */</span>
+<span class="c-k">.hero-title span</span> {
+  <span class="c-n">opacity</span>: <span class="c-v">0</span>;
+  <span class="c-n">transform</span>: <span class="c-v">translateY(20px)</span>;
+  <span class="c-n">animation</span>: <span class="c-v">heroWord 1200ms var(--ease-editorial) forwards</span>;
+}
+<span class="c-k">.hero-title span:nth-child(1)</span> { <span class="c-n">animation-delay</span>: <span class="c-v">0ms</span>; }
+<span class="c-k">.hero-title span:nth-child(2)</span> { <span class="c-n">animation-delay</span>: <span class="c-v">120ms</span>; }
+<span class="c-k">.hero-title span:nth-child(3)</span> { <span class="c-n">animation-delay</span>: <span class="c-v">240ms</span>; }
+
+<span class="c-k">@keyframes</span> heroWord {
+  <span class="c-n">to</span> { <span class="c-n">opacity</span>: <span class="c-v">1</span>; <span class="c-n">transform</span>: <span class="c-v">translateY(0)</span>; }
+}
+
+<span class="c-c">/* Respect user preference */</span>
+<span class="c-k">@media</span> (prefers-reduced-motion: reduce) {
+  <span class="c-k">*</span>, <span class="c-k">*::before</span>, <span class="c-k">*::after</span> {
+    <span class="c-n">animation-duration</span>: <span class="c-v">0.01ms</span> !important;
+    <span class="c-n">transition-duration</span>: <span class="c-v">0.01ms</span> !important;
+    <span class="c-n">scroll-behavior</span>: <span class="c-v">auto</span> !important;
+  }
+  <span class="c-k">html</span>, <span class="c-k">body</span> { <span class="c-n">scroll-snap-type</span>: <span class="c-v">none</span> !important; }
+}</pre>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- § 07 · ACCESSIBILITY -->
+<!-- ============================================================ -->
+<section class="ds-section" id="a11y">
+  <div class="ds-section-hd">
+    <div class="num">§ 07 · A11y</div>
+    <div>
+      <div class="ttl">Доступность</div>
+      <div class="sub">WCAG 2.1 AA как минимум. Сайт должны уметь читать люди 55+, кто-то пользуется увеличением шрифта, клавиатурной навигацией или скринридером.</div>
+    </div>
+  </div>
+
+  <div class="ds-subsection">
+    <div class="ds-subsection-hd">
+      <h3>Чеклист</h3>
+      <span class="meta">ОБЯЗАТЕЛЬНО К РЕЛИЗУ</span>
+    </div>
+    <div class="check-item">Контрастность всех пар: paper × handwriting ≥ 12:1, ink × paper ≥ 10:1, stamp × paper ≥ 7:1 (WCAG AAA для основного текста)</div>
+    <div class="check-item">Все интерактивные элементы доступны с клавиатуры (Tab, Shift+Tab, Enter, Space)</div>
+    <div class="check-item">Focus-visible состояние — 2px outline tea с offset 3px, никогда не outline: none</div>
+    <div class="check-item">Skip-link «К содержанию» для скринридеров (визуально скрыт до фокуса)</div>
+    <div class="check-item">Все изображения с alt-текстом (исторические — описание даты и авторства)</div>
+    <div class="check-item">Semantic HTML: header, main, section, article, nav, footer — правильно</div>
+    <div class="check-item">Heading hierarchy без пропусков: H1 → H2 → H3. Один H1 на страницу</div>
+    <div class="check-item">Формы с labels (или aria-label), errors связаны через aria-describedby</div>
+    <div class="check-item">Модалки с role="dialog", aria-modal, focus trap, возврат фокуса при закрытии</div>
+    <div class="check-item">Swipe-deck имеет альтернативу: клавиатура (Space/Arrow), обычный скролл при prefers-reduced-motion</div>
+    <div class="check-item">prefers-reduced-motion: анимации отключаются, scroll-snap: none</div>
+    <div class="check-item">Touch targets ≥ 44×44 px на mobile (Apple HIG)</div>
+    <div class="check-item">Lang="ru" на html, корректная локализация дат</div>
+    <div class="check-item">Автоматический тест: axe-core в CI, Lighthouse a11y score ≥ 95</div>
+  </div>
+
+  <div class="ds-subsection">
+    <div class="ds-subsection-hd">
+      <h3>Контрастность · Check</h3>
+      <span class="meta">WCAG RATIO</span>
+    </div>
+    <table class="ds-tok-tbl">
+      <thead><tr><th>Пара</th><th>Ratio</th><th>WCAG</th><th>Где применять</th></tr></thead>
+      <tbody>
+        <tr><td>handwriting on paper</td><td class="mono">12.4 : 1</td><td class="mono">AAA</td><td class="usage">Основной текст</td></tr>
+        <tr><td>paper on ink</td><td class="mono">10.8 : 1</td><td class="mono">AAA</td><td class="usage">Текст на ночных блоках</td></tr>
+        <tr><td>paper on stamp</td><td class="mono">7.2 : 1</td><td class="mono">AAA</td><td class="usage">CTA текст</td></tr>
+        <tr><td>stamp on paper</td><td class="mono">7.2 : 1</td><td class="mono">AAA</td><td class="usage">Акценты, ссылки</td></tr>
+        <tr><td>ink on paper</td><td class="mono">9.5 : 1</td><td class="mono">AAA</td><td class="usage">Italic leads, подзаголовки</td></tr>
+        <tr><td>tea on ink</td><td class="mono">4.8 : 1</td><td class="mono">AA</td><td class="usage">Акценты на ночных блоках (ТОЛЬКО для крупного текста)</td></tr>
+        <tr><td>dust on paper</td><td class="mono">1.6 : 1</td><td class="mono">—</td><td class="usage">ТОЛЬКО для декоративных линий, не для текста</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- § 08 · PERF -->
+<!-- ============================================================ -->
+<section class="ds-section" id="perf">
+  <div class="ds-section-hd">
+    <div class="num">§ 08 · Performance</div>
+    <div>
+      <div class="ttl">Производительность</div>
+      <div class="sub">Категория требует: сайт должен загружаться быстро даже с iPhone 8 на медленном интернете в загородном доме.</div>
+    </div>
+  </div>
+
+  <div class="ds-subsection">
+    <div class="ds-subsection-hd">
+      <h3>Performance бюджет</h3>
+      <span class="meta">LIGHTHOUSE TARGETS</span>
+    </div>
+    <table class="ds-tok-tbl">
+      <thead><tr><th>Метрика</th><th>Target</th><th>Max</th><th>Как достичь</th></tr></thead>
+      <tbody>
+        <tr><td>LCP (Largest Contentful Paint)</td><td class="mono">&lt; 2.0s</td><td class="mono">2.5s</td><td class="usage">Hero image: preload, AVIF/WebP, priority=high</td></tr>
+        <tr><td>FID (First Input Delay)</td><td class="mono">&lt; 50ms</td><td class="mono">100ms</td><td class="usage">Код-сплиттинг, defer non-critical JS</td></tr>
+        <tr><td>CLS (Cumulative Layout Shift)</td><td class="mono">&lt; 0.05</td><td class="mono">0.1</td><td class="usage">Размеры всех изображений заданы, fonts swap + preload</td></tr>
+        <tr><td>TTI (Time to Interactive)</td><td class="mono">&lt; 3.0s</td><td class="mono">4.0s</td><td class="usage">Минимум JS на первом экране</td></tr>
+        <tr><td>Total page weight</td><td class="mono">&lt; 1.5 MB</td><td class="mono">2.5 MB</td><td class="usage">Все фото lazy, ниже fold</td></tr>
+        <tr><td>Total JS</td><td class="mono">&lt; 150 KB</td><td class="mono">250 KB</td><td class="usage">Минимум библиотек, vanilla JS где возможно</td></tr>
+        <tr><td>Total CSS</td><td class="mono">&lt; 60 KB</td><td class="mono">100 KB</td><td class="usage">Critical CSS inline, остальное defer</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="ds-subsection">
+    <div class="ds-subsection-hd">
+      <h3>Изображения</h3>
+      <span class="meta">IMAGE STRATEGY</span>
+    </div>
+    <table class="ds-tok-tbl">
+      <thead><tr><th>Тип</th><th>Формат</th><th>Размеры</th><th>Loading</th></tr></thead>
+      <tbody>
+        <tr><td>Hero image</td><td class="mono">AVIF + WebP + JPG fallback</td><td class="usage">1920×1080 / 1280×720 / 640×360 · srcset</td><td class="mono">preload, priority high</td></tr>
+        <tr><td>Блок 04 · карточки</td><td class="mono">WebP + JPG</td><td class="usage">800×600 / 400×300 · srcset</td><td class="mono">lazy, decoding async</td></tr>
+        <tr><td>Блок 09 · уклад</td><td class="mono">WebP + JPG</td><td class="usage">1200×1800 / 600×900 · srcset</td><td class="mono">lazy</td></tr>
+        <tr><td>Блок 11 · full-bleed</td><td class="mono">AVIF + WebP</td><td class="usage">2400×1600 / 1200×800 / 800×533</td><td class="mono">lazy, но с preload hint на scroll</td></tr>
+        <tr><td>Портреты команды</td><td class="mono">WebP</td><td class="usage">600×800 / 300×400 · 2x retina</td><td class="mono">lazy</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="ds-subsection">
+    <div class="ds-subsection-hd">
+      <h3>Шрифты</h3>
+      <span class="meta">FONT LOADING</span>
+    </div>
+<pre class="ds-code"><span class="c-c">&lt;!-- В head --&gt;</span>
+&lt;<span class="c-k">link</span> rel=<span class="c-s">"preconnect"</span> href=<span class="c-s">"https://fonts.gstatic.com"</span> crossorigin&gt;
+&lt;<span class="c-k">link</span> rel=<span class="c-s">"preload"</span> as=<span class="c-s">"font"</span> type=<span class="c-s">"font/woff2"</span>
+      href=<span class="c-s">"/fonts/piazzolla-v33-cyrillic_latin-500.woff2"</span> crossorigin&gt;
+&lt;<span class="c-k">link</span> rel=<span class="c-s">"preload"</span> as=<span class="c-s">"font"</span> type=<span class="c-s">"font/woff2"</span>
+      href=<span class="c-s">"/fonts/alegreya-sans-sc-v23-cyrillic-500.woff2"</span> crossorigin&gt;
+
+<span class="c-c">/* В CSS */</span>
+<span class="c-k">@font-face</span> {
+  <span class="c-n">font-family</span>: <span class="c-s">'Piazzolla'</span>;
+  <span class="c-n">src</span>: <span class="c-v">url('/fonts/piazzolla-v33.woff2') format('woff2')</span>;
+  <span class="c-n">font-weight</span>: <span class="c-v">400 700</span>;
+  <span class="c-n">font-display</span>: <span class="c-v">swap</span>; <span class="c-c">/* показать fallback, заменить */</span>
+  <span class="c-n">unicode-range</span>: <span class="c-v">U+0000-024F, U+0400-04FF</span>; <span class="c-c">/* latin + cyrillic */</span>
+}</pre>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- § 09 · SEO -->
+<!-- ============================================================ -->
+<section class="ds-section" id="seo">
+  <div class="ds-section-hd">
+    <div class="num">§ 09 · SEO</div>
+    <div>
+      <div class="ttl">SEO и метаданные</div>
+      <div class="sub">Для недвижимости это второй источник заявок после прямой рекламы. Микроразметка обязательна.</div>
+    </div>
+  </div>
+
+  <div class="ds-subsection">
+    <div class="ds-subsection-hd">
+      <h3>Head-разметка</h3>
+      <span class="meta">COPY INTO &lt;head&gt;</span>
+    </div>
+<pre class="ds-code">&lt;<span class="c-k">meta</span> charset=<span class="c-s">"UTF-8"</span>&gt;
+&lt;<span class="c-k">meta</span> name=<span class="c-s">"viewport"</span> content=<span class="c-s">"width=device-width, initial-scale=1"</span>&gt;
+&lt;<span class="c-k">meta</span> name=<span class="c-s">"theme-color"</span> content=<span class="c-s">"#EEE4D3"</span>&gt;
+
+&lt;<span class="c-k">title</span>&gt;Дом на Утёсе — клубный дом на первой линии Волги в Самаре&lt;/<span class="c-k">title</span>&gt;
+&lt;<span class="c-k">meta</span> name=<span class="c-s">"description"</span> content=<span class="c-s">"Девять лотов на волжском утёсе на Просеках. Дом сдан в 2024. Потолки 3,5–4 м, панорамное остекление, подземный паркинг, управляющая компания. Приватный показ по записи."</span>&gt;
+
+<span class="c-c">&lt;!-- Open Graph --&gt;</span>
+&lt;<span class="c-k">meta</span> property=<span class="c-s">"og:type"</span> content=<span class="c-s">"website"</span>&gt;
+&lt;<span class="c-k">meta</span> property=<span class="c-s">"og:title"</span> content=<span class="c-s">"Дом на Утёсе"</span>&gt;
+&lt;<span class="c-k">meta</span> property=<span class="c-s">"og:description"</span> content=<span class="c-s">"Клубный дом на первой линии Волги. Просеки, Самара."</span>&gt;
+&lt;<span class="c-k">meta</span> property=<span class="c-s">"og:image"</span> content=<span class="c-s">"https://uteso.ru/og-image.jpg"</span>&gt;
+&lt;<span class="c-k">meta</span> property=<span class="c-s">"og:locale"</span> content=<span class="c-s">"ru_RU"</span>&gt;
+
+<span class="c-c">&lt;!-- Structured data · JSON-LD --&gt;</span>
+&lt;<span class="c-k">script</span> type=<span class="c-s">"application/ld+json"</span>&gt;
+{
+  <span class="c-s">"@context"</span>: <span class="c-s">"https://schema.org"</span>,
+  <span class="c-s">"@type"</span>: <span class="c-s">"ApartmentComplex"</span>,
+  <span class="c-s">"name"</span>: <span class="c-s">"Дом на Утёсе"</span>,
+  <span class="c-s">"address"</span>: {
+    <span class="c-s">"@type"</span>: <span class="c-s">"PostalAddress"</span>,
+    <span class="c-s">"streetAddress"</span>: <span class="c-s">"4-я просека"</span>,
+    <span class="c-s">"addressLocality"</span>: <span class="c-s">"Самара"</span>,
+    <span class="c-s">"addressCountry"</span>: <span class="c-s">"RU"</span>
+  },
+  <span class="c-s">"numberOfRooms"</span>: <span class="c-s">"9"</span>,
+  <span class="c-s">"telephone"</span>: <span class="c-s">"+7-XXX-XXX-XX-XX"</span>
+}
+&lt;/<span class="c-k">script</span>&gt;</pre>
+  </div>
+
+  <div class="ds-subsection">
+    <div class="ds-subsection-hd">
+      <h3>Title и description templates</h3>
+      <span class="meta">4 ЭКРАНА</span>
+    </div>
+    <table class="ds-tok-tbl">
+      <thead><tr><th>Страница</th><th>Title (до 60 симв.)</th><th>Description (до 155)</th></tr></thead>
+      <tbody>
+        <tr><td>Главная</td><td>Дом на Утёсе — клубный дом на первой линии Волги</td><td class="usage">Девять лотов на волжском утёсе. Дом сдан. Потолки 3,5–4 м, панорамное остекление, подземный паркинг. Приватный показ по записи.</td></tr>
+        <tr><td>Лонгрид о берегу</td><td>Самарская Ривьера. История берега от Постникова до Барбашиной</td><td class="usage">Волжский берег, застроенный купеческими династиями с 1877 года. Дачи Головкина, Соколовых, Сурошникова, Курлиной — соседи Дома на Утёсе.</td></tr>
+        <tr><td>Модалка лота</td><td>Лот 09 · этаж 3 · 148 м² · Дом на Утёсе</td><td class="usage">Квартира 148 м² с террасами 62 м² и видом на Жигулёвские ворота. Запросить условия.</td></tr>
+        <tr><td>404</td><td>Страница не найдена · Дом на Утёсе</td><td class="usage">Возможно, вы искали один из девяти лотов. Вернуться на главную.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- § 10 · CONTENT -->
+<!-- ============================================================ -->
+<section class="ds-section" id="content">
+  <div class="ds-section-hd">
+    <div class="num">§ 10 · Content</div>
+    <div>
+      <div class="ttl">Тексты и микрокопия</div>
+      <div class="sub">Система текстовых элементов — от кнопок до ошибок форм. Всё пишется одним голосом.</div>
+    </div>
+  </div>
+
+  <div class="ds-subsection">
+    <div class="ds-subsection-hd">
+      <h3>Tone of voice</h3>
+      <span class="meta">ГОЛОС БРЕНДА</span>
+    </div>
+    <div class="ds-do-dont">
+      <div class="ds-do">
+        <h5>Как пишем</h5>
+        <ul>
+          <li>Короткие предложения. Утвердительные.</li>
+          <li>Конкретные числа, даты, имена</li>
+          <li>Образные сравнения, вытекающие из архивов</li>
+          <li>Italic для ключевых слов в паре «факт + образ»</li>
+          <li>Тире как ритмический знак, не запятая</li>
+          <li>Прямая речь там, где уместна: «Приезжайте посмотреть»</li>
+        </ul>
+      </div>
+      <div class="ds-dont">
+        <h5>Как не пишем</h5>
+        <ul>
+          <li>«Элитный», «премиум», «эксклюзивный» — слова-пустышки</li>
+          <li>Восклицательные знаки</li>
+          <li>«Мы рады предложить вам»</li>
+          <li>«Успейте», «не упустите», «только 3 лота»</li>
+          <li>Длинные составные предложения</li>
+          <li>Смайлы, эмодзи, ❗</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="ds-subsection">
+    <div class="ds-subsection-hd">
+      <h3>Микрокопия · универсальный словарь</h3>
+      <span class="meta">UI STRINGS</span>
+    </div>
+    <table class="ds-tok-tbl">
+      <thead><tr><th>Контекст</th><th>Текст</th></tr></thead>
+      <tbody>
+        <tr><td>Главный CTA</td><td class="usage">Приватный показ</td></tr>
+        <tr><td>Повторный CTA</td><td class="usage">Записаться на показ</td></tr>
+        <tr><td>CTA лота</td><td class="usage">Запросить условия</td></tr>
+        <tr><td>Кнопка меню mobile</td><td class="usage">Меню</td></tr>
+        <tr><td>Форма: заголовок</td><td class="usage">Оставьте заявку</td></tr>
+        <tr><td>Форма: подзаголовок</td><td class="usage">Менеджер свяжется в течение часа, согласует время и приедет за вами.</td></tr>
+        <tr><td>Форма: поле имя</td><td class="usage">Имя / Ваше имя</td></tr>
+        <tr><td>Форма: поле телефон</td><td class="usage">Телефон / +7</td></tr>
+        <tr><td>Форма: поле контакт</td><td class="usage">Как удобно связаться? / Telegram, WhatsApp, звонок</td></tr>
+        <tr><td>Форма: согласие</td><td class="usage">Согласен на обработку персональных данных</td></tr>
+        <tr><td>Форма: отправить</td><td class="usage">Записаться на показ →</td></tr>
+        <tr><td>Успех</td><td class="usage">Заявка отправлена. Менеджер свяжется в течение часа.</td></tr>
+        <tr><td>Ошибка сети</td><td class="usage">Не удалось отправить. Проверьте подключение и попробуйте снова.</td></tr>
+        <tr><td>Ошибка поля</td><td class="usage">Укажите корректный номер телефона</td></tr>
+        <tr><td>Загрузка</td><td class="usage">Сохраняем вашу заявку…</td></tr>
+        <tr><td>404</td><td class="usage">Страница не найдена. Возможно, вы искали один из девяти лотов.</td></tr>
+        <tr><td>Статус: доступен</td><td class="usage">Доступен</td></tr>
+        <tr><td>Статус: в резерве</td><td class="usage">В резерве</td></tr>
+        <tr><td>Статус: продан</td><td class="usage">Продан</td></tr>
+        <tr><td>Swipe hint</td><td class="usage">Листайте ↑</td></tr>
+        <tr><td>Cookie-banner</td><td class="usage">Сайт использует cookies для аналитики и связи с вами. Продолжая, вы соглашаетесь.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- § 11 · HANDOFF -->
+<!-- ============================================================ -->
+<section class="ds-section" id="handoff">
+  <div class="ds-section-hd">
+    <div class="num">§ 11 · Handoff</div>
+    <div>
+      <div class="ttl">Пакет для разработки</div>
+      <div class="sub">Что должно быть передано команде агентов-разработчиков. Каждая строка — отдельный артефакт.</div>
+    </div>
+  </div>
+
+  <div class="ds-subsection">
+    <div class="ds-subsection-hd">
+      <h3>Файлы и артефакты</h3>
+      <span class="meta">DELIVERABLES</span>
+    </div>
+    <div class="check-item">dom-na-utese-concept.docx · концепция и справочник дач</div>
+    <div class="check-item">dom-na-utese-brief.docx · бриф на разработку, структура 12 блоков</div>
+    <div class="check-item">dom-na-utese-grids.html · макетные сетки каждого блока (desktop)</div>
+    <div class="check-item">dom-na-utese-design-system.html · этот документ (токены, адаптив, UI-kit, моушн)</div>
+    <div class="check-item">figma.com/file/... · Figma-файл с компонентами (если есть у команды Figma)</div>
+    <div class="check-item">content-master.md · финальные тексты всех 12 блоков</div>
+    <div class="check-item">assets/photography/ · папка с фотопродакшном (формируется отдельно)</div>
+    <div class="check-item">assets/fonts/ · WOFF2 Piazzolla и Alegreya Sans SC (самохостинг)</div>
+    <div class="check-item">assets/svg/ · карта берега, схема фасада, инфографика лота</div>
+    <div class="check-item">assets/logo/ · SVG логотип в трёх версиях (основной, на ink, знак)</div>
+  </div>
+
+  <div class="ds-subsection">
+    <div class="ds-subsection-hd">
+      <h3>Технологический стек · рекомендация</h3>
+      <span class="meta">STACK</span>
+    </div>
+    <table class="ds-tok-tbl">
+      <thead><tr><th>Слой</th><th>Рекомендация</th><th>Альтернатива</th></tr></thead>
+      <tbody>
+        <tr><td>Framework</td><td>Next.js 14 (app router)</td><td>Astro · Nuxt 3</td></tr>
+        <tr><td>Стили</td><td>Vanilla CSS с CSS vars</td><td>Tailwind + custom preset</td></tr>
+        <tr><td>Анимация</td><td>CSS + Intersection Observer</td><td>Framer Motion для сложных кейсов</td></tr>
+        <tr><td>Swipe-deck</td><td>CSS scroll-snap + IO</td><td>Embla Carousel (vertical mode)</td></tr>
+        <tr><td>Формы</td><td>Native HTML + React Hook Form</td><td>Formik</td></tr>
+        <tr><td>Валидация</td><td>Zod</td><td>Yup</td></tr>
+        <tr><td>Хостинг</td><td>Vercel · Cloudflare Pages</td><td>Selectel · Яндекс.Cloud</td></tr>
+        <tr><td>CRM интеграция</td><td>Webhook → amoCRM / Bitrix24</td><td>Telegram Bot API для уведомлений</td></tr>
+        <tr><td>Аналитика</td><td>Яндекс.Метрика + goals</td><td>Plausible / Umami для приватности</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="ds-subsection">
+    <div class="ds-subsection-hd">
+      <h3>Структура проекта</h3>
+      <span class="meta">FOLDER TREE</span>
+    </div>
+<pre class="ds-code"><span class="c-c">dom-na-utese/</span>
+├── <span class="c-k">src/</span>
+│   ├── <span class="c-k">app/</span>
+│   │   ├── layout.tsx
+│   │   ├── page.tsx           <span class="c-c">// landing, 12 блоков</span>
+│   │   └── shore/page.tsx     <span class="c-c">// лонгрид о берегу</span>
+│   ├── <span class="c-k">components/</span>
+│   │   ├── blocks/            <span class="c-c">// 12 блоков</span>
+│   │   │   ├── 01-Hero.tsx
+│   │   │   ├── 02-Category.tsx
+│   │   │   └── ...
+│   │   ├── ui/                <span class="c-c">// UI-kit</span>
+│   │   │   ├── Button.tsx
+│   │   │   ├── Field.tsx
+│   │   │   ├── Modal.tsx
+│   │   │   ├── Toast.tsx
+│   │   │   └── Chip.tsx
+│   │   ├── SwipeDeck.tsx      <span class="c-c">// mobile scroll-snap wrapper</span>
+│   │   └── Header.tsx
+│   ├── <span class="c-k">styles/</span>
+│   │   ├── tokens.css         <span class="c-c">// CSS vars</span>
+│   │   ├── reset.css
+│   │   └── global.css
+│   ├── <span class="c-k">lib/</span>
+│   │   ├── intersection.ts
+│   │   ├── analytics.ts
+│   │   └── crm.ts
+│   └── <span class="c-k">content/</span>
+│       ├── lots.json          <span class="c-c">// 9 лотов</span>
+│       ├── neighbors.json     <span class="c-c">// исторические дачи</span>
+│       └── team.json
+├── <span class="c-k">public/</span>
+│   ├── fonts/
+│   ├── images/
+│   └── og-image.jpg
+└── <span class="c-k">package.json</span></pre>
+  </div>
+
+  <div class="ds-subsection">
+    <div class="ds-subsection-hd">
+      <h3>Data schema для агентов</h3>
+      <span class="meta">JSON CONTRACTS</span>
+    </div>
+<pre class="ds-code"><span class="c-c">// content/lots.json</span>
+{
+  <span class="c-s">"lots"</span>: [
+    {
+      <span class="c-s">"id"</span>: <span class="c-s">"09"</span>,
+      <span class="c-s">"floor"</span>: <span class="c-v">3</span>,
+      <span class="c-s">"area"</span>: <span class="c-v">148</span>,
+      <span class="c-s">"terrace"</span>: <span class="c-v">62</span>,
+      <span class="c-s">"view"</span>: <span class="c-s">"Жигулёвские ворота"</span>,
+      <span class="c-s">"status"</span>: <span class="c-s">"available"</span>,
+      <span class="c-s">"planUrl"</span>: <span class="c-s">"/plans/lot-09.pdf"</span>,
+      <span class="c-s">"planImage"</span>: <span class="c-s">"/images/plans/lot-09.jpg"</span>
+    }
+  ]
+}
+
+<span class="c-c">// content/neighbors.json</span>
+{
+  <span class="c-s">"neighbors"</span>: [
+    {
+      <span class="c-s">"id"</span>: <span class="c-s">"dacha-slonov"</span>,
+      <span class="c-s">"order"</span>: <span class="c-v">1</span>,
+      <span class="c-s">"title"</span>: <span class="c-s">"Дача со Слонами"</span>,
+      <span class="c-s">"date"</span>: <span class="c-s">"1908–1909"</span>,
+      <span class="c-s">"address"</span>: <span class="c-s">"4-я просека"</span>,
+      <span class="c-s">"tag"</span>: <span class="c-s">"Федеральный памятник"</span>,
+      <span class="c-s">"image"</span>: <span class="c-s">"/images/neighbors/01.jpg"</span>,
+      <span class="c-s">"featured"</span>: <span class="c-v">true</span>
+    }
+  ]
+}
+
+<span class="c-c">// POST /api/lead</span>
+{
+  <span class="c-s">"name"</span>: <span class="c-s">"string"</span>,
+  <span class="c-s">"phone"</span>: <span class="c-s">"string"</span>,
+  <span class="c-s">"preferredContact"</span>: <span class="c-s">"telegram | whatsapp | call"</span>,
+  <span class="c-s">"lotId"</span>: <span class="c-s">"string?"</span>,
+  <span class="c-s">"source"</span>: <span class="c-s">"hero | built | final | lot-card"</span>,
+  <span class="c-s">"consent"</span>: <span class="c-s">"boolean"</span>
+}</pre>
+  </div>
+
+  <div class="ds-subsection">
+    <div class="ds-subsection-hd">
+      <h3>Analytics · События для Метрики</h3>
+      <span class="meta">GOALS</span>
+    </div>
+    <table class="ds-tok-tbl">
+      <thead><tr><th>Событие</th><th>Триггер</th><th>Параметры</th></tr></thead>
+      <tbody>
+        <tr><td><code>lead_form_open</code></td><td class="usage">Клик по любому CTA «Приватный показ»</td><td class="mono">source: hero | built | final | lot-card</td></tr>
+        <tr><td><code>lead_form_submit</code></td><td class="usage">Успешная отправка формы</td><td class="mono">source, lotId?, contactMethod</td></tr>
+        <tr><td><code>lot_card_open</code></td><td class="usage">Клик по карточке лота в блоке 08</td><td class="mono">lotId, lotStatus</td></tr>
+        <tr><td><code>neighbor_open</code></td><td class="usage">Клик по карточке дачи в блоке 04</td><td class="mono">neighborId</td></tr>
+        <tr><td><code>phone_click</code></td><td class="usage">Клик по номеру телефона</td><td class="mono">location: header | footer | final</td></tr>
+        <tr><td><code>messenger_click</code></td><td class="usage">Клик по Telegram/WhatsApp</td><td class="mono">channel: telegram | whatsapp</td></tr>
+        <tr><td><code>scroll_depth</code></td><td class="usage">Достиг 25/50/75/100% страницы</td><td class="mono">depth</td></tr>
+        <tr><td><code>swipe_slide</code></td><td class="usage">Mobile · достиг слайда N</td><td class="mono">slideIndex, totalSlides</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- § 12 · ROADMAP -->
+<!-- ============================================================ -->
+<section class="ds-section" id="roadmap">
+  <div class="ds-section-hd">
+    <div class="num">§ 12 · Roadmap</div>
+    <div>
+      <div class="ttl">Дорожная карта разработки</div>
+      <div class="sub">Что и в каком порядке делают агенты-разработчики. С маркерами готовности.</div>
+    </div>
+  </div>
+
+  <div class="ds-subsection">
+    <div class="ds-subsection-hd">
+      <h3>Спринт 1 · Фундамент (дни 1–3)</h3>
+      <span class="meta">FOUNDATION</span>
+    </div>
+    <div class="check-item">Инициализация Next.js проекта, установка зависимостей</div>
+    <div class="check-item">Загрузка шрифтов WOFF2 в /public/fonts, подключение через @font-face с preload</div>
+    <div class="check-item">tokens.css с полным CSS-vars набором из § 01</div>
+    <div class="check-item">global.css · reset, базовая типографика, smooth scroll</div>
+    <div class="check-item">Layout.tsx с Header, Footer, структура body</div>
+    <div class="check-item">Header: sticky, с CTA, бургер для mobile</div>
+    <div class="check-item">Footer: контакты, юридическая информация, ссылки</div>
+  </div>
+
+  <div class="ds-subsection">
+    <div class="ds-subsection-hd">
+      <h3>Спринт 2 · UI-kit (дни 3–5)</h3>
+      <span class="meta">COMPONENTS</span>
+    </div>
+    <div class="check-item">Button.tsx — 5 вариантов, 4 состояния, с иконкой-стрелкой</div>
+    <div class="check-item">Field.tsx — input, label, error, disabled, на paper и на dark</div>
+    <div class="check-item">Chip.tsx — 3 состояния (available / reserved / sold)</div>
+    <div class="check-item">Modal.tsx — с focus trap, ESC, backdrop click</div>
+    <div class="check-item">Toast.tsx — success, error, loading, с auto-dismiss</div>
+    <div class="check-item">Container.tsx — вспомогательный wrapper с grid</div>
+    <div class="check-item">MobileMenu.tsx — fullscreen overlay с slide-down анимацией</div>
+  </div>
+
+  <div class="ds-subsection">
+    <div class="ds-subsection-hd">
+      <h3>Спринт 3 · Блоки 1–6 (дни 5–9)</h3>
+      <span class="meta">HERO & LOCATION</span>
+    </div>
+    <div class="check-item">Block 01 Hero — full-bleed image, typography stagger, 2 CTA</div>
+    <div class="check-item">Block 02 Category — 2/10 split, адаптив к stack на mobile</div>
+    <div class="check-item">Block 03 Shore — split + карта + 3 числа внизу</div>
+    <div class="check-item">Block 04 Neighbors — grid 3×3 desktop, horizontal swipe mobile</div>
+    <div class="check-item">Block 05 Dacha — split 5/7 на ink, pull-quote</div>
+    <div class="check-item">Block 06 Architecture — split с мозаикой 2×2</div>
+    <div class="check-item">SVG карты берега и инфографики — inline, доступны</div>
+  </div>
+
+  <div class="ds-subsection">
+    <div class="ds-subsection-hd">
+      <h3>Спринт 4 · Блоки 7–13 (дни 9–14)</h3>
+      <span class="meta">PRODUCT & CTA</span>
+    </div>
+    <div class="check-item">Block 07 Lot — массивное «9», таблица спецификаций</div>
+    <div class="check-item">Block 08 Plans — интерактивный фасад, карточки лотов, modal с планировкой</div>
+    <div class="check-item">Block 09 Uklad — 2×2 desktop, 4 swipe-экрана mobile</div>
+    <div class="check-item">Block 10 Infrastructure — горизонтальный реестр строк</div>
+    <div class="check-item">Block 11 Built — full-bleed ink, большой CTA</div>
+    <div class="check-item">Block 12 Team — grid 4×1, swipe mobile</div>
+    <div class="check-item">Block 13 Final CTA — на stamp, форма, контакты</div>
+  </div>
+
+  <div class="ds-subsection">
+    <div class="ds-subsection-hd">
+      <h3>Спринт 5 · Mobile Swipe-deck (дни 14–16)</h3>
+      <span class="meta">SWIPE INTEGRATION</span>
+    </div>
+    <div class="check-item">SwipeDeck.tsx — wrapper, активирующийся при &lt; 768px</div>
+    <div class="check-item">CSS scroll-snap для всех блоков</div>
+    <div class="check-item">Разбивка блока 09 на 4 отдельных экрана на mobile</div>
+    <div class="check-item">Progress dots · sticky right side</div>
+    <div class="check-item">Counter «N / 18» на каждом экране</div>
+    <div class="check-item">Swipe hint на первом экране</div>
+    <div class="check-item">Клавиатурная навигация Space/Arrow</div>
+    <div class="check-item">Intersection Observer для reveal типографики и аналитики</div>
+  </div>
+
+  <div class="ds-subsection">
+    <div class="ds-subsection-hd">
+      <h3>Спринт 6 · Integration (дни 16–18)</h3>
+      <span class="meta">BACKEND & ANALYTICS</span>
+    </div>
+    <div class="check-item">API route /api/lead с валидацией Zod</div>
+    <div class="check-item">Интеграция с amoCRM / Bitrix24 через webhook</div>
+    <div class="check-item">Telegram бот для уведомления менеджера</div>
+    <div class="check-item">Яндекс.Метрика + все goals из § 11</div>
+    <div class="check-item">Robots.txt, sitemap.xml, favicons, Apple touch icons</div>
+    <div class="check-item">OG-image (generate via og-image API)</div>
+    <div class="check-item">JSON-LD микроразметка</div>
+  </div>
+
+  <div class="ds-subsection">
+    <div class="ds-subsection-hd">
+      <h3>Спринт 7 · QA & Launch (дни 18–21)</h3>
+      <span class="meta">BEFORE LAUNCH</span>
+    </div>
+    <div class="check-item">Lighthouse audit: Performance ≥ 90, A11y ≥ 95, SEO ≥ 95</div>
+    <div class="check-item">Тест на реальных устройствах: iPhone 12/14, iPad, Android mid-tier</div>
+    <div class="check-item">Тест в Chrome, Safari, Firefox, Edge</div>
+    <div class="check-item">Проверка всех hover-состояний на touch-устройствах</div>
+    <div class="check-item">Тест prefers-reduced-motion</div>
+    <div class="check-item">Клавиатурная навигация через всю страницу без мыши</div>
+    <div class="check-item">Screen reader test (VoiceOver / NVDA) хотя бы по hero</div>
+    <div class="check-item">Проверка всех форм: валидация, отправка, ошибки, успех</div>
+    <div class="check-item">Тест CRM интеграции с реальной тестовой заявкой</div>
+    <div class="check-item">Метрика: проверить, что все цели отстреливаются</div>
+    <div class="check-item">Deploy на production, настройка DNS, SSL</div>
+  </div>
+
+  <div class="ds-hl" style="margin-top: 40px;">
+    <div class="ds-hl-label">Итого</div>
+    <div class="ds-hl-body"><strong>21 день</strong> от старта до production-релиза. Можно сжать до 14 при параллельной работе двух агентов. При одном — 28–30 дней.</div>
+  </div>
+</section>
+
+  </main>
+</div>
+
+<!-- ============================================================ -->
+<!-- END -->
+<!-- ============================================================ -->
+<div class="ds-end">
+  <div class="mark">КОНЕЦ ПАКЕТА · ДИЗАЙН-СИСТЕМА v1.0</div>
+  <h2>Дизайн-система собрана.<br><em>Разработка может начинаться.</em></h2>
+  <p>Концепция, структура, палитра, шрифты, сетки, адаптив, UI-kit, моушн, accessibility, performance, SEO, контент, handoff-пакет и дорожная карта. Двенадцать блоков. Восемнадцать mobile swipe-экранов. Один дом на берегу Волги.</p>
+</div>
+
+<script>
+  // Небольшой helper: если на mobile, показываем hint scroll-snap
+  if (window.matchMedia('(max-width: 767px)').matches) {
+    document.documentElement.style.scrollSnapType = 'none'; // в документе отключено — чтобы сам гайд скроллился обычно
+  }
+</script>
+
+</body>
+</html>

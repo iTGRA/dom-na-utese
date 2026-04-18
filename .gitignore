@@ -27,3 +27,5 @@ Thumbs.db
 # Project-specific
 /bootstrap/ssr/
 .claude/settings.local.json
+/.npm-cache/
+/Visual/
