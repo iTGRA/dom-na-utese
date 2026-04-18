@@ -10,19 +10,21 @@ import { useLeadForm } from '../../hooks/useLeadForm';
  * Текст — дословно из dom-na-utese-brief.txt §БЛОК 8.
  * «Примечание. Цен нет. Есть только «запросить условия».» — категорийный сигнал.
  *
- * Данные по 9 лотам заглушечные — реальные статусы/площади контент-менеджер
- * задаёт через Orchid во второй итерации. Сейчас все показаны как «ДОСТУПЕН».
+ * Данные приходят из HomeController (таблица `lots`, сортировка по sort_order).
+ * Если props пустые (миграция не накатилась) — фолбэк на заглушечные 9 карточек.
  */
-const lots = [
-    { id: 1, floor: 1, areaRange: '140–160', view: 'Волга · Жигулёвские ворота', status: 'available' },
-    { id: 2, floor: 1, areaRange: '140–160', view: 'Волга · закат', status: 'available' },
-    { id: 3, floor: 1, areaRange: '140–160', view: 'Волга · Загородный парк', status: 'available' },
-    { id: 4, floor: 2, areaRange: '160–180', view: 'Волга · Жигулёвские ворота', status: 'available' },
-    { id: 5, floor: 2, areaRange: '160–180', view: 'Волга · закат', status: 'reserved' },
-    { id: 6, floor: 2, areaRange: '160–180', view: 'Волга · Загородный парк', status: 'available' },
-    { id: 7, floor: 3, areaRange: '180–220', view: 'Волга · Жигулёвские ворота', status: 'available' },
-    { id: 8, floor: 3, areaRange: '180–220', view: 'Волга · закат', status: 'available' },
-    { id: 9, floor: 3, areaRange: '180–220', view: 'Волга · Загородный парк', status: 'available' },
+
+// Фолбэк на случай пустой БД — держим, чтобы сайт не падал при dev-сбросах.
+const fallbackLots = [
+    { number: '01', floor: 1, areaTotal: '140–160 м²', view: 'Волга · Жигулёвские ворота', status: 'available' },
+    { number: '02', floor: 1, areaTotal: '140–160 м²', view: 'Волга · закат', status: 'available' },
+    { number: '03', floor: 1, areaTotal: '140–160 м²', view: 'Волга · Загородный парк', status: 'available' },
+    { number: '04', floor: 2, areaTotal: '160–180 м²', view: 'Волга · Жигулёвские ворота', status: 'available' },
+    { number: '05', floor: 2, areaTotal: '160–180 м²', view: 'Волга · закат', status: 'reserved' },
+    { number: '06', floor: 2, areaTotal: '160–180 м²', view: 'Волга · Загородный парк', status: 'available' },
+    { number: '07', floor: 3, areaTotal: '180–220 м²', view: 'Волга · Жигулёвские ворота', status: 'available' },
+    { number: '08', floor: 3, areaTotal: '180–220 м²', view: 'Волга · закат', status: 'available' },
+    { number: '09', floor: 3, areaTotal: '180–220 м²', view: 'Волга · Загородный парк', status: 'available' },
 ];
 
 const statusLabels = {
@@ -37,8 +39,10 @@ const statusClasses = {
     sold: 'border-stamp/60 text-stamp/60',
 };
 
-export default function Plans() {
+export default function Plans({ lots = [] }) {
     const { openLeadForm } = useLeadForm();
+
+    const items = lots.length ? lots : fallbackLots;
 
     return (
         <section
@@ -65,84 +69,90 @@ export default function Plans() {
 
                 {/* Editorial lot cards grid */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6">
-                    {lots.map((lot) => (
-                        <article
-                            key={lot.id}
-                            className={
-                                'group bg-paper border border-handwriting/15 p-6 flex flex-col ' +
-                                (lot.status === 'sold' ? 'opacity-70' : '')
-                            }
-                        >
-                            {/* Header: LOT / FLOOR */}
-                            <div className="grid grid-cols-2 gap-4 pb-4 border-b border-handwriting/15">
-                                <div>
-                                    <p className="font-sans text-[10px] font-bold tracking-[0.12em] uppercase text-handwriting/60 mb-1">
-                                        Лот
-                                    </p>
-                                    <p className="font-sans text-[22px] font-bold tnum">
-                                        {String(lot.id).padStart(2, '0')}
-                                    </p>
-                                </div>
-                                <div>
-                                    <p className="font-sans text-[10px] font-bold tracking-[0.12em] uppercase text-handwriting/60 mb-1">
-                                        Этаж
-                                    </p>
-                                    <p className="font-sans text-[22px] font-bold tnum">
-                                        {lot.floor}
-                                    </p>
-                                </div>
-                            </div>
+                    {items.map((lot) => {
+                        // Номер лота как число для lot_id (01 → 1).
+                        const lotIdNumeric = parseInt(lot.number, 10) || null;
+                        const areaText = lot.areaTotal || lot.areaApartment || 'По запросу';
 
-                            {/* Rows */}
-                            <dl className="py-5 space-y-2 flex-1">
-                                <div className="grid grid-cols-[110px_1fr] gap-3">
-                                    <dt className="font-sans text-[10px] font-bold tracking-[0.1em] uppercase text-handwriting/55">
-                                        Площадь
-                                    </dt>
-                                    <dd className="font-serif text-[14px] leading-[1.5] tnum">
-                                        {lot.areaRange} м²
-                                    </dd>
+                        return (
+                            <article
+                                key={lot.number}
+                                className={
+                                    'group bg-paper border border-handwriting/15 p-6 flex flex-col ' +
+                                    (lot.status === 'sold' ? 'opacity-70' : '')
+                                }
+                            >
+                                {/* Header: LOT / FLOOR */}
+                                <div className="grid grid-cols-2 gap-4 pb-4 border-b border-handwriting/15">
+                                    <div>
+                                        <p className="font-sans text-[10px] font-bold tracking-[0.12em] uppercase text-handwriting/60 mb-1">
+                                            Лот
+                                        </p>
+                                        <p className="font-sans text-[22px] font-bold tnum">
+                                            {lot.number}
+                                        </p>
+                                    </div>
+                                    <div>
+                                        <p className="font-sans text-[10px] font-bold tracking-[0.12em] uppercase text-handwriting/60 mb-1">
+                                            Этаж
+                                        </p>
+                                        <p className="font-sans text-[22px] font-bold tnum">
+                                            {lot.floor}
+                                        </p>
+                                    </div>
                                 </div>
-                                <div className="grid grid-cols-[110px_1fr] gap-3">
-                                    <dt className="font-sans text-[10px] font-bold tracking-[0.1em] uppercase text-handwriting/55">
-                                        Видовая
-                                    </dt>
-                                    <dd className="font-serif text-[14px] leading-[1.5]">
-                                        {lot.view}
-                                    </dd>
-                                </div>
-                                <div className="grid grid-cols-[110px_1fr] gap-3">
-                                    <dt className="font-sans text-[10px] font-bold tracking-[0.1em] uppercase text-handwriting/55">
-                                        Планировка
-                                    </dt>
-                                    <dd className="font-serif italic text-[13px] leading-[1.4] opacity-70">
-                                        По запросу менеджера
-                                    </dd>
-                                </div>
-                            </dl>
 
-                            {/* Footer */}
-                            <div className="pt-4 border-t border-handwriting/15 flex items-center justify-between">
-                                <span
-                                    className={
-                                        'font-sans text-[9px] font-bold tracking-[0.12em] uppercase px-[10px] py-[5px] border ' +
-                                        statusClasses[lot.status]
-                                    }
-                                >
-                                    {statusLabels[lot.status]}
-                                </span>
-                                <button
-                                    type="button"
-                                    onClick={() =>
-                                        openLeadForm({ source: 'lot-card', lot_id: lot.id })
-                                    }
-                                    className="font-sans text-[10px] font-bold tracking-[0.1em] uppercase text-stamp link-underline cursor-pointer"
-                                >
-                                    Условия →
-                                </button>
-                            </div>
-                        </article>
-                    ))}
+                                {/* Rows */}
+                                <dl className="py-5 space-y-2 flex-1">
+                                    <div className="grid grid-cols-[110px_1fr] gap-3">
+                                        <dt className="font-sans text-[10px] font-bold tracking-[0.1em] uppercase text-handwriting/55">
+                                            Площадь
+                                        </dt>
+                                        <dd className="font-serif text-[14px] leading-[1.5] tnum">
+                                            {areaText}
+                                        </dd>
+                                    </div>
+                                    <div className="grid grid-cols-[110px_1fr] gap-3">
+                                        <dt className="font-sans text-[10px] font-bold tracking-[0.1em] uppercase text-handwriting/55">
+                                            Видовая
+                                        </dt>
+                                        <dd className="font-serif text-[14px] leading-[1.5]">
+                                            {lot.view}
+                                        </dd>
+                                    </div>
+                                    <div className="grid grid-cols-[110px_1fr] gap-3">
+                                        <dt className="font-sans text-[10px] font-bold tracking-[0.1em] uppercase text-handwriting/55">
+                                            Планировка
+                                        </dt>
+                                        <dd className="font-serif italic text-[13px] leading-[1.4] opacity-70">
+                                            По запросу менеджера
+                                        </dd>
+                                    </div>
+                                </dl>
+
+                                {/* Footer */}
+                                <div className="pt-4 border-t border-handwriting/15 flex items-center justify-between">
+                                    <span
+                                        className={
+                                            'font-sans text-[9px] font-bold tracking-[0.12em] uppercase px-[10px] py-[5px] border ' +
+                                            (statusClasses[lot.status] || statusClasses.available)
+                                        }
+                                    >
+                                        {statusLabels[lot.status] || lot.status}
+                                    </span>
+                                    <button
+                                        type="button"
+                                        onClick={() =>
+                                            openLeadForm({ source: 'lot-card', lot_id: lotIdNumeric })
+                                        }
+                                        className="font-sans text-[10px] font-bold tracking-[0.1em] uppercase text-stamp link-underline cursor-pointer"
+                                    >
+                                        Условия →
+                                    </button>
+                                </div>
+                            </article>
+                        );
+                    })}
                 </div>
             </div>
         </section>

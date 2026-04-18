@@ -33,8 +33,12 @@ import FinalCTA from '../Components/Blocks/12-FinalCTA';
  *
  * `data-server-rendered` — QA-якорь, проверяется в smoke-тестах
  * (по соглашению с проектом «На Угле»).
+ *
+ * Пропсы:
+ *   lots             — массив 9 лотов из HomeController (для блока 08)
+ *   featuredNeighbor — один объект (Дача со Слонами) для блока 05
  */
-export default function Home() {
+export default function Home({ lots = [], featuredNeighbor = null }) {
     return (
         <Shell snap>
             <Head>
@@ -49,10 +53,10 @@ export default function Home() {
                 <Category />
                 <Shore />
                 {/* <Neighbors /> — отключён 2026-04-18, 8 соседей переехали на /shore#neighbors. Дача со Слонами — ниже, в блоке 05. */}
-                <Dacha />
+                <Dacha neighbor={featuredNeighbor} />
                 <Architecture />
                 <Lot />
-                <Plans />
+                <Plans lots={lots} />
                 <Uklad />
                 <Infrastructure />
                 <Built />

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Orchid;
 
+use App\Models\Lead;
 use Orchid\Platform\Dashboard;
 use Orchid\Platform\ItemPermission;
 use Orchid\Platform\OrchidServiceProvider;
@@ -34,36 +35,30 @@ class PlatformProvider extends OrchidServiceProvider
     public function menu(): array
     {
         return [
-            Menu::make('Get Started')
-                ->icon('bs.book')
-                ->title('Navigation')
+            Menu::make('Панель')
+                ->icon('bs.house')
+                ->title('Дом на Утёсе')
                 ->route(config('platform.index')),
 
-            Menu::make('Sample Screen')
+            Menu::make('Лоты')
+                ->icon('bs.building')
+                ->route('platform.dnu.lots')
+                ->active('*/dnu/lots*'),
+
+            Menu::make('Соседи по берегу')
                 ->icon('bs.collection')
-                ->route('platform.example')
-                ->badge(fn () => 6),
+                ->route('platform.dnu.neighbors')
+                ->active('*/dnu/neighbors*'),
 
-            Menu::make('Form Elements')
-                ->icon('bs.card-list')
-                ->route('platform.example.fields')
-                ->active('*/examples/form/*'),
+            Menu::make('Заявки')
+                ->icon('bs.inbox')
+                ->route('platform.dnu.leads')
+                ->active('*/dnu/leads*')
+                ->badge(fn () => Lead::where('status', 'new')->count(), Color::PRIMARY),
 
-            Menu::make('Layouts Overview')
-                ->icon('bs.window-sidebar')
-                ->route('platform.example.layouts'),
-
-            Menu::make('Grid System')
-                ->icon('bs.columns-gap')
-                ->route('platform.example.grid'),
-
-            Menu::make('Charts')
-                ->icon('bs.bar-chart')
-                ->route('platform.example.charts'),
-
-            Menu::make('Cards')
-                ->icon('bs.card-text')
-                ->route('platform.example.cards')
+            Menu::make('Настройки сайта')
+                ->icon('bs.gear')
+                ->route('platform.dnu.settings')
                 ->divider(),
 
             Menu::make(__('Users'))

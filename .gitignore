@@ -29,3 +29,6 @@ Thumbs.db
 .claude/settings.local.json
 /.npm-cache/
 /Visual/
+
+# Keep WebP/JPG deriv in /public/images/map/, exclude the 10MB source PNG
+/public/images/map/shore-map.png

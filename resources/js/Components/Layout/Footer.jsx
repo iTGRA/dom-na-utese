@@ -1,3 +1,5 @@
+import { usePage } from '@inertiajs/react';
+
 /**
  * Footer — техническая подошва сайта.
  *
@@ -8,11 +10,39 @@
  *   - Юридические данные застройщика
  *   - Разработано [агентство]
  *
- * Реальные юр.данные ещё не получены — ставим заглушки, которые
- * контент-менеджер позже заменит через Orchid.
+ * Все контакты, юр.данные и ссылки на документы берутся из глобального
+ * `settings` (share в HandleInertiaRequests → SiteSetting::cached).
+ * Пустые значения — показываем плейсхолдеры, чтобы сайт выглядел цельно
+ * до того, как контент-менеджер заполнит настройки.
  */
 export default function Footer() {
     const year = new Date().getFullYear();
+    const { props } = usePage();
+    const settings = props?.settings || {};
+
+    const phone = settings['contact.phone'];
+    const whatsapp = settings['contact.whatsapp'];
+    const telegram = settings['contact.telegram'];
+    const email = settings['contact.email'];
+    const office = settings['contact.office_address'];
+
+    const entity = settings['legal.entity_name'];
+    const inn = settings['legal.inn'];
+    const ogrn = settings['legal.ogrn'];
+    const declarationUrl = settings['legal.declaration_url'];
+    const privacyUrl = settings['legal.privacy_url'];
+
+    // Нормализуем ссылки: phone — tel:, whatsapp — wa.me, telegram — t.me,
+    // плюс фолбэки на href="#" если поле не заполнено (ссылка остаётся
+    // кликабельной, но никуда не ведёт — норма для плейсхолдера).
+    const phoneHref = phone ? `tel:${phone.replace(/[^\d+]/g, '')}` : '#';
+    const whatsappHref = whatsapp ? `https://wa.me/${whatsapp.replace(/[^\d]/g, '')}` : '#';
+    const telegramHref = telegram ? `https://t.me/${telegram.replace(/^@/, '')}` : '#';
+    const emailHref = email ? `mailto:${email}` : '#';
+
+    const declarationHref = declarationUrl || 'https://xn--80az8a.xn--d1aqf.xn--p1ai/';
+    const privacyHref = privacyUrl || '/privacy';
+
     return (
         <footer className="bg-ink text-paper py-[64px] md:py-[96px]">
             <div className="max-w-[1320px] mx-auto px-5 md:px-10 grid grid-cols-1 md:grid-cols-[2fr_1fr_1fr_1fr] gap-10">
@@ -26,6 +56,11 @@ export default function Footer() {
                     <p className="font-serif italic text-[15px] mt-4 opacity-80">
                         На одной линии с&nbsp;историей.
                     </p>
+                    {office && (
+                        <p className="font-serif text-[13px] mt-6 opacity-70 whitespace-pre-line leading-[1.5]">
+                            {office}
+                        </p>
+                    )}
                 </div>
 
                 <div>
@@ -33,10 +68,30 @@ export default function Footer() {
                         Контакты
                     </p>
                     <ul className="font-serif text-[14px] leading-[1.6] space-y-1">
-                        <li><a href="tel:+70000000000" className="link-underline">Телефон</a></li>
-                        <li><a href="https://wa.me/" target="_blank" rel="noopener" className="link-underline">WhatsApp</a></li>
-                        <li><a href="https://t.me/" target="_blank" rel="noopener" className="link-underline">Telegram</a></li>
-                        <li><a href="mailto:info@dom-na-utese.ru" className="link-underline">info@dom-na-utese.ru</a></li>
+                        <li>
+                            <a href={phoneHref} className="link-underline">
+                                {phone || 'Телефон'}
+                            </a>
+                        </li>
+                        {whatsapp && (
+                            <li>
+                                <a href={whatsappHref} target="_blank" rel="noopener" className="link-underline">
+                                    WhatsApp
+                                </a>
+                            </li>
+                        )}
+                        {telegram && (
+                            <li>
+                                <a href={telegramHref} target="_blank" rel="noopener" className="link-underline">
+                                    Telegram
+                                </a>
+                            </li>
+                        )}
+                        <li>
+                            <a href={emailHref} className="link-underline">
+                                {email || 'info@dom-na-utese.ru'}
+                            </a>
+                        </li>
                     </ul>
                 </div>
 
@@ -57,15 +112,28 @@ export default function Footer() {
                         Документы
                     </p>
                     <ul className="font-serif text-[14px] leading-[1.6] space-y-1">
-                        <li><a href="https://xn--80az8a.xn--d1aqf.xn--p1ai/" target="_blank" rel="noopener" className="link-underline">Проектная декларация · наш.дом.рф</a></li>
-                        <li><a href="/privacy" className="link-underline">Политика конфиденциальности</a></li>
+                        <li>
+                            <a href={declarationHref} target="_blank" rel="noopener" className="link-underline">
+                                Проектная декларация · наш.дом.рф
+                            </a>
+                        </li>
+                        <li>
+                            <a href={privacyHref} className="link-underline">
+                                Политика конфиденциальности
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>
 
             <div className="max-w-[1320px] mx-auto px-5 md:px-10 mt-[64px] pt-[24px] border-t border-paper/15 flex flex-col md:flex-row justify-between gap-3 font-sans text-[10px] tracking-[0.1em] uppercase opacity-50">
-                <span>© {year} · Дом на Утёсе</span>
-                <span>Самара · ул. Максима Горького, ориентир: первая линия Волги</span>
+                <span>© {year} · Дом на Утёсе{entity ? ` · ${entity}` : ''}</span>
+                <span>
+                    {inn && `ИНН ${inn}`}
+                    {inn && ogrn && ' · '}
+                    {ogrn && `ОГРН ${ogrn}`}
+                    {!inn && !ogrn && 'Самара · ул. Максима Горького, первая линия Волги'}
+                </span>
             </div>
         </footer>
     );

@@ -2,6 +2,13 @@
 
 declare(strict_types=1);
 
+use App\Orchid\Screens\DomNaUtese\Lead\LeadListScreen;
+use App\Orchid\Screens\DomNaUtese\Lead\LeadShowScreen;
+use App\Orchid\Screens\DomNaUtese\Lot\LotEditScreen;
+use App\Orchid\Screens\DomNaUtese\Lot\LotListScreen;
+use App\Orchid\Screens\DomNaUtese\Neighbor\NeighborEditScreen;
+use App\Orchid\Screens\DomNaUtese\Neighbor\NeighborListScreen;
+use App\Orchid\Screens\DomNaUtese\Settings\SiteSettingsScreen;
 use App\Orchid\Screens\Examples\ExampleActionsScreen;
 use App\Orchid\Screens\Examples\ExampleCardsScreen;
 use App\Orchid\Screens\Examples\ExampleChartsScreen;
@@ -100,5 +107,71 @@ Route::screen('/examples/layouts', ExampleLayoutsScreen::class)->name('platform.
 Route::screen('/examples/grid', ExampleGridScreen::class)->name('platform.example.grid');
 Route::screen('/examples/charts', ExampleChartsScreen::class)->name('platform.example.charts');
 Route::screen('/examples/cards', ExampleCardsScreen::class)->name('platform.example.cards');
+
+/*
+|--------------------------------------------------------------------------
+| Дом на Утёсе · контент-админка
+|--------------------------------------------------------------------------
+| Лоты, соседи по берегу, заявки, настройки сайта.
+| Все экраны в App\Orchid\Screens\DomNaUtese\*.
+*/
+
+// Лоты
+Route::screen('dnu/lots', LotListScreen::class)
+    ->name('platform.dnu.lots')
+    ->breadcrumbs(fn (Trail $trail) => $trail
+        ->parent('platform.index')
+        ->push('Лоты', route('platform.dnu.lots')));
+
+Route::screen('dnu/lots/create', LotEditScreen::class)
+    ->name('platform.dnu.lots.create')
+    ->breadcrumbs(fn (Trail $trail) => $trail
+        ->parent('platform.dnu.lots')
+        ->push('Новый лот', route('platform.dnu.lots.create')));
+
+Route::screen('dnu/lots/{lot}/edit', LotEditScreen::class)
+    ->name('platform.dnu.lots.edit')
+    ->breadcrumbs(fn (Trail $trail, $lot) => $trail
+        ->parent('platform.dnu.lots')
+        ->push("Лот {$lot->number}", route('platform.dnu.lots.edit', $lot)));
+
+// Соседи по берегу
+Route::screen('dnu/neighbors', NeighborListScreen::class)
+    ->name('platform.dnu.neighbors')
+    ->breadcrumbs(fn (Trail $trail) => $trail
+        ->parent('platform.index')
+        ->push('Соседи по берегу', route('platform.dnu.neighbors')));
+
+Route::screen('dnu/neighbors/create', NeighborEditScreen::class)
+    ->name('platform.dnu.neighbors.create')
+    ->breadcrumbs(fn (Trail $trail) => $trail
+        ->parent('platform.dnu.neighbors')
+        ->push('Новый объект', route('platform.dnu.neighbors.create')));
+
+Route::screen('dnu/neighbors/{neighbor}/edit', NeighborEditScreen::class)
+    ->name('platform.dnu.neighbors.edit')
+    ->breadcrumbs(fn (Trail $trail, $neighbor) => $trail
+        ->parent('platform.dnu.neighbors')
+        ->push($neighbor->title, route('platform.dnu.neighbors.edit', $neighbor)));
+
+// Заявки
+Route::screen('dnu/leads', LeadListScreen::class)
+    ->name('platform.dnu.leads')
+    ->breadcrumbs(fn (Trail $trail) => $trail
+        ->parent('platform.index')
+        ->push('Заявки', route('platform.dnu.leads')));
+
+Route::screen('dnu/leads/{lead}', LeadShowScreen::class)
+    ->name('platform.dnu.leads.show')
+    ->breadcrumbs(fn (Trail $trail, $lead) => $trail
+        ->parent('platform.dnu.leads')
+        ->push("Заявка #{$lead->id}", route('platform.dnu.leads.show', $lead)));
+
+// Настройки сайта
+Route::screen('dnu/settings', SiteSettingsScreen::class)
+    ->name('platform.dnu.settings')
+    ->breadcrumbs(fn (Trail $trail) => $trail
+        ->parent('platform.index')
+        ->push('Настройки сайта', route('platform.dnu.settings')));
 
 // Route::screen('idea', Idea::class, 'platform.screens.idea');

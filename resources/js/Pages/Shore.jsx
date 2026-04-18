@@ -7,7 +7,7 @@ import Shell from '../Components/Layout/Shell';
  * Контент — дословно из docs/design-system/dom-na-utese-concept.txt:
  *   Часть I — Концепция (манифест, короткая версия для питча, слоган,
  *             альтернативные формулировки, ДНК концепции)
- *   Часть II — Справочник 14 исторических объектов
+ *   Часть II — Справочник 14 исторических объектов (из БД через ShoreController)
  *   Сводная хронология — таблица ключевых дат
  *
  * Editorial лонгрид на paper фоне, одна читаемая колонка 720px max-width.
@@ -15,9 +15,14 @@ import Shell from '../Components/Layout/Shell';
  *
  * Плавные якорные ссылки между объектами. Каждый объект — <article>
  * с музейным маркером номера в углу.
+ *
+ * Пропсы:
+ *   neighbors — 14 объектов из БД (таблица neighbors), отсортированы
+ *               по sort_order. Если props пустой — используется fallback.
  */
 
-const objects = [
+// Fallback на случай пустой БД (до наката миграций). Тот же состав 14 объектов.
+const fallbackObjects = [
     {
         num: '01',
         year: '1858',
@@ -182,7 +187,28 @@ const timeline = [
     { year: '7 сентября 2024', event: 'Завершение реставрации Дачи со Слонами', place: '4-я просека' },
 ];
 
-export default function Shore() {
+export default function Shore({ neighbors = [] }) {
+    // Если данные из БД пришли — маппим под формат, ожидаемый разметкой
+    // (на месте `architect` у старого fallback-кода стиля не обрабатываем —
+    // админка его больше не имеет, сливаем в `style`).
+    const objects = neighbors.length
+        ? neighbors.map((n) => ({
+              num: n.num,
+              year: n.dateLabel ?? '',
+              title: n.title,
+              location: n.address ?? '',
+              owner: n.owner ?? '',
+              style: n.style ?? '',
+              status: n.statusLabel ?? '',
+              body: n.description ?? '',
+              note: n.featured
+                  ? 'Именно эта дача — ближайший культурный сосед «Дома на Утёсе» и главный исторический якорь проекта.'
+                  : undefined,
+              featured: !!n.featured,
+              image: n.image ?? null,
+          }))
+        : fallbackObjects;
+
     return (
         <Shell snap={false}>
             <Head>

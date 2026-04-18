@@ -64,106 +64,18 @@ export default function Shore() {
                         </div>
                     </div>
 
-                    {/* SVG-схема берега — 5 колонок */}
+                    {/* Карта берега — 5 колонок, ink-тонированная, скошенный левый край */}
                     <div className="md:col-span-5">
                         <figure className="md:sticky md:top-28">
-                            <svg
-                                viewBox="0 0 400 520"
-                                className="w-full h-auto"
-                                role="img"
-                                aria-labelledby="shore-map-title"
-                            >
-                                <title id="shore-map-title">
-                                    Схема волжского берега от Постникова оврага до Барбашиной
-                                    поляны с девятью просеками и точкой «Дом на Утёсе».
-                                </title>
-
-                                {/* Фоновая текстура paper */}
-                                <rect width="400" height="520" fill="#E5D9C3" />
-                                {/* Вода */}
-                                <rect x="0" y="0" width="80" height="520" fill="#D9D4C5" />
-                                {/* Волга — извилистая линия */}
-                                <path
-                                    d="M 80 0 Q 95 80 85 160 Q 75 240 90 320 Q 105 400 80 520"
-                                    fill="none"
-                                    stroke="#1E1E1E"
-                                    strokeWidth="1"
-                                />
-                                {/* Берег — вертикальная линия */}
-                                <line
-                                    x1="110"
-                                    y1="20"
-                                    x2="110"
-                                    y2="500"
-                                    stroke="#1E1E1E"
-                                    strokeWidth="1"
-                                />
-                                {/* 9 просек и метки — от Постникова (вверху) к Барбашиной (внизу) */}
-                                {[
-                                    { y: 60, num: '1', label: 'Дача Сипиной · 1903' },
-                                    { y: 110, num: '2', label: '' },
-                                    { y: 160, num: '3', label: '' },
-                                    { y: 215, num: '4', label: 'Дача со Слонами · 1908', bold: true },
-                                    { y: 260, num: '5', label: 'Дом на Утёсе', here: true },
-                                    { y: 305, num: '6', label: '' },
-                                    { y: 350, num: '7', label: 'Сурошников · Курлина', bold: true },
-                                    { y: 400, num: '8', label: 'Константинов' },
-                                    { y: 450, num: '9', label: 'Соколовы · 1909', bold: true },
-                                ].map((it) => (
-                                    <g key={it.num}>
-                                        <line
-                                            x1="110"
-                                            y1={it.y}
-                                            x2={it.here ? 250 : 130}
-                                            y2={it.y}
-                                            stroke={it.here ? '#802F1D' : '#1E1E1E'}
-                                            strokeWidth={it.here ? 1.5 : 1}
-                                        />
-                                        <circle
-                                            cx="110"
-                                            cy={it.y}
-                                            r={it.here ? 5 : 2.5}
-                                            fill={it.here ? '#802F1D' : '#1E1E1E'}
-                                        />
-                                        <text
-                                            x="118"
-                                            y={it.y - 8}
-                                            fontFamily="Alegreya Sans SC, sans-serif"
-                                            fontSize="9"
-                                            fontWeight="700"
-                                            letterSpacing="1.2"
-                                            fill={it.here ? '#802F1D' : '#1E1E1E'}
-                                        >
-                                            {it.num}-Я ПРОСЕКА
-                                        </text>
-                                        {it.label && (
-                                            <text
-                                                x={it.here ? 258 : 138}
-                                                y={it.y + 4}
-                                                fontFamily="Piazzolla, Georgia, serif"
-                                                fontSize={it.here ? 13 : 10}
-                                                fontWeight={it.here ? 700 : it.bold ? 500 : 400}
-                                                fontStyle={it.here ? 'italic' : 'normal'}
-                                                fill={it.here ? '#802F1D' : '#1E1E1E'}
-                                            >
-                                                {it.label}
-                                            </text>
-                                        )}
-                                    </g>
-                                ))}
-                                {/* Подпись вверху — Постников овраг */}
-                                <text x="110" y="20" fontFamily="Alegreya Sans SC, sans-serif" fontSize="8" fontWeight="700" letterSpacing="1.2" fill="#1E1E1E">
-                                    ↑ ПОСТНИКОВ ОВРАГ · 1858
-                                </text>
-                                {/* Подпись внизу — Барбашина поляна */}
-                                <text x="110" y="515" fontFamily="Alegreya Sans SC, sans-serif" fontSize="8" fontWeight="700" letterSpacing="1.2" fill="#1E1E1E">
-                                    ↓ БАРБАШИНА ПОЛЯНА
-                                </text>
-                                {/* Водная метка */}
-                                <text x="20" y="260" fontFamily="Piazzolla, Georgia, serif" fontStyle="italic" fontSize="12" fill="#1E1E1E" opacity="0.5" transform="rotate(-90 20 260)">
-                                    Волга
-                                </text>
-                            </svg>
+                            <img
+                                src="/images/map/shore-map-1600.jpg"
+                                srcSet="/images/map/shore-map-1600.jpg 1600w, /images/map/shore-map-3200.jpg 3200w"
+                                sizes="(min-width: 768px) 42vw, 100vw"
+                                alt="Волжский берег от Постникова оврага до Барбашиной поляны: 9 просек, сосновый лес, силуэты исторических дач и маркер «Дом на Утёсе» на 5-й просеке."
+                                className="w-full h-auto block"
+                                loading="lazy"
+                                decoding="async"
+                            />
                             <figcaption className="mt-3 font-sans text-[10px] font-bold tracking-[0.1em] uppercase text-handwriting/60">
                                 10 км берега · 9 просек · точка «Дом на Утёсе»
                             </figcaption>

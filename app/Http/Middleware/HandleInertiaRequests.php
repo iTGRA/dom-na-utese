@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\SiteSetting;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 
@@ -41,6 +42,10 @@ class HandleInertiaRequests extends Middleware
                 'success' => fn () => $request->session()->get('success'),
                 'error' => fn () => $request->session()->get('error'),
             ],
+            // Контент-настройки сайта (контакты, юр.данные, мета) — доступны
+            // на всех страницах. Источник — SiteSetting::cached() (forever-кэш,
+            // сбрасывается при сохранении в SiteSettingsScreen).
+            'settings' => fn () => SiteSetting::cached(),
         ];
     }
 }
