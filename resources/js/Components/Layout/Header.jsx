@@ -19,17 +19,15 @@ export default function Header() {
     const [menuOpen, setMenuOpen] = useState(false);
 
     // Header прозрачен пока Hero доминирует во viewport; paper-состояние
-    // включается когда Hero почти ушёл наверх. Через IntersectionObserver,
-    // не через scrollY threshold — это корректно работает с swipe-deck и
-    // при смене высоты viewport.
+    // включается когда Hero почти ушёл наверх. На страницах без #hero
+    // (например /shore — лонгрид на paper) header сразу solid, иначе
+    // paper-текст на paper-фоне станет нечитаемым.
     useEffect(() => {
         if (typeof window === 'undefined') return;
         const hero = document.getElementById('hero');
         if (!hero) {
-            const onScroll = () => setScrolled(window.scrollY > 400);
-            onScroll();
-            window.addEventListener('scroll', onScroll, { passive: true });
-            return () => window.removeEventListener('scroll', onScroll);
+            setScrolled(true);
+            return;
         }
         const io = new IntersectionObserver(
             ([entry]) => setScrolled(entry.intersectionRatio < 0.2),
@@ -66,7 +64,7 @@ export default function Header() {
         <>
             <header
                 className={
-                    'group sticky top-0 left-0 right-0 z-[100] ' +
+                    'group fixed top-0 left-0 right-0 z-[100] ' +
                     'transition-[background-color,border-color,box-shadow,color] duration-[240ms] ' +
                     (solid
                         ? 'bg-paper border-b border-handwriting/15 shadow-[0_1px_0_0_rgba(30,30,30,0.08)]'

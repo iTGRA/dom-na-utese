@@ -40,7 +40,7 @@ import FinalCTA from '../Components/Blocks/12-FinalCTA';
  */
 export default function Home({ lots = [], featuredNeighbor = null }) {
     return (
-        <Shell snap>
+        <Shell snap withHero>
             <Head>
                 <title>Дом на Утёсе — клубный дом на первой линии Волги, Самара</title>
                 <meta
