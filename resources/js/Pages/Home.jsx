@@ -3,10 +3,12 @@ import Shell from '../Components/Layout/Shell';
 import Hero from '../Components/Blocks/01-Hero';
 import Category from '../Components/Blocks/02-Category';
 import Shore from '../Components/Blocks/03-Shore';
-// Отключён от главной 2026-04-18. Перенесён на /shore. См. Shore.jsx.
+// Отключены от главной 2026-04-18 / 2026-04-18. Перенесены на /shore.
 // import Neighbors from '../Components/Blocks/04-Neighbors';
-import Dacha from '../Components/Blocks/05-Dacha';
+// import Dacha from '../Components/Blocks/05-Dacha';  // «Главный сосед» раскрывается на /shore
 import Architecture from '../Components/Blocks/06-Architecture';
+import Interior from '../Components/Blocks/06B-Interior';
+import Courtyard from '../Components/Blocks/06C-Courtyard';
 import Lot from '../Components/Blocks/07-Lot';
 import Plans from '../Components/Blocks/08-Plans';
 import Uklad from '../Components/Blocks/09-Uklad';
@@ -45,16 +47,18 @@ export default function Home({ lots = [], featuredNeighbor = null }) {
                 <title>Дом на Утёсе — клубный дом на первой линии Волги, Самара</title>
                 <meta
                     name="description"
-                    content="Девять лотов на исторической линии самарских просек. Потолки 3,5–4 м, панорамное остекление, подземный паркинг. Дом сдан в 2024 году."
+                    content="Девять лотов на исторической линии самарских просек. Потолки 3,5–4 м, панорамное остекление, подземный паркинг. Дом сдан в 2026 году."
                 />
             </Head>
             <div data-server-rendered="true">
                 <Hero />
                 <Category />
                 <Shore />
-                {/* <Neighbors /> — отключён 2026-04-18, 8 соседей переехали на /shore#neighbors. Дача со Слонами — ниже, в блоке 05. */}
-                <Dacha neighbor={featuredNeighbor} />
+                {/* <Neighbors /> <Dacha /> — на /shore#neighbors, чтобы главная
+                    оставалась о доме, а берег раскрывался на отдельной странице. */}
                 <Architecture />
+                <Interior />
+                <Courtyard />
                 <Lot />
                 <Plans lots={lots} />
                 <Uklad />

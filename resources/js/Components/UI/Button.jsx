@@ -45,8 +45,8 @@ export default function Button({
         'on-ink':
             'bg-paper text-stamp hover:bg-tea hover:text-handwriting',
         'ghost-on-ink':
-            'bg-transparent text-paper border-paper ' +
-            'hover:bg-paper hover:text-ink',
+            'bg-transparent text-paper border-paper/80 ' +
+            'hover:bg-paper hover:text-handwriting hover:border-handwriting',
     }[variant];
 
     const widthClass = fullWidth ? 'w-full' : '';

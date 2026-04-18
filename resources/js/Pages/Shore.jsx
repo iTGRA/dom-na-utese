@@ -363,7 +363,68 @@ export default function Shore({ neighbors = [] }) {
                     </div>
                 </section>
 
-                {/* Часть II — Справочник 14 объектов */}
+                {/* «Главный сосед» — Дача со Слонами. Раньше жила на главной
+                    (блок 05), клиент решил оставить её только здесь — на странице
+                    про берег. Текст и фото — из `featured: true` neighbor-а
+                    (БД), с fallback на brief §5. */}
+                {(() => {
+                    const dacha = objects.find((o) => o.featured) || null;
+                    const dachaTitle = dacha?.title || 'Дача К.П. Головкина — «Дача со Слонами»';
+                    const dachaDate = dacha?.dateLabel || '1908–1909';
+                    const dachaAddr = dacha?.address || '4-я просека, Самара';
+                    const dachaImage = dacha?.image || '/images/visual/11.jpg';
+                    const dachaBody = dacha?.description || [
+                        'Федеральный памятник архитектуры. Построена в 1908–1909 годах по проекту самого Константина Головкина — купца, художника, археолога и одного из первых автомобилистов Самары. Фигуры слонов рассчитаны на обзор с проплывающих пароходов: берег был парадной витриной самарского купечества.',
+                        '',
+                        'Три года реставрации. 7 сентября 2024 года дача открыта для посетителей — по средам, пятницам и субботам.',
+                    ].join('\n');
+                    const dachaParas = dachaBody.split(/\n+/).map((p) => p.trim()).filter(Boolean);
+
+                    return (
+                        <section id="dacha" className="bg-ink text-paper py-[96px] md:py-[160px]" aria-labelledby="dacha-title">
+                            <div className="max-w-[1320px] mx-auto px-5 md:px-10 grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-14 items-center">
+                                <figure className="md:col-span-5">
+                                    <div className="aspect-[4/5] overflow-hidden bg-ink-deep">
+                                        <img
+                                            src={dachaImage}
+                                            alt={`${dachaTitle}. ${dachaAddr}. Федеральный памятник архитектуры, модерн.`}
+                                            loading="lazy"
+                                            decoding="async"
+                                            className="w-full h-full object-cover"
+                                        />
+                                    </div>
+                                    <figcaption className="mt-3 font-sans text-[10px] font-bold tracking-[0.1em] uppercase opacity-60">
+                                        {dachaTitle.replace(' — «Дача со Слонами»', '')} · {dachaDate} · {dachaAddr}
+                                    </figcaption>
+                                </figure>
+
+                                <div className="md:col-span-7">
+                                    <p className="font-sans text-[10px] md:text-[11px] font-bold tracking-[0.12em] uppercase text-tea mb-4">
+                                        Главный сосед
+                                    </p>
+                                    <h2 id="dacha-title" className="font-serif text-[34px] md:text-[56px] xl:text-[64px] leading-[1.02] font-medium tracking-[-0.01em] mb-4">
+                                        Дача со&nbsp;Слонами<span className="text-tea">.</span>
+                                    </h2>
+                                    <p className="font-serif italic text-[17px] md:text-[24px] leading-[1.3] opacity-85 mb-10 max-w-[26ch]">
+                                        В пятнадцати минутах пешком.
+                                    </p>
+                                    <div className="space-y-5 font-serif text-[15px] md:text-[17px] leading-[1.65] max-w-[640px] opacity-90">
+                                        {dachaParas.map((p, i) => (
+                                            <p key={i}>{p}</p>
+                                        ))}
+                                    </div>
+                                    <blockquote className="mt-10 pt-6 border-t border-paper/15 font-serif italic text-[22px] md:text-[28px] leading-[1.4] text-tea max-w-[32ch]">
+                                        Та&nbsp;же высота, с&nbsp;которой Головкин проектировал слонов —
+                                        чтобы их было видно с&nbsp;пароходов.
+                                    </blockquote>
+                                </div>
+                            </div>
+                        </section>
+                    );
+                })()}
+
+                {/* Часть II — Справочник 14 объектов. Якорь #neighbors
+                    держим — на главной в блоке 03 Shore стоит ссылка на него. */}
                 <section id="neighbors" className="py-[80px] md:py-[120px] bg-paper-light" aria-labelledby="refs-title">
                     <div className="max-w-[720px] mx-auto px-5 md:px-6">
                         <p className="font-sans text-[10px] md:text-[11px] font-bold tracking-[0.12em] uppercase text-stamp mb-4">
