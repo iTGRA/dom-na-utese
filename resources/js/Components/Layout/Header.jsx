@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { usePage } from '@inertiajs/react';
 import Button from '../UI/Button';
 import { useLeadForm } from '../../hooks/useLeadForm';
 
@@ -15,15 +16,24 @@ import { useLeadForm } from '../../hooks/useLeadForm';
  */
 export default function Header() {
     const { openLeadForm } = useLeadForm();
+    const { url } = usePage();
     const [scrolled, setScrolled] = useState(false);
     const [menuOpen, setMenuOpen] = useState(false);
 
     // Header прозрачен пока Hero доминирует во viewport; paper-состояние
     // включается когда Hero почти ушёл наверх. На страницах без #hero
-    // (например /shore — лонгрид на paper) header сразу solid, иначе
-    // paper-текст на paper-фоне станет нечитаемым.
+    // (/shore — лонгрид на paper) header сразу solid, иначе paper-текст
+    // на paper-фоне становится нечитаемым.
+    //
+    // `url` в зависимостях критически важен: при Inertia SPA-навигации
+    // Shell/Header не перемонтируются, и без resub IO сохранил бы
+    // предыдущее состояние (приходя с /shore на / видели бы чёрный
+    // текст в хедере поверх hero, пока не сделаешь scroll).
     useEffect(() => {
         if (typeof window === 'undefined') return;
+        // Оптимистично сбрасываем в прозрачный до первого IO-колбэка —
+        // на hero-странице это сразу корректно, на /shore ниже поставим true.
+        setScrolled(false);
         const hero = document.getElementById('hero');
         if (!hero) {
             setScrolled(true);
@@ -35,7 +45,7 @@ export default function Header() {
         );
         io.observe(hero);
         return () => io.disconnect();
-    }, []);
+    }, [url]);
 
     // Закрывать меню при открытии формы
     useEffect(() => {
