@@ -19,47 +19,53 @@
  * Editorial reset
  *
  * Всё ниже — то, что нельзя выразить утилитами или что должно применяться
- * глобально ко всему контенту.
+ * глобально ко всему контенту. ОБЯЗАТЕЛЬНО в @layer base — иначе unlayered
+ * element-селекторы (a, h1…, p) побеждают по правилам CSS Cascade Level 4
+ * любые Tailwind utility-классы из @layer utilities, вне зависимости от
+ * specificity. Симптом: `<a class="text-paper">` получает inherited
+ * handwriting от body, утилита не применяется. Инцидент 2026-04-18.
  * ========================================================================== */
 
-html {
-  background: var(--color-paper);
-  color: var(--color-handwriting);
-  font-family: var(--font-serif);
-  font-size: 17px;
-  line-height: 1.65;
-  /* oldstyle figures везде по умолчанию */
-  font-feature-settings: "onum", "kern", "liga";
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizeLegibility;
-  /* `overflow-x: clip` вместо `hidden` — не ломает position:sticky (см. NaUgle) */
-  overflow-x: clip;
-}
+@layer base {
+  html {
+    background: var(--color-paper);
+    color: var(--color-handwriting);
+    font-family: var(--font-serif);
+    font-size: 17px;
+    line-height: 1.65;
+    /* oldstyle figures везде по умолчанию */
+    font-feature-settings: "onum", "kern", "liga";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    /* `overflow-x: clip` вместо `hidden` — не ломает position:sticky (см. NaUgle) */
+    overflow-x: clip;
+  }
 
-body {
-  margin: 0;
-  background: var(--color-paper);
-  color: var(--color-handwriting);
-  overflow-x: clip;
-}
+  body {
+    margin: 0;
+    background: var(--color-paper);
+    color: var(--color-handwriting);
+    overflow-x: clip;
+  }
 
-/* Типографический ритм по умолчанию (можно переопределять утилитами) */
-h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-serif);
-  font-weight: 500;
-  letter-spacing: -0.01em;
-  line-height: 1.05;
-  margin: 0;
-}
+  /* Типографический ритм по умолчанию (можно переопределять утилитами) */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    line-height: 1.05;
+    margin: 0;
+  }
 
-p {
-  margin: 0;
-}
+  p {
+    margin: 0;
+  }
 
-a {
-  color: inherit;
-  text-decoration: none;
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
 }
 
 /* Editorial selection — stamp-акцент, как в бумажной книге */
