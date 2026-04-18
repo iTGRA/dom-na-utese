@@ -1,16 +1,62 @@
 import { Head } from '@inertiajs/react';
+import Shell from '../Components/Layout/Shell';
+import Hero from '../Components/Blocks/01-Hero';
+import Category from '../Components/Blocks/02-Category';
+import Shore from '../Components/Blocks/03-Shore';
+import Neighbors from '../Components/Blocks/04-Neighbors';
+import Dacha from '../Components/Blocks/05-Dacha';
+import Architecture from '../Components/Blocks/06-Architecture';
+import Lot from '../Components/Blocks/07-Lot';
+import Plans from '../Components/Blocks/08-Plans';
+import Uklad from '../Components/Blocks/09-Uklad';
+import Infrastructure from '../Components/Blocks/10-Infrastructure';
+import Built from '../Components/Blocks/11-Built';
+import FinalCTA from '../Components/Blocks/12-FinalCTA';
 
+/**
+ * Home — главный лендинг «Дом на Утёсе».
+ *
+ * Одностраничник из 11 блоков (по брифу их 12, блок «Команда» в первой
+ * итерации не реализован — клиент решил показать на второй).
+ *
+ * Порядок строго как в брифе:
+ *   Акт I   — 01 Hero, 02 Category
+ *   Акт II  — 03 Shore, 04 Neighbors, 05 Dacha
+ *   Акт III — 06 Architecture, 07 Lot, 08 Plans, 09 Uklad
+ *   Акт IV  — 10 Infrastructure, 11 Built, 12 FinalCTA
+ *
+ * snap=true в Shell → mobile получает scroll-snap-type: y proximity
+ * (мягкий, не mandatory) через класс `.snap-root` на <main>.
+ * Каждый блок имеет `.snap-slide` для scroll-snap-align: start +
+ * min-height: 100svh на mobile (правила в app.css).
+ *
+ * `data-server-rendered` — QA-якорь, проверяется в smoke-тестах
+ * (по соглашению с проектом «На Угле»).
+ */
 export default function Home() {
     return (
-        <>
-            <Head title="Главная" />
-            <div data-server-rendered="true" className="min-h-screen flex items-center justify-center bg-stone-50 text-stone-900">
-                <div className="text-center px-6">
-                    <h1 className="text-4xl md:text-6xl font-serif mb-4">Дом на Утёсе</h1>
-                    <p className="text-lg text-stone-600">На одной линии с историей.</p>
-                    <p className="text-sm text-stone-400 mt-8">Скелет развёрнут. Ждём бриф на структуру лендинга.</p>
-                </div>
+        <Shell snap>
+            <Head>
+                <title>Дом на Утёсе — клубный дом на первой линии Волги, Самара</title>
+                <meta
+                    name="description"
+                    content="Девять лотов на исторической линии самарских просек. Потолки 3,5–4 м, панорамное остекление, подземный паркинг. Дом сдан в 2024 году."
+                />
+            </Head>
+            <div data-server-rendered="true">
+                <Hero />
+                <Category />
+                <Shore />
+                <Neighbors />
+                <Dacha />
+                <Architecture />
+                <Lot />
+                <Plans />
+                <Uklad />
+                <Infrastructure />
+                <Built />
+                <FinalCTA />
             </div>
-        </>
+        </Shell>
     );
 }

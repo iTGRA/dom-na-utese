@@ -1,0 +1,81 @@
+/* =============================================================================
+ * Дом на Утёсе — дизайн-токены
+ *
+ * Источник правды: docs/DESIGN_SYSTEM.md §2–§10 и docs/design-system/
+ * dom-na-utese-design-system.html.
+ *
+ * Tailwind 4 автоматически подхватывает `@theme`-переменные и создаёт
+ * утилиты: `--color-paper` → `bg-paper`/`text-paper`,
+ * `--font-serif` → `font-serif`, `--spacing-xl` → `p-xl`/`mt-xl`,
+ * `--duration-slow` → `duration-slow`, и т.д.
+ *
+ * Импорт ДО `@import 'tailwindcss'` — иначе @theme не регистрируется.
+ * ========================================================================== */
+
+@theme {
+  /* ---- Палитра (12 токенов, дословно из HTML-системы) ---------------------- */
+  --color-paper: #EEE4D3;
+  --color-paper-light: #F5EEDF;
+  --color-paper-deep: #E5D9C3;
+  --color-dust: #C4BFAF;
+  --color-dust-light: #D9D4C5;
+  --color-ink: #2C3E50;
+  --color-ink-deep: #22303F;
+  --color-handwriting: #1E1E1E;
+  --color-handwriting-soft: #3A3A3A;
+  --color-stamp: #802F1D;
+  --color-stamp-hover: #9A3822;
+  --color-tea: #C98540;
+  --color-tea-hover: #D99550;
+  --color-success: #25664A;
+  --color-error: #B23A2B;
+
+  /* ---- Шрифты (с fallback'ами) -------------------------------------------- */
+  --font-serif: "Piazzolla", Georgia, "Times New Roman", serif;
+  --font-sans: "Alegreya Sans SC", "Arial Narrow", Arial, sans-serif;
+  --font-mono: "JetBrains Mono", "SF Mono", Consolas, monospace;
+
+  /* ---- Spacing (8-point scale) -------------------------------------------- */
+  --spacing-xxs: 4px;
+  --spacing-xs: 8px;
+  --spacing-sm: 12px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 40px;
+  --spacing-2xl: 64px;
+  --spacing-3xl: 96px;
+  --spacing-4xl: 128px;
+
+  /* ---- Layout контейнеры --------------------------------------------------- */
+  --container-reading: 720px;
+  --container-editorial: 1320px;
+
+  /* ---- Моушн --------------------------------------------------------------- */
+  --ease-editorial: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+
+  --duration-instant: 120ms;
+  --duration-quick: 240ms;
+  --duration-standard: 420ms;
+  --duration-slow: 720ms;
+  --duration-cinematic: 1200ms;
+
+  /* ---- Stroke и radius ----------------------------------------------------- */
+  --radius-none: 0;
+  --radius-sm: 2px;
+
+  /* ---- Breakpoints (Tailwind 4 принимает как утилиты) --------------------- */
+  --breakpoint-mobile-s: 481px;
+  --breakpoint-tablet: 768px;
+  --breakpoint-desktop: 1100px;
+  --breakpoint-xl: 1440px;
+
+  /* ---- Z-index ------------------------------------------------------------- */
+  --z-base: 1;
+  --z-sticky: 100;
+  --z-overlay: 500;
+  --z-modal: 1000;
+  --z-toast: 1500;
+}
