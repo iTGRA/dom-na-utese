@@ -44,13 +44,13 @@ export default function Infrastructure() {
     return (
         <section
             id="infrastructure"
-            className="snap-slide bg-paper text-handwriting py-[96px] md:py-[160px]"
+            className="snap-slide bg-paper text-handwriting py-rhythm-xl md:py-rhythm-xl-md"
         >
             <div className="max-w-[1320px] mx-auto px-5 md:px-10">
-                <p className="font-sans text-[10px] md:text-[11px] font-bold tracking-[0.12em] uppercase text-stamp mb-4">
+                <p className="font-sans text-[10px] md:text-[11px] font-bold tracking-[0.12em] uppercase text-stamp mb-rhythm-sm md:mb-rhythm-sm-md">
                     10 · Инфраструктура
                 </p>
-                <div className="grid grid-cols-1 md:grid-cols-[auto_1fr] gap-6 md:gap-20 items-end mb-12 md:mb-16">
+                <div className="grid grid-cols-1 md:grid-cols-[auto_1fr] gap-6 md:gap-20 items-end mb-rhythm-lg md:mb-rhythm-lg-md">
                     <h2 className="font-serif text-[34px] md:text-[56px] xl:text-[64px] leading-[1.02] font-medium tracking-[-0.01em] max-w-[16ch]">
                         Инфраструктура
                     </h2>

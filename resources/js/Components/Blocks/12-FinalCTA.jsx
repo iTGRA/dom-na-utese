@@ -51,27 +51,27 @@ export default function FinalCTA() {
     return (
         <section
             id="final-cta"
-            className="snap-slide bg-stamp text-paper py-[96px] md:py-[140px]"
+            className="snap-slide bg-stamp text-paper py-rhythm-xl md:py-rhythm-xl-md"
         >
             <div className="max-w-[1320px] mx-auto px-5 md:px-10 grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-16">
                 {/* Левая колонка — заголовок + текст + контакты */}
                 <div className="md:col-span-7">
-                    <p className="font-sans text-[10px] md:text-[11px] font-bold tracking-[0.12em] uppercase text-paper/80 mb-4">
+                    <p className="font-sans text-[10px] md:text-[11px] font-bold tracking-[0.12em] uppercase text-paper/80 mb-rhythm-sm md:mb-rhythm-sm-md">
                         12 · Приватный показ
                     </p>
-                    <h2 className="font-serif text-[42px] md:text-[72px] xl:text-[84px] leading-[0.98] font-medium tracking-[-0.02em] mb-6 max-w-[14ch]">
+                    <h2 className="font-serif text-[42px] md:text-[72px] xl:text-[84px] leading-[0.98] font-medium tracking-[-0.02em] mb-rhythm-sm md:mb-rhythm-sm-md max-w-[14ch]">
                         Приватный показ
                     </h2>
-                    <p className="font-serif italic text-[17px] md:text-[22px] leading-[1.3] opacity-90 mb-10 max-w-[38ch]">
+                    <p className="font-serif italic text-[17px] md:text-[22px] leading-[1.3] opacity-90 mb-rhythm-md md:mb-rhythm-md-md max-w-[38ch]">
                         Мы показываем дом лично.
                     </p>
-                    <p className="font-serif text-[15px] md:text-[17px] leading-[1.65] max-w-[500px] mb-12 opacity-95">
+                    <p className="font-serif text-[15px] md:text-[17px] leading-[1.65] max-w-[500px] mb-rhythm-md md:mb-rhythm-md-md opacity-95">
                         Оставьте заявку — менеджер свяжется, согласует время и приедет за вами.
                     </p>
 
                     {/* Контакты — строкой */}
-                    <div className="border-t border-paper/25 pt-8 mt-8">
-                        <p className="font-sans text-[10px] font-bold tracking-[0.12em] uppercase text-paper/70 mb-4">
+                    <div className="border-t border-paper/25 pt-rhythm-md md:pt-rhythm-md-md mt-rhythm-md md:mt-rhythm-md-md">
+                        <p className="font-sans text-[10px] font-bold tracking-[0.12em] uppercase text-paper/70 mb-rhythm-sm md:mb-rhythm-sm-md">
                             Или напрямую
                         </p>
                         <ul className="grid grid-cols-2 gap-y-3 font-serif text-[15px] md:text-[17px] leading-[1.4]">

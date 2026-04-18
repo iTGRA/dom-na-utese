@@ -32,14 +32,14 @@ export default function Interior() {
     return (
         <section
             id="interior"
-            className="snap-slide bg-paper text-handwriting pt-[96px] md:pt-[160px] pb-[96px] md:pb-[128px] overflow-hidden"
+            className="snap-slide bg-paper text-handwriting py-rhythm-xl md:py-rhythm-xl-md overflow-hidden"
         >
             <div className="max-w-[1320px] mx-auto px-5 md:px-10">
                 {/* Рубрика + заголовок */}
-                <p className="font-sans text-[10px] md:text-[11px] font-bold tracking-[0.14em] uppercase text-stamp mb-6">
+                <p className="font-sans text-[10px] md:text-[11px] font-bold tracking-[0.14em] uppercase text-stamp mb-rhythm-sm md:mb-rhythm-sm-md">
                     Акт III · Свет
                 </p>
-                <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 mb-16 md:mb-24">
+                <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 mb-rhythm-lg md:mb-rhythm-lg-md">
                     <h2 className="md:col-span-8 font-serif text-[34px] md:text-[56px] xl:text-[64px] leading-[1.02] font-medium tracking-[-0.01em]">
                         Окна в пол.<br />
                         Потолки <em>до четырёх метров</em>.
@@ -80,13 +80,13 @@ export default function Interior() {
                         </div>
                     </figure>
                 </div>
-                <p className="font-serif italic text-[13px] md:text-[14px] leading-[1.5] opacity-70 mb-24 md:mb-32">
+                <p className="font-serif italic text-[13px] md:text-[14px] leading-[1.5] opacity-70 mb-rhythm-lg md:mb-rhythm-lg-md">
                     Pl.&nbsp;11 — день, вид на Жигулёвские ворота из гостиной. &nbsp;·&nbsp;
                     Pl.&nbsp;12 — встреча остекления с&nbsp;потолком.
                 </p>
 
                 {/* Текстовый остров — editorial пауза */}
-                <div className="max-w-[560px] mx-auto text-center mb-24 md:mb-32 font-serif text-[17px] md:text-[19px] leading-[1.65]">
+                <div className="max-w-[560px] mx-auto text-center mb-rhythm-lg md:mb-rhythm-lg-md font-serif text-[17px] md:text-[19px] leading-[1.65]">
                     <p className="mb-5">
                         Жилые этажи начинаются на той же высоте, с&nbsp;которой
                         Константин Головкин проектировал слонов —&nbsp;чтобы их было
@@ -115,7 +115,7 @@ export default function Interior() {
                     </div>
                 </figure>
                 <div className="max-w-[1320px] mx-auto px-5 md:px-10">
-                    <p className="font-serif italic text-[13px] md:text-[14px] leading-[1.5] opacity-70 mb-24 md:mb-32">
+                    <p className="font-serif italic text-[13px] md:text-[14px] leading-[1.5] opacity-70 mb-rhythm-lg md:mb-rhythm-lg-md">
                         Pl.&nbsp;13 — закат через остекление. Тёплая архитектурная подсветка
                         включается от&nbsp;сумерек.
                     </p>
@@ -124,7 +124,7 @@ export default function Interior() {
                 {/* Список характеристик (5/12) + Pl. 14 портрет (7/12) */}
                 <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-start">
                     <div className="md:col-span-5">
-                        <p className="font-sans text-[10px] md:text-[11px] font-bold tracking-[0.14em] uppercase text-stamp mb-6">
+                        <p className="font-sans text-[10px] md:text-[11px] font-bold tracking-[0.14em] uppercase text-stamp mb-rhythm-sm md:mb-rhythm-sm-md">
                             Характеристики
                         </p>
                         <dl className="space-y-5 font-serif text-[15px] md:text-[17px] leading-[1.5]">

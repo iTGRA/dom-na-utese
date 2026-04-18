@@ -27,17 +27,17 @@ export default function Built() {
             />
             <div className="absolute inset-0 bg-ink/60" aria-hidden="true" />
 
-            <div className="relative z-[1] min-h-[100svh] flex flex-col justify-end max-w-[1320px] mx-auto px-5 md:px-10 py-[96px] md:py-[140px]">
-                <p className="font-sans text-[10px] md:text-[11px] font-bold tracking-[0.12em] uppercase text-tea mb-4">
+            <div className="relative z-[1] min-h-[100svh] flex flex-col justify-end max-w-[1320px] mx-auto px-5 md:px-10 py-rhythm-xl md:py-rhythm-xl-md">
+                <p className="font-sans text-[10px] md:text-[11px] font-bold tracking-[0.12em] uppercase text-tea mb-rhythm-sm md:mb-rhythm-sm-md">
                     11 · Доказательства
                 </p>
-                <h2 className="font-serif text-[42px] md:text-[84px] xl:text-[110px] leading-[0.95] font-medium tracking-[-0.02em] mb-6 max-w-[10ch]">
+                <h2 className="font-serif text-[42px] md:text-[84px] xl:text-[110px] leading-[0.95] font-medium tracking-[-0.02em] mb-rhythm-sm md:mb-rhythm-sm-md max-w-[10ch]">
                     Дом <em className="text-tea">построен</em>.
                 </h2>
-                <p className="font-serif italic text-[17px] md:text-[24px] leading-[1.35] opacity-90 mb-10 max-w-[32ch]">
+                <p className="font-serif italic text-[17px] md:text-[24px] leading-[1.35] opacity-90 mb-rhythm-md md:mb-rhythm-md-md max-w-[32ch]">
                     Приезжайте посмотреть своими глазами.
                 </p>
-                <p className="font-serif text-[15px] md:text-[17px] leading-[1.65] opacity-85 max-w-[600px] mb-12">
+                <p className="font-serif text-[15px] md:text-[17px] leading-[1.65] opacity-85 max-w-[600px] mb-rhythm-md md:mb-rhythm-md-md">
                     Мы не показываем рендеры и планы реализации. Дом стоит на своём месте.
                     На приватном показе вы увидите реальные виды из окон, пройдёте по
                     настоящим квартирам, подниметесь на террасы.

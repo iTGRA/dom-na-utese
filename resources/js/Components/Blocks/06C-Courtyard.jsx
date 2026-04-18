@@ -30,16 +30,16 @@ export default function Courtyard() {
     return (
         <section
             id="courtyard"
-            className="snap-slide bg-paper text-handwriting pt-[96px] md:pt-[160px] pb-[96px] md:pb-[128px] overflow-hidden"
+            className="snap-slide bg-paper text-handwriting py-rhythm-xl md:py-rhythm-xl-md overflow-hidden"
         >
             <div className="max-w-[1320px] mx-auto px-5 md:px-10">
                 {/* Рубрика + заголовок, сдвинутые вправо — асимметрия */}
-                <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 mb-16 md:mb-24">
+                <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 mb-rhythm-lg md:mb-rhythm-lg-md">
                     <div className="md:col-span-5 md:col-start-2">
-                        <p className="font-sans text-[10px] md:text-[11px] font-bold tracking-[0.14em] uppercase text-stamp mb-6">
+                        <p className="font-sans text-[10px] md:text-[11px] font-bold tracking-[0.14em] uppercase text-stamp mb-rhythm-sm md:mb-rhythm-sm-md">
                             Акт III · Территория
                         </p>
-                        <h2 className="font-serif text-[34px] md:text-[52px] xl:text-[60px] leading-[1.02] font-medium tracking-[-0.01em] mb-5">
+                        <h2 className="font-serif text-[34px] md:text-[52px] xl:text-[60px] leading-[1.02] font-medium tracking-[-0.01em] mb-rhythm-sm md:mb-rhythm-sm-md">
                             Закрытый двор <em>на&nbsp;кровле</em> паркинга.
                         </h2>
                         <p className="font-serif italic text-[17px] md:text-[20px] leading-[1.4] opacity-80 max-w-[30ch]">
@@ -80,14 +80,14 @@ export default function Courtyard() {
                         </div>
                     </figure>
                 </div>
-                <p className="font-serif italic text-[13px] md:text-[14px] leading-[1.5] opacity-70 mb-24 md:mb-32">
+                <p className="font-serif italic text-[13px] md:text-[14px] leading-[1.5] opacity-70 mb-rhythm-lg md:mb-rhythm-lg-md">
                     Pl.&nbsp;15 — двор. &nbsp;·&nbsp;
                     Pl.&nbsp;16 — периметр на&nbsp;закате.
                 </p>
 
                 {/* Двухколоночный layout: текстовый блок слева (5/12),
                     pull-quote справа (7/12) — editorial paired with typography */}
-                <div className="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-16 mb-24 md:mb-32">
+                <div className="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-16 mb-rhythm-lg md:mb-rhythm-lg-md">
                     <div className="md:col-span-5 font-serif text-[16px] md:text-[18px] leading-[1.65] space-y-5">
                         <p>
                             Территория внутри периметра — только для&nbsp;жителей
@@ -111,7 +111,7 @@ export default function Courtyard() {
                 </div>
 
                 {/* Контакт-лист — 4 миниатюры в ряд, horizontal-snap на mobile */}
-                <p className="font-sans text-[10px] md:text-[11px] font-bold tracking-[0.14em] uppercase text-stamp mb-6">
+                <p className="font-sans text-[10px] md:text-[11px] font-bold tracking-[0.14em] uppercase text-stamp mb-rhythm-sm md:mb-rhythm-sm-md">
                     Фрагменты. Ритмы. Входы.
                 </p>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-5 [scroll-snap-type:x_proximity] md:[scroll-snap-type:none] overflow-x-auto md:overflow-visible -mx-5 md:mx-0 px-5 md:px-0">

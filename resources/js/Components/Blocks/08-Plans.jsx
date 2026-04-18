@@ -47,15 +47,15 @@ export default function Plans({ lots = [] }) {
     return (
         <section
             id="plans"
-            className="snap-slide bg-paper-light text-handwriting py-[96px] md:py-[160px]"
+            className="snap-slide bg-paper-light text-handwriting py-rhythm-xl md:py-rhythm-xl-md"
         >
             <div className="max-w-[1320px] mx-auto px-5 md:px-10">
-                <p className="font-sans text-[10px] md:text-[11px] font-bold tracking-[0.12em] uppercase text-stamp mb-4">
+                <p className="font-sans text-[10px] md:text-[11px] font-bold tracking-[0.12em] uppercase text-stamp mb-rhythm-sm md:mb-rhythm-sm-md">
                     08 · Планировки
                 </p>
-                <div className="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-6 md:gap-10 items-end mb-12 md:mb-16">
+                <div className="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-6 md:gap-10 items-end mb-rhythm-lg md:mb-rhythm-lg-md">
                     <div>
-                        <h2 className="font-serif text-[34px] md:text-[56px] xl:text-[64px] leading-[1.02] font-medium tracking-[-0.01em] mb-3">
+                        <h2 className="font-serif text-[34px] md:text-[56px] xl:text-[64px] leading-[1.02] font-medium tracking-[-0.01em] mb-rhythm-xs md:mb-rhythm-xs-md">
                             Девять лотов
                         </h2>
                         <p className="font-serif italic text-[17px] md:text-[22px] leading-[1.3] opacity-80 max-w-[28ch]">

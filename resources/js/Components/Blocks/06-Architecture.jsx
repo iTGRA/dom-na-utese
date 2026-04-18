@@ -73,21 +73,21 @@ export default function Architecture() {
     return (
         <section
             id="architecture"
-            className="snap-slide bg-paper text-handwriting py-[96px] md:py-[140px] overflow-hidden"
+            className="snap-slide bg-paper text-handwriting py-rhythm-xl md:py-rhythm-xl-md overflow-hidden"
         >
             {/* Шапка акта — воздух сверху, рубрика + заголовок */}
-            <div className="max-w-[1320px] mx-auto px-5 md:px-10 mb-16 md:mb-24">
-                <p className="font-sans text-[10px] md:text-[11px] font-bold tracking-[0.12em] uppercase text-stamp mb-6">
+            <div className="max-w-[1320px] mx-auto px-5 md:px-10 mb-rhythm-lg md:mb-rhythm-lg-md">
+                <p className="font-sans text-[10px] md:text-[11px] font-bold tracking-[0.12em] uppercase text-stamp mb-rhythm-sm md:mb-rhythm-sm-md">
                     Акт III · Архитектура
                 </p>
                 <h2 className="font-serif text-[36px] md:text-[56px] xl:text-[64px] leading-[1.02] font-medium tracking-[-0.01em] max-w-[18ch]">
                     Дом проектировался под&nbsp;виды и&nbsp;под&nbsp;ритм берега.
                 </h2>
-                <div className="mt-10 h-px w-full bg-handwriting/15" />
+                <div className="mt-rhythm-md md:mt-rhythm-md-md h-px w-full bg-handwriting/15" />
             </div>
 
             {/* ПЛАСТИНЫ I + II — диптих (widescreen 9/12 + narrow 3/12) */}
-            <div className="max-w-[1320px] mx-auto px-5 md:px-10 mb-16 md:mb-24">
+            <div className="max-w-[1320px] mx-auto px-5 md:px-10 mb-rhythm-lg md:mb-rhythm-lg-md">
                 <div className="grid grid-cols-12 gap-3 md:gap-4">
                     {/* Pl.01 — широкий экстерьер, 9 cols на desktop, 8 на mobile */}
                     <figure className="col-span-8 md:col-span-9 relative aspect-[4/3] md:aspect-[16/10] overflow-hidden bg-paper-deep">
@@ -126,7 +126,7 @@ export default function Architecture() {
             </div>
 
             {/* ТЕКСТОВЫЙ ОСТРОВ — 2 абзаца, узкая колонка по центру */}
-            <div className="max-w-[1320px] mx-auto px-5 md:px-10 mb-16 md:mb-28">
+            <div className="max-w-[1320px] mx-auto px-5 md:px-10 mb-rhythm-lg md:mb-rhythm-lg-md">
                 <div className="max-w-[560px] mx-auto text-center">
                     <p className="font-serif text-[17px] md:text-[19px] leading-[1.7] mb-6">
                         Три этажа над утёсом. Лаконичный фасад без&nbsp;декоративной
@@ -153,18 +153,18 @@ export default function Architecture() {
                 </div>
             </figure>
 
-            <div className="max-w-[1320px] mx-auto px-5 md:px-10 mb-16 md:mb-28">
+            <div className="max-w-[1320px] mx-auto px-5 md:px-10 mb-rhythm-lg md:mb-rhythm-lg-md">
                 <p className="font-serif italic text-[13px] md:text-[14px] leading-[1.5] text-handwriting/75">
                     Pl.&nbsp;03&nbsp;— Терраса выходит к&nbsp;Волге. Вечерний ритм фасада.
                 </p>
             </div>
 
             {/* МАТЕРИАЛЫ + Pl.04 — 4/8 editorial grid */}
-            <div className="max-w-[1320px] mx-auto px-5 md:px-10 mb-16 md:mb-28">
+            <div className="max-w-[1320px] mx-auto px-5 md:px-10 mb-rhythm-lg md:mb-rhythm-lg-md">
                 <div className="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-14 items-start">
                     {/* Список материалов */}
                     <div className="md:col-span-5">
-                        <p className="font-sans text-[10px] md:text-[11px] font-bold tracking-[0.12em] uppercase text-stamp mb-6">
+                        <p className="font-sans text-[10px] md:text-[11px] font-bold tracking-[0.12em] uppercase text-stamp mb-rhythm-sm md:mb-rhythm-sm-md">
                             Материалы
                         </p>
                         <ul className="border-t border-handwriting/15">
@@ -209,7 +209,7 @@ export default function Architecture() {
 
             {/* КОНТАКТ-ЛИСТ — 6 кадров, на mobile — горизонтальный свайп */}
             <div className="max-w-[1320px] mx-auto px-5 md:px-10">
-                <p className="font-sans text-[10px] md:text-[11px] font-bold tracking-[0.12em] uppercase text-stamp mb-6">
+                <p className="font-sans text-[10px] md:text-[11px] font-bold tracking-[0.12em] uppercase text-stamp mb-rhythm-sm md:mb-rhythm-sm-md">
                     Контакт-лист
                 </p>
 

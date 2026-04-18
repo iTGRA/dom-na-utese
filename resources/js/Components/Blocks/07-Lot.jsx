@@ -34,10 +34,10 @@ export default function Lot() {
     return (
         <section
             id="lot"
-            className="snap-slide bg-paper text-handwriting py-[96px] md:py-[160px]"
+            className="snap-slide bg-paper text-handwriting py-rhythm-xl md:py-rhythm-xl-md"
         >
             <div className="max-w-[1320px] mx-auto px-5 md:px-10">
-                <p className="font-sans text-[10px] md:text-[11px] font-bold tracking-[0.12em] uppercase text-stamp mb-4">
+                <p className="font-sans text-[10px] md:text-[11px] font-bold tracking-[0.12em] uppercase text-stamp mb-rhythm-sm md:mb-rhythm-sm-md">
                     07 · Лот
                 </p>
 
@@ -57,17 +57,17 @@ export default function Lot() {
                             </span>
                         </div>
 
-                        <p className="mt-6 md:mt-10 font-serif italic text-[17px] md:text-[22px] leading-[1.3] max-w-[30ch]">
+                        <p className="mt-rhythm-md md:mt-rhythm-md-md font-serif italic text-[17px] md:text-[22px] leading-[1.3] max-w-[30ch]">
                             Девять одинаковых по&nbsp;структуре комплектов.
                         </p>
                     </div>
 
                     {/* Таблица состава — 7 колонок */}
                     <div className="md:col-span-7">
-                        <h2 className="font-serif text-[30px] md:text-[42px] leading-[1.05] font-medium tracking-[-0.005em] mb-6 max-w-[22ch]">
+                        <h2 className="font-serif text-[30px] md:text-[42px] leading-[1.05] font-medium tracking-[-0.005em] mb-rhythm-sm md:mb-rhythm-sm-md max-w-[22ch]">
                             Вы получаете не квартиру, а полный набор.
                         </h2>
-                        <p className="font-serif text-[15px] md:text-[17px] leading-[1.65] mb-10 max-w-[520px]">
+                        <p className="font-serif text-[15px] md:text-[17px] leading-[1.65] mb-rhythm-md md:mb-rhythm-md-md max-w-[520px]">
                             Каждый из девяти лотов — это не квартира, а полный набор. Вы не
                             доплачиваете за паркоместа, кладовую, террасу. Всё это уже включено.
                         </p>
@@ -94,7 +94,7 @@ export default function Lot() {
                         </dl>
 
                         {/* Эмоциональный factline — горизонтально на всех экранах */}
-                        <div className="mt-10 md:mt-12 pt-6 border-t border-handwriting/15 flex flex-row items-baseline justify-between gap-3 sm:gap-6 md:gap-10">
+                        <div className="mt-rhythm-md md:mt-rhythm-md-md pt-rhythm-sm border-t border-handwriting/15 flex flex-row items-baseline justify-between gap-3 sm:gap-6 md:gap-10">
                             <div className="flex-1 min-w-0">
                                 <p className="font-serif italic text-[18px] sm:text-[22px] md:text-[28px] leading-[1.1] text-stamp tnum">
                                     9

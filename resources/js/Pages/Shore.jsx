@@ -221,31 +221,31 @@ export default function Shore({ neighbors = [] }) {
 
             <article data-server-rendered="true" className="bg-paper text-handwriting">
                 {/* Шапка лонгрида */}
-                <header className="py-[80px] md:py-[140px] border-b border-handwriting/15">
+                <header className="py-rhythm-xl md:py-rhythm-xl-md border-b border-handwriting/15">
                     <div className="max-w-[720px] mx-auto px-5 md:px-6">
-                        <p className="font-sans text-[10px] md:text-[11px] font-bold tracking-[0.12em] uppercase text-stamp mb-6">
+                        <p className="font-sans text-[10px] md:text-[11px] font-bold tracking-[0.12em] uppercase text-stamp mb-rhythm-sm md:mb-rhythm-sm-md">
                             Справочник · 14 объектов
                         </p>
-                        <h1 className="font-serif text-[40px] md:text-[72px] leading-[1.02] font-medium tracking-[-0.01em] mb-6">
+                        <h1 className="font-serif text-[40px] md:text-[72px] leading-[1.02] font-medium tracking-[-0.01em] mb-rhythm-sm md:mb-rhythm-sm-md">
                             Берег
                         </h1>
                         <p className="font-serif italic text-[19px] md:text-[24px] leading-[1.35] opacity-85">
                             Волжский берег от&nbsp;Постникова оврага до&nbsp;Барбашиной поляны.
                             Концепция и&nbsp;справочник исторических объектов.
                         </p>
-                        <p className="mt-10 font-sans text-[10px] font-bold tracking-[0.1em] uppercase text-handwriting/60">
+                        <p className="mt-rhythm-md md:mt-rhythm-md-md font-sans text-[10px] font-bold tracking-[0.1em] uppercase text-handwriting/60">
                             <a href="/" className="link-underline">← На главную</a>
                         </p>
                     </div>
                 </header>
 
                 {/* Часть I — Концепция */}
-                <section className="py-[80px] md:py-[120px]" aria-labelledby="concept-title">
+                <section className="py-rhythm-xl md:py-rhythm-xl-md" aria-labelledby="concept-title">
                     <div className="max-w-[720px] mx-auto px-5 md:px-6">
-                        <p className="font-sans text-[10px] md:text-[11px] font-bold tracking-[0.12em] uppercase text-stamp mb-4">
+                        <p className="font-sans text-[10px] md:text-[11px] font-bold tracking-[0.12em] uppercase text-stamp mb-rhythm-sm md:mb-rhythm-sm-md">
                             Часть I
                         </p>
-                        <h2 id="concept-title" className="font-serif text-[34px] md:text-[52px] leading-[1.05] font-medium tracking-[-0.01em] mb-10">
+                        <h2 id="concept-title" className="font-serif text-[34px] md:text-[52px] leading-[1.05] font-medium tracking-[-0.01em] mb-rhythm-md md:mb-rhythm-md-md">
                             Манифест
                         </h2>
 
@@ -309,8 +309,8 @@ export default function Shore({ neighbors = [] }) {
                         </div>
 
                         {/* ДНК концепции */}
-                        <div className="mt-16 md:mt-24 pt-10 border-t border-handwriting/15">
-                            <p className="font-sans text-[10px] font-bold tracking-[0.12em] uppercase text-stamp mb-8">
+                        <div className="mt-rhythm-lg md:mt-rhythm-lg-md pt-rhythm-md md:pt-rhythm-md-md border-t border-handwriting/15">
+                            <p className="font-sans text-[10px] font-bold tracking-[0.12em] uppercase text-stamp mb-rhythm-md md:mb-rhythm-md-md">
                                 ДНК концепции
                             </p>
                             <dl className="space-y-6">
@@ -381,7 +381,7 @@ export default function Shore({ neighbors = [] }) {
                     const dachaParas = dachaBody.split(/\n+/).map((p) => p.trim()).filter(Boolean);
 
                     return (
-                        <section id="dacha" className="bg-ink text-paper py-[96px] md:py-[160px]" aria-labelledby="dacha-title">
+                        <section id="dacha" className="bg-ink text-paper py-rhythm-xl md:py-rhythm-xl-md" aria-labelledby="dacha-title">
                             <div className="max-w-[1320px] mx-auto px-5 md:px-10 grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-14 items-center">
                                 <figure className="md:col-span-5">
                                     <div className="aspect-[4/5] overflow-hidden bg-ink-deep">
@@ -425,12 +425,12 @@ export default function Shore({ neighbors = [] }) {
 
                 {/* Часть II — Справочник 14 объектов. Якорь #neighbors
                     держим — на главной в блоке 03 Shore стоит ссылка на него. */}
-                <section id="neighbors" className="py-[80px] md:py-[120px] bg-paper-light" aria-labelledby="refs-title">
+                <section id="neighbors" className="py-rhythm-xl md:py-rhythm-xl-md bg-paper-light" aria-labelledby="refs-title">
                     <div className="max-w-[720px] mx-auto px-5 md:px-6">
-                        <p className="font-sans text-[10px] md:text-[11px] font-bold tracking-[0.12em] uppercase text-stamp mb-4">
+                        <p className="font-sans text-[10px] md:text-[11px] font-bold tracking-[0.12em] uppercase text-stamp mb-rhythm-sm md:mb-rhythm-sm-md">
                             Часть II
                         </p>
-                        <h2 id="refs-title" className="font-serif text-[34px] md:text-[52px] leading-[1.05] font-medium tracking-[-0.01em] mb-6">
+                        <h2 id="refs-title" className="font-serif text-[34px] md:text-[52px] leading-[1.05] font-medium tracking-[-0.01em] mb-rhythm-sm md:mb-rhythm-sm-md">
                             Справочник
                         </h2>
                         <p className="font-serif italic text-[17px] md:text-[22px] leading-[1.35] opacity-80 mb-12 md:mb-16">
@@ -532,12 +532,12 @@ export default function Shore({ neighbors = [] }) {
                 </section>
 
                 {/* Сводная хронология */}
-                <section className="py-[80px] md:py-[120px]" aria-labelledby="timeline-title">
+                <section className="py-rhythm-xl md:py-rhythm-xl-md" aria-labelledby="timeline-title">
                     <div className="max-w-[720px] mx-auto px-5 md:px-6">
-                        <p className="font-sans text-[10px] md:text-[11px] font-bold tracking-[0.12em] uppercase text-stamp mb-4">
+                        <p className="font-sans text-[10px] md:text-[11px] font-bold tracking-[0.12em] uppercase text-stamp mb-rhythm-sm md:mb-rhythm-sm-md">
                             Сводная
                         </p>
-                        <h2 id="timeline-title" className="font-serif text-[34px] md:text-[52px] leading-[1.05] font-medium tracking-[-0.01em] mb-6">
+                        <h2 id="timeline-title" className="font-serif text-[34px] md:text-[52px] leading-[1.05] font-medium tracking-[-0.01em] mb-rhythm-sm md:mb-rhythm-sm-md">
                             Хронология
                         </h2>
                         <p className="font-serif italic text-[17px] md:text-[22px] leading-[1.35] opacity-80 mb-12">

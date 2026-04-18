@@ -46,6 +46,52 @@
   --spacing-3xl: 96px;
   --spacing-4xl: 128px;
 
+  /* ---- Editorial rhythm — единая ритмическая шкала вертикальных отступов.
+   *
+   * Пять ступеней, mobile-first (до :md) ≈ 0.6 от desktop (:md+).
+   *   xs  — внутри параграф-группы (label → value, строки списка)
+   *   sm  — rubric → h2, h2 → subtitle, короткий парный разрыв
+   *   md  — subtitle → body, между абзацами одного разворота
+   *   lg  — между смысловыми группами внутри одной секции (group gap)
+   *   xl  — section padding-top/bottom (обычная секция, «акт»)
+   *   2xl — нарочитый editorial-разрыв (Hero, переход между актами)
+   *
+   * Значения применяются утилитами p-rhythm-*, py-rhythm-*, mb-rhythm-*, etc.
+   * Responsive-прирост зашит в calc(): до breakpoint-tablet (768px) —
+   * маленькое значение, дальше Tailwind умеет переопределять утилитой
+   * `md:py-rhythm-xl` и т.п. Мы НЕ делаем clamp() внутри одной утилиты,
+   * чтобы mobile и desktop оставались разными прописанными состояниями
+   * (editorial-ремесло читается лучше на резких ступеньках).
+   * --------------------------------------------------------------------- */
+  --rhythm-xs: 12px;       /* desktop: 16 */
+  --rhythm-xs-md: 16px;
+  --rhythm-sm: 24px;       /* desktop: 32 */
+  --rhythm-sm-md: 32px;
+  --rhythm-md: 40px;       /* desktop: 56 */
+  --rhythm-md-md: 56px;
+  --rhythm-lg: 72px;       /* desktop: 112 */
+  --rhythm-lg-md: 112px;
+  --rhythm-xl: 96px;       /* desktop: 160 — основной section rhythm */
+  --rhythm-xl-md: 160px;
+  --rhythm-2xl: 128px;     /* desktop: 200 — Hero, act-переход */
+  --rhythm-2xl-md: 200px;
+
+  /* Tailwind 4: `--spacing-*` автоматически генерит утилиты
+     `p-rhythm-xl`, `py-rhythm-xl`, `mb-rhythm-lg` и т.д. */
+  --spacing-rhythm-xs: var(--rhythm-xs);
+  --spacing-rhythm-sm: var(--rhythm-sm);
+  --spacing-rhythm-md: var(--rhythm-md);
+  --spacing-rhythm-lg: var(--rhythm-lg);
+  --spacing-rhythm-xl: var(--rhythm-xl);
+  --spacing-rhythm-2xl: var(--rhythm-2xl);
+  /* md-варианты — доступ через utility `md:py-rhythm-xl-md` */
+  --spacing-rhythm-xs-md: var(--rhythm-xs-md);
+  --spacing-rhythm-sm-md: var(--rhythm-sm-md);
+  --spacing-rhythm-md-md: var(--rhythm-md-md);
+  --spacing-rhythm-lg-md: var(--rhythm-lg-md);
+  --spacing-rhythm-xl-md: var(--rhythm-xl-md);
+  --spacing-rhythm-2xl-md: var(--rhythm-2xl-md);
+
   /* ---- Layout контейнеры --------------------------------------------------- */
   --container-reading: 720px;
   --container-editorial: 1320px;

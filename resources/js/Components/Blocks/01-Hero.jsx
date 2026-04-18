@@ -47,27 +47,32 @@ export default function Hero() {
 
             {/* CENTER content — композиция перестроена в три визуальных
                 «груза»: (1) tea-рубрика, (2) монолит H1 + italic subtitle,
-                (3) факт-строка + CTAs. Между группами — крупный воздух. */}
-            <div className="relative z-[1] min-h-[100svh] flex flex-col justify-end max-w-[1320px] mx-auto px-5 md:px-10 pb-[72px] md:pb-[96px] pt-[160px] md:pt-[200px]">
-                {/* Группа 1 — tea-рубрика */}
-                <p className="font-sans text-[10px] md:text-[11px] font-bold tracking-[0.14em] uppercase text-tea mb-16 md:mb-24">
+                (3) факт-строка + CTAs. Между группами — крупный воздух
+                по системе rhythm-lg (editorial пауза между «грузами»).
+                Итоговая композиция — три ритмические ступени внутри
+                одного экрана, выверенные после инцидента с @layer base. */}
+            <div className="relative z-[1] min-h-[100svh] flex flex-col justify-end max-w-[1320px] mx-auto px-5 md:px-10 pt-rhythm-2xl md:pt-rhythm-2xl-md pb-rhythm-xl md:pb-rhythm-xl-md">
+                {/* Группа 1 — tea-рубрика. До заголовка — rhythm-lg (большая пауза,
+                    рубрика читается как отдельный «груз»). */}
+                <p className="font-sans text-[10px] md:text-[11px] font-bold tracking-[0.14em] uppercase text-tea mb-rhythm-lg md:mb-rhythm-lg-md">
                     Клубный дом на первой линии Волги
                 </p>
 
-                {/* Группа 2 — заголовок-монолит */}
-                <h1 className="font-serif text-[52px] md:text-[96px] xl:text-[120px] leading-[0.9] font-medium tracking-[-0.02em] max-w-[10ch] md:max-w-none mb-6 md:mb-8">
+                {/* Группа 2 — заголовок-монолит + italic subtitle.
+                    H1 → subtitle: rhythm-sm (связанная пара).
+                    subtitle → делитель: rhythm-lg (editorial пауза до служебной зоны). */}
+                <h1 className="font-serif text-[52px] md:text-[96px] xl:text-[120px] leading-[0.9] font-medium tracking-[-0.02em] max-w-[10ch] md:max-w-none mb-rhythm-sm md:mb-rhythm-sm-md">
                     Дом <em className="not-italic md:italic">на Утёсе</em>
                 </h1>
-                <p className="font-serif italic text-[18px] md:text-[26px] leading-[1.3] max-w-[480px] opacity-90 mb-20 md:mb-28">
+                <p className="font-serif italic text-[18px] md:text-[26px] leading-[1.3] max-w-[480px] opacity-90 mb-rhythm-lg md:mb-rhythm-lg-md">
                     На одной линии с историей.
                 </p>
 
                 {/* Группа 3 — CTAs слева, factline справа на том же уровне.
                     1px paper-делитель сверху отделяет «служебную зону» от
-                    лирического монолита. На mobile — стек: CTAs сверху,
-                    factline подписью снизу (flex-col-reverse не используем,
-                    чтобы порядок чтения совпадал с DOM). */}
-                <div className="border-t border-paper/20 pt-6 md:pt-8">
+                    лирического монолита. pt-rhythm-sm — rubric-like парный
+                    разрыв после линии. */}
+                <div className="border-t border-paper/20 pt-rhythm-sm md:pt-rhythm-sm-md">
                     <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6 md:gap-10">
                         {/* CTAs — слева */}
                         <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 shrink-0">

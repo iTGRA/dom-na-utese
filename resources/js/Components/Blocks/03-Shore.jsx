@@ -12,10 +12,10 @@ export default function Shore() {
     return (
         <section
             id="place"
-            className="snap-slide bg-paper text-handwriting pt-[96px] md:pt-[160px] pb-[48px] md:pb-[64px]"
+            className="snap-slide bg-paper text-handwriting py-rhythm-xl md:py-rhythm-xl-md"
         >
             <div className="max-w-[1320px] mx-auto px-5 md:px-10">
-                <p className="font-sans text-[10px] md:text-[11px] font-bold tracking-[0.12em] uppercase text-stamp mb-4">
+                <p className="font-sans text-[10px] md:text-[11px] font-bold tracking-[0.12em] uppercase text-stamp mb-rhythm-sm md:mb-rhythm-sm-md">
                     03 · Место
                 </p>
 
@@ -25,10 +25,10 @@ export default function Shore() {
                         под текстом — editorial-приём: разделитель только под
                         абзацами, не через всю ширину страницы. */}
                     <div className="md:col-span-7">
-                        <h2 className="font-serif text-[34px] md:text-[56px] xl:text-[64px] leading-[1.02] font-medium tracking-[-0.01em] mb-4">
+                        <h2 className="font-serif text-[34px] md:text-[56px] xl:text-[64px] leading-[1.02] font-medium tracking-[-0.01em] mb-rhythm-sm md:mb-rhythm-sm-md">
                             Самарская Ривьера
                         </h2>
-                        <p className="font-serif italic text-[17px] md:text-[24px] leading-[1.3] opacity-80 mb-10 max-w-[28ch]">
+                        <p className="font-serif italic text-[17px] md:text-[24px] leading-[1.3] opacity-80 mb-rhythm-md md:mb-rhythm-md-md max-w-[28ch]">
                             Десять километров волжского берега, которые никогда не были
                             общественной землёй.
                         </p>
@@ -57,7 +57,7 @@ export default function Shore() {
                             </p>
                         </div>
 
-                        <div className="mt-10">
+                        <div className="mt-rhythm-md md:mt-rhythm-md-md">
                             <a
                                 href="/shore"
                                 className="font-sans text-[11px] font-bold tracking-[0.1em] uppercase text-stamp link-underline"
@@ -67,8 +67,9 @@ export default function Shore() {
                         </div>
 
                         {/* Factline — 3 цифры. Линия над ним только в ширину
-                            текстовой колонки (не full-width страницы). */}
-                        <div className="mt-16 md:mt-20 border-t border-handwriting/15 pt-10 md:pt-12">
+                            текстовой колонки (не full-width страницы).
+                            mt-rhythm-lg: editorial пауза до факт-строки. */}
+                        <div className="mt-rhythm-lg md:mt-rhythm-lg-md border-t border-handwriting/15 pt-rhythm-md md:pt-rhythm-md-md">
                             <div className="flex flex-row items-start justify-between gap-3 sm:gap-6 md:gap-10">
                                 <div className="flex-1 min-w-0">
                                     <p className="font-serif text-[36px] sm:text-[48px] md:text-[60px] xl:text-[72px] leading-[0.9] font-medium text-stamp tnum mb-2 md:mb-3">
@@ -99,7 +100,7 @@ export default function Shore() {
                             </div>
 
                             {/* Мостик на справочник берега */}
-                            <p className="mt-10 md:mt-12 font-sans text-[10px] md:text-[11px] font-bold tracking-[0.12em] uppercase text-handwriting/70 leading-[1.6]">
+                            <p className="mt-rhythm-md md:mt-rhythm-md-md font-sans text-[10px] md:text-[11px] font-bold tracking-[0.12em] uppercase text-handwriting/70 leading-[1.6]">
                                 Восемь соседей по&nbsp;берегу — на&nbsp;странице{' '}
                                 <a
                                     href="/shore#neighbors"

@@ -39,16 +39,16 @@ export default function Uklad() {
     return (
         <section id="uklad" className="bg-paper text-handwriting">
             {/* 09a — Утро · текст на paper */}
-            <div className="snap-slide bg-paper py-[80px] md:py-[140px]">
+            <div className="snap-slide bg-paper py-rhythm-xl md:py-rhythm-xl-md">
                 <div className="max-w-[1320px] mx-auto px-5 md:px-10 grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center">
                     <div>
-                        <p className="font-sans text-[10px] md:text-[11px] font-bold tracking-[0.12em] uppercase text-stamp mb-4">
+                        <p className="font-sans text-[10px] md:text-[11px] font-bold tracking-[0.12em] uppercase text-stamp mb-rhythm-sm md:mb-rhythm-sm-md">
                             09 · Уклад
                         </p>
-                        <h2 className="font-serif text-[34px] md:text-[56px] xl:text-[64px] leading-[1.02] font-medium tracking-[-0.01em] mb-3">
+                        <h2 className="font-serif text-[34px] md:text-[56px] xl:text-[64px] leading-[1.02] font-medium tracking-[-0.01em] mb-rhythm-xs md:mb-rhythm-xs-md">
                             Уклад
                         </h2>
-                        <p className="font-serif italic text-[17px] md:text-[24px] leading-[1.3] opacity-80 mb-10">
+                        <p className="font-serif italic text-[17px] md:text-[24px] leading-[1.3] opacity-80 mb-rhythm-md md:mb-rhythm-md-md">
                             День на берегу.
                         </p>
                         <p className="font-serif text-[17px] md:text-[19px] leading-[1.7] max-w-[520px]">
@@ -75,7 +75,7 @@ export default function Uklad() {
             </div>
 
             {/* 09b — День · фото-доминанта */}
-            <div className="snap-slide bg-paper-deep py-[80px] md:py-[140px]">
+            <div className="snap-slide bg-paper-deep py-rhythm-xl md:py-rhythm-xl-md">
                 <div className="max-w-[1320px] mx-auto px-5 md:px-10 grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center">
                     <div className="md:order-1">
                         <figure className="relative aspect-[4/5] overflow-hidden bg-paper-light">
@@ -93,7 +93,7 @@ export default function Uklad() {
                         </p>
                     </div>
                     <div className="md:order-2">
-                        <p className="font-sans text-[10px] font-bold tracking-[0.12em] uppercase text-stamp mb-4">
+                        <p className="font-sans text-[10px] font-bold tracking-[0.12em] uppercase text-stamp mb-rhythm-sm md:mb-rhythm-sm-md">
                             День
                         </p>
                         <p className="font-serif text-[17px] md:text-[19px] leading-[1.7] max-w-[520px]">
@@ -105,13 +105,13 @@ export default function Uklad() {
             </div>
 
             {/* 09c — Закат · tea */}
-            <div className="snap-slide bg-paper py-[80px] md:py-[140px]">
+            <div className="snap-slide bg-paper py-rhythm-xl md:py-rhythm-xl-md">
                 <div className="max-w-[1320px] mx-auto px-5 md:px-10 grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center">
                     <div>
-                        <p className="font-sans text-[10px] font-bold tracking-[0.12em] uppercase text-tea mb-4">
+                        <p className="font-sans text-[10px] font-bold tracking-[0.12em] uppercase text-tea mb-rhythm-sm md:mb-rhythm-sm-md">
                             Закат
                         </p>
-                        <p className="font-serif text-[17px] md:text-[19px] leading-[1.7] max-w-[520px] mb-6">
+                        <p className="font-serif text-[17px] md:text-[19px] leading-[1.7] max-w-[520px] mb-rhythm-sm md:mb-rhythm-sm-md">
                             Возвращение к&nbsp;закату над Жигулёвскими воротами. Вечером — прогулка
                             вдоль берега, мимо дачи Сипиной и&nbsp;Загородного парка.
                         </p>
@@ -135,7 +135,7 @@ export default function Uklad() {
             </div>
 
             {/* 09d — Зима · ink */}
-            <div className="snap-slide bg-ink text-paper py-[80px] md:py-[140px]">
+            <div className="snap-slide bg-ink text-paper py-rhythm-xl md:py-rhythm-xl-md">
                 <div className="max-w-[1320px] mx-auto px-5 md:px-10 grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center">
                     <div className="md:order-1">
                         <figure className="relative aspect-[4/5] overflow-hidden bg-ink-deep">
@@ -153,7 +153,7 @@ export default function Uklad() {
                         </p>
                     </div>
                     <div className="md:order-2">
-                        <p className="font-sans text-[10px] font-bold tracking-[0.12em] uppercase text-tea mb-4">
+                        <p className="font-sans text-[10px] font-bold tracking-[0.12em] uppercase text-tea mb-rhythm-sm md:mb-rhythm-sm-md">
                             Зима
                         </p>
                         <p className="font-serif text-[17px] md:text-[19px] leading-[1.7] max-w-[520px] opacity-90">
@@ -165,7 +165,7 @@ export default function Uklad() {
             </div>
 
             {/* Факт-строка */}
-            <div className="bg-paper border-t border-handwriting/15 py-10">
+            <div className="bg-paper border-t border-handwriting/15 py-rhythm-md md:py-rhythm-md-md">
                 <div className="max-w-[1320px] mx-auto px-5 md:px-10">
                     <p className="font-sans text-[10px] md:text-[11px] font-bold tracking-[0.1em] uppercase text-handwriting/70 leading-[1.8]">
                         Центр Самары — 10 минут на автомобиле
