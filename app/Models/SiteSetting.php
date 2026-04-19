@@ -14,12 +14,15 @@ use Orchid\Screen\AsSource;
  * Key/value-настройки сайта.
  *
  * Группы:
- *   contact — телефон, WhatsApp, Telegram, email, адрес офиса продаж
- *   legal   — юр. лицо, ИНН, ОГРН, ссылки на декларацию и privacy
- *   meta    — title / description для соцсетей, ID Я.Метрики
+ *   contact         — телефон, WhatsApp, Telegram, email, адрес офиса продаж
+ *   legal           — юр. лицо, ИНН, ОГРН, ссылки на декларацию и privacy
+ *   meta            — title / description для соцсетей, ID Я.Метрики
+ *   mail            — получатель заявок с сайта (mail.recipient)
+ *   block01..block12 — тексты и картинки блоков главной, редактируются
+ *                     в отдельных экранах «Главная страница → XX»
  *
  * Чтение — только через `SiteSetting::cached()` (массив key => value,
- * закэшировано навсегда). Изменение через SiteSettingsScreen чистит кэш.
+ * закэшировано навсегда). Изменение через любой экран чистит кэш.
  */
 class SiteSetting extends Model
 {

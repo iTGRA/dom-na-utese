@@ -33,7 +33,11 @@ class SiteSettingsScreen extends Screen
 
     public function query(): iterable
     {
-        $all = SiteSetting::orderBy('group')
+        // В этом экране показываем только «операторские» группы:
+        // contact / legal / meta / mail. Блочные группы (block01..block12)
+        // редактируются из отдельных экранов «Главная страница → 0X …».
+        $all = SiteSetting::whereIn('group', ['contact', 'legal', 'meta', 'mail'])
+            ->orderBy('group')
             ->orderBy('sort_order')
             ->get();
 
@@ -80,6 +84,7 @@ class SiteSettingsScreen extends Screen
             'contact' => 'Контакты',
             'legal' => 'Юридическое',
             'meta' => 'SEO и аналитика',
+            'mail' => 'Заявки и почта',
         ];
 
         foreach ($this->groupedSettings as $group => $settings) {

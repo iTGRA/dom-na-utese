@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreLeadRequest;
 use App\Mail\LeadReceived;
 use App\Models\Lead;
+use App\Models\SiteSetting;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
@@ -40,8 +41,13 @@ class LeadController extends Controller
 
         Log::info('Lead received', ['id' => $lead->id] + $data);
 
+        // Получатель заявок — редактируется из админки через SiteSetting
+        // (ключ `mail.recipient`, группа `mail`). Fallback — env LEAD_EMAIL.
+        $recipient = SiteSetting::get('mail.recipient')
+            ?: config('services.leads.recipient');
+
         try {
-            Mail::to(config('services.leads.recipient'))
+            Mail::to($recipient)
                 ->send(new LeadReceived($data));
         } catch (Throwable $e) {
             // Swallow transport errors — user-facing flow is success

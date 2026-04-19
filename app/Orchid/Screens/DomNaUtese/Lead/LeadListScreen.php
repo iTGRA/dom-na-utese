@@ -44,8 +44,7 @@ class LeadListScreen extends Screen
             Layout::table('leads', [
                 TD::make('created_at', 'Пришла')
                     ->usingComponent(DateTimeSplit::class)
-                    ->sort()
-                    ->defaultSort(true),
+                    ->sort(),
 
                 TD::make('name', 'Имя')
                     ->render(fn (Lead $lead) => Link::make($lead->name ?: '—')
