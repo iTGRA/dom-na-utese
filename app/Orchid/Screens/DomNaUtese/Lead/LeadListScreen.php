@@ -9,7 +9,6 @@ use Orchid\Screen\Actions\Link;
 use Orchid\Screen\Components\Cells\DateTimeSplit;
 use Orchid\Screen\Screen;
 use Orchid\Screen\TD;
-use Orchid\Support\Color;
 use Orchid\Support\Facades\Layout;
 
 /**
@@ -69,16 +68,18 @@ class LeadListScreen extends Screen
                 TD::make('status', 'Статус')
                     ->render(function (Lead $lead) {
                         $label = Lead::STATUS_LABELS[$lead->status] ?? $lead->status;
-                        $color = match ($lead->status) {
-                            'new' => Color::PRIMARY,
-                            'contacted' => Color::INFO,
-                            'scheduled' => Color::WARNING,
-                            'done' => Color::SUCCESS,
-                            'cold' => Color::DARK,
-                            default => Color::BASIC,
+                        // Bootstrap-класс зашит прямо в match — надёжнее,
+                        // чем Color::X->value (enum у Orchid 14 не backed).
+                        $cls = match ($lead->status) {
+                            'new' => 'primary',
+                            'contacted' => 'info',
+                            'scheduled' => 'warning',
+                            'done' => 'success',
+                            'cold' => 'dark',
+                            default => 'secondary',
                         };
 
-                        return "<span class=\"badge bg-{$color->value}\">{$label}</span>";
+                        return "<span class=\"badge bg-{$cls}\">{$label}</span>";
                     }),
             ]),
         ];
